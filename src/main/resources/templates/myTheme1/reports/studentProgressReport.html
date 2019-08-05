@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+
+<script type="text/javascript">
+        
+        $(document).ready(function () {
+	 		$("#autoStudentId").autocomplete({
+	 	    	 minChars: 5,
+	 	        source: function(request, response) {
+	 	            $.ajax({
+	 	                url: "/student/autocompleteStudent",
+	 	                dataType: "json",
+	 	                data: {
+	 	                    term: request.term,
+	 	                },
+	 	                success: function(data) {
+	 	                	 response(data);
+	 	                }
+	 	            });
+	 	        },
+	 	        focus : function(event, ui) {
+					$("#autoStudentId").val(
+							ui.item.value);
+					return false;
+				},
+				select : function(event, ui) {
+					$("#autoStudentId").val(
+							ui.item.value);
+					$("#studentId").val(
+							ui.item.key);
+					
+					loadStudent(ui.item.key);
+					
+					return false;
+				}
+			}).data("ui-autocomplete")._renderItem = function(
+			ul, item) {
+		return $("<li>").append(
+				"<a>" + item.value +item.key+ "</a>")
+				.appendTo(ul);
+	}; 
+        });
+        
+        function loadStudent(admNo){
+        	
+        	$.ajax({
+				type : "GET",
+				url : "/report/getStuProgressReport",
+				data : {
+					studentNo : admNo
+				},
+				success : function(data) {
+					$('#stuInformationId').html(data);
+					if($('#stuInformationId').is(":hidden")){
+						$("#stuInformationId").show();
+					}
+					
+				},
+				error : function(jqXHR, exception, textStatus) {
+					alert('Uncaught Error.\n' + jqXHR.responseText);
+				},
+			});
+        	
+        	
+        }
+        
+        </script>
+<body>
+
+
+
+<div class="row" id="anil">
+			<div class="col-md-12">
+				<div class="portlet light portlet-fit bordered calendar card-1">
+					<div class="portlet-title">
+						<div class="caption">
+							<span class="caption-subject">Student Progress Report
+								</span>
+						</div>
+					</div>
+					<div class="portlet-body">
+						<div class="row">
+							<div class="col-md-6">
+								<input type="text"
+										id="autoStudentId" placeholder=" Search Student Name/Adm No"
+										class="form-control" /> 
+										<input type="hidden" id="studentId" name="student">
+							</div>
+							<div class="col-md-6">
+							</div>
+							
+						</div>
+						<div class="clearfix m-b-15"></div>
+
+						<div id="stuInformationId"></div>
+
+
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+</body>
+
+</html>

@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+<head>
+<meta charset="utf-8" />
+<title>Closed Sidebar</title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta content="width=device-width, initial-scale=1" name="viewport" />
+<meta
+	content="Preview page of Metronic Admin Theme #4 for closed sidebar option"
+	name="description" />
+<meta content="" name="author" />
+<!-- BEGIN GLOBAL MANDATORY STYLES -->
+<!-- icon font -->
+
+<style>
+.r-line {
+	border-right: 2px solid #666666 !important
+}
+
+.tr-line {
+	border-bottom: 2px solid #666666 !important
+}
+
+.table-bordered th, td {
+	font-size: 12px !important;
+	font-weight: bold;
+	padding: 6px 9px !important;
+	color: #47636B;
+	white-space: nowrap;
+}
+
+.table-bordered thead th {
+	background: #0f5488 !important;
+	color: #f5f5f7 !important;
+	border-right: 2px solid #fff !important;
+	font-size: 12px
+}
+</style>
+<!-- END THEME LAYOUT STYLES -->
+<link rel="shortcut icon" href="favicon.ico" />
+</head>
+<!-- END HEAD -->
+
+<script type="text/javascript">
+	$(function() {
+		$('button[type="button"]')
+				.click(
+						function() {
+							document.getElementById('printId').style.display = "none";
+							var pageTitle = 'Page Title', stylesheet = '/assets/global/plugins/bootstrap/css/bootstrap.min.css', stylesheet1 = '/assets/global/plugins/tables/table.css', stylesheet2 = '/assets/global/css/components.min.css', win = window
+									.open('', 'Print', 'width=1024,height=300');
+							win.document
+									.write('<html><head><title>'
+											+ pageTitle
+											+ '</title>'
+											+ '<link rel="stylesheet" href="' + stylesheet + '">'
+											+ '<link rel="stylesheet" href="' + stylesheet1 + '">'
+											+ '<link rel="stylesheet" href="' + stylesheet2 + '">'
+											+ '</head><body>'
+											+ $('#resultId')[0].outerHTML
+											+ '</body></html>');
+							win.document.close();
+							document.getElementById('printId').style.display = "visible";
+							//win.print();
+							// win.close();
+							return false;
+						});
+	});
+	
+
+	
+</script>
+
+<body
+	class="page-container-bg-solid page-header-fixed page-sidebar-closed page-sidebar-fixed">
+	<div id="resultId">
+	
+	<div class="row">
+		<div class="col-md-12">
+			<div class="portlet light portlet-fit bordered calendar card-1">
+			
+			
+			 <div class="portlet-title">
+					<div class="caption">
+						<span class="caption-subject" th:text="'Name         :   ' +${  student.name}+',   Class       :   ' +${student.classId.displayName}+'   ,Section      :   ' + ${student.sectionId.sectionName} + '  ,Roll No    :   '+ ${student.studentNo}" >   </span>
+					</div>
+				</div>
+				<div class="portlet-body">
+					<div class="table-responsive">
+						<table
+							class="table table-bordered text-uppercase bold text-center">
+							<thead>
+								<tr>
+									<th>&nbsp;</th>
+									<th colspan="5" class="text-center">TERM I</th>
+									<th colspan="5" class="text-center">TERM II</th>
+									<th colspan="3">&nbsp;</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr style="background: #E0E0E0;">
+									<td class="text-left r-line">Subject</td>
+									<td class="text-left r-line">Periodic Tests</td>
+									<td class="text-left r-line">Note Book</td>
+									<td class="text-left r-line">Sea</td>
+									<td class="r-line">Half Yearly</td>
+									<td class="r-line">Total</td>
+									<td class="text-left r-line">Periodic Tests</td>
+									<td class="text-left r-line">Note Book</td>
+									<td class="text-left r-line">Sea</td>
+									<td class="r-line">Half Yearly</td>
+									<td class="r-line">Total</td>
+									<td class="r-line">Grand Total</td>
+									<td class="text-left r-line">Grade</td>
+									<td>Subject Rank</td>
+								</tr>
+								<tr
+									style="background: #EFEFEF; border-bottom: 2px solid #ddd !important">
+									<td class="r-line">&nbsp;</td>
+									<td class="r-line">10</td>
+									<td class="r-line">5</td>
+									<td class="r-line">5</td>
+									<td class="r-line">80</td>
+									<td class="r-line">100</td>
+									<td class="r-line">10</td>
+									<td class="r-line">5</td>
+									<td class="r-line">5</td>
+									<td class="r-line">80</td>
+									<td class="r-line">100</td>
+									<td class="r-line">(H/Y + Ann)<br /> 50%+50%
+									</td>
+									<td class="r-line">&nbsp;</td>
+									<td>&nbsp;</td>
+								</tr>
+								<tr>
+									<td class="text-left r-line">English</td>
+									<td class="r-line" th:text="${student.halfYearly.englishPt}"></td>
+									<td class="r-line" th:text="${student.halfYearly.englishNb}"></td>
+									<td class="r-line" th:text="${student.halfYearly.englishPro}" ></td>
+									<td class="r-line" th:text="${student.halfYearly.english}"></td>
+									<td class="r-line" th:text="${student.halfYearly.englishTotal}"></td>
+									<td class="r-line" th:text="${student.finalYearly.englishPt}"></td>
+									<td class="r-line" th:text="${student.finalYearly.englishNb}"></td>
+									<td class="r-line" th:text="${student.finalYearly.englishPro}" ></td>
+									<td class="r-line" th:text="${student.finalYearly.english}"></td>
+									<td class="r-line" th:text="${student.finalYearly.englishTotal}"></td>
+									<td class="r-line" th:text="${ (student.halfYearly.englishTotal==0?0:student.halfYearly.englishTotal/2)+'+'+(student.finalYearly.englishTotal==0?0:student.finalYearly.englishTotal/2)+'='+#numbers.formatDecimal((student.halfYearly.englishTotal==0?0:student.halfYearly.englishTotal/2)+(student.finalYearly.englishTotal==0?0:student.finalYearly.englishTotal/2),2,2)}">
+									<td class="r-line" th:text="${student.finalYearly.englishGrade}"></td>
+									<td th:text="${student.finalYearly.englishRank}"></td>
+								</tr>
+								<tr>
+									<td class="text-left r-line">Hindi</td>
+									<td class="r-line" th:text="${student.halfYearly.hindiPt}"></td>
+									<td class="r-line" th:text="${student.halfYearly.hindiNb}"></td>
+									<td class="r-line" th:text="${student.halfYearly.hindiPro}" ></td>
+									<td class="r-line" th:text="${student.halfYearly.hindi}"></td>
+									<td class="r-line" th:text="${student.halfYearly.hindiTotal}"></td>
+									<td class="r-line" th:text="${student.finalYearly.hindiPt}"></td>
+									<td class="r-line" th:text="${student.finalYearly.hindiNb}"></td>
+									<td class="r-line" th:text="${student.finalYearly.hindiPro}" ></td>
+									<td class="r-line" th:text="${student.finalYearly.hindi}"></td>
+									<td class="r-line" th:text="${student.finalYearly.hindiTotal}"></td>
+									<td class="r-line" th:text="${ (student.halfYearly.hindiTotal==0?0:student.halfYearly.hindiTotal/2)+'+'+(student.finalYearly.hindiTotal==0?0:student.finalYearly.hindiTotal/2)+'='+#numbers.formatDecimal((student.halfYearly.hindiTotal==0?0:student.halfYearly.hindiTotal/2)+(student.finalYearly.hindiTotal==0?0:student.finalYearly.hindiTotal/2),2,2)}">
+									<td class="r-line" th:text="${student.finalYearly.hindiGrade}"></td>
+									<td th:text="${student.finalYearly.hindiRank}"></td>
+								</tr>
+								<tr>
+									<td class="text-left r-line">Maths</td>
+									<td class="r-line" th:text="${student.halfYearly.mathsPt}"></td>
+									<td class="r-line" th:text="${student.halfYearly.mathsNb}"></td>
+									<td class="r-line" th:text="${student.halfYearly.mathsPro}" ></td>
+									<td class="r-line" th:text="${student.halfYearly.maths}"></td>
+									<td class="r-line" th:text="${student.halfYearly.mathsTotal}"></td>
+									<td class="r-line" th:text="${student.finalYearly.mathsPt}"></td>
+									<td class="r-line" th:text="${student.finalYearly.mathsNb}"></td>
+									<td class="r-line" th:text="${student.finalYearly.mathsPro}" ></td>
+									<td class="r-line" th:text="${student.finalYearly.maths}"></td>
+									<td class="r-line" th:text="${student.finalYearly.mathsTotal}"></td>
+									<td class="r-line" th:text="${ (student.halfYearly.mathsTotal==0?0:student.halfYearly.mathsTotal/2)+'+'+(student.finalYearly.mathsTotal==0?0:student.finalYearly.mathsTotal/2)+'='+#numbers.formatDecimal((student.halfYearly.mathsTotal==0?0:student.halfYearly.mathsTotal/2)+(student.finalYearly.mathsTotal==0?0:student.finalYearly.mathsTotal/2),2,2)}">
+									<td class="r-line" th:text="${student.finalYearly.mathsGrade}"></td>
+									<td th:text="${student.finalYearly.mathsRank}"></td>
+								</tr>
+								<tr>
+									<td class="text-left r-line">Evs</td>
+									<td class="r-line" th:text="${student.halfYearly.evcPt}"></td>
+									<td class="r-line" th:text="${student.halfYearly.evcNb}"></td>
+									<td class="r-line" th:text="${student.halfYearly.evcPro}" ></td>
+									<td class="r-line" th:text="${student.halfYearly.evc}"></td>
+									<td class="r-line" th:text="${student.halfYearly.evcTotal}"></td>
+									<td class="r-line" th:text="${student.finalYearly.evcPt}"></td>
+									<td class="r-line" th:text="${student.finalYearly.evcNb}"></td>
+									<td class="r-line" th:text="${student.finalYearly.evcPro}" ></td>
+									<td class="r-line" th:text="${student.finalYearly.evc}"></td>
+									<td class="r-line" th:text="${student.finalYearly.evcTotal}"></td>
+									<td class="r-line" th:text="${ (student.halfYearly.evcTotal==0?0:student.halfYearly.evcTotal/2)+'+'+(student.finalYearly.evcTotal==0?0:student.finalYearly.evcTotal/2)+'='+#numbers.formatDecimal((student.halfYearly.evcTotal==0?0:student.halfYearly.evcTotal/2)+(student.finalYearly.evcTotal==0?0:student.finalYearly.evcTotal/2),2,2)}">
+									<td class="r-line" th:text="${student.finalYearly.evcGrade}"></td>
+									<td th:text="${student.finalYearly.evcRank}"></td>
+								</tr>
+								<tr>
+									<td class="text-left r-line">Computer</td>
+									<td class="r-line" th:text="${student.halfYearly.computersPt}"></td>
+									<td class="r-line" th:text="${student.halfYearly.computersNb}"></td>
+									<td class="r-line" th:text="${student.halfYearly.computersPro}" ></td>
+									<td class="r-line" th:text="${student.halfYearly.computers}"></td>
+									<td class="r-line" th:text="${student.halfYearly.computersTotal}"></td>
+									<td class="r-line" th:text="${student.finalYearly.computersPt}"></td>
+									<td class="r-line" th:text="${student.finalYearly.computersNb}"></td>
+									<td class="r-line" th:text="${student.finalYearly.computersPro}" ></td>
+									<td class="r-line" th:text="${student.finalYearly.computers}"></td>
+									<td class="r-line" th:text="${student.finalYearly.computersTotal}"></td>
+									<td class="r-line" th:text="${ (student.halfYearly.computersTotal==0?0:student.halfYearly.computersTotal/2)+'+'+(student.finalYearly.computersTotal==0?0:student.finalYearly.computersTotal/2)+'='+#numbers.formatDecimal((student.halfYearly.computersTotal==0?0:student.halfYearly.computersTotal/2)+(student.finalYearly.computersTotal==0?0:student.finalYearly.computersTotal/2),2,2)}">
+									<td class="r-line" th:text="${student.finalYearly.computersGrade}"></td>
+									<td th:text="${student.finalYearly.computersRank}"></td>
+								</tr>
+								<tr class="tr-line">
+									<td class="text-left r-line">Total</td>
+									<td class="r-line">&nbsp;</td>
+									<td class="r-line">&nbsp;</td>
+									<td class="r-line">&nbsp;</td>
+									<td class="r-line">&nbsp;</td>
+									<td class="r-line" th:text="${student.halfYearly.totalScored}"></td>
+									<td class="r-line">&nbsp;</td>
+									<td class="r-line">&nbsp;</td>
+									<td class="r-line">&nbsp;</td>
+									<td class="r-line">&nbsp;</td>
+									<td class="r-line" th:text="${student.finalYearly.totalScored}"></td>
+									<td class="r-line">&nbsp;</td>
+									<td class="r-line">&nbsp;</td>
+									<td>&nbsp;</td>
+								</tr>
+								<tr>
+									<td class="text-left r-line">Percentage</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td class="r-line">&nbsp;</td>
+									<td class="r-line" th:text="${student.halfYearly.totalPer}"></td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td class="r-line">&nbsp;</td>
+									<td class="r-line">&nbsp;</td>
+								</tr>
+								<tr>
+									<td class="text-left r-line">Grade</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td class="r-line">&nbsp;</td>
+									<td class="r-line" th:text="${student.halfYearly.grade}"></td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td class="r-line">&nbsp;</td>
+									<td class="r-line">&nbsp;</td>
+								</tr>
+								<tr class="tr-line">
+									<td class="text-left r-line">Rank</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td class="r-line">&nbsp;</td>
+									<td class="r-line" th:text="${student.halfYearly.rank}" ></td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td class="r-line">&nbsp;</td>
+									<td class="r-line">&nbsp;</td>
+								</tr>
+							</tbody>
+						</table>
+
+						<table style="width:100%">
+
+							<tr>
+								<td>
+									<table
+										class="table table-bordered text-uppercase bold text-center">
+										<thead>
+											<tr>
+												<th colspan="3" class="text-center">CO-SCHOLASTIC AREAS</th>
+												<th colspan="3" class="text-center">DISCIPLINE</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr>
+												<td class="text-left r-line">ACTIVITY</td>
+												<td class="r-line">T1</td>
+												<td class="r-line">T2</td>
+												<td class="text-left r-line">ELEMENT</td>
+												<td class="r-line">T1</td>
+												<td >T2</td>
+											</tr>
+											<tr>
+												<td class="text-left r-line">WORK EDUCATION</td>
+												<td class="r-line" th:text="${student.halfYearly.work}" ></td>
+												<td class="r-line" th:text="${student.finalYearly.work}"></td>
+												<td class="text-left r-line">REGULARITY & PUNCTUALITY</td>
+												<td class="r-line"></td>
+												<td>&nbsp;</td>
+											</tr>
+											<tr>
+												<td class="text-left r-line">ART EDUCATION</td>
+												<td class="r-line" th:text="${student.halfYearly.art}" ></td>
+												<td class="r-line" th:text="${student.finalYearly.art}"></td>
+												<td class="text-left r-line">SINCERITY</td>
+												<td class="r-line"></td>
+												<td>&nbsp;</td>
+											</tr>
+											<tr>
+												<td class="text-left r-line">SPORTS</td>
+												<td class="r-line" th:text="${student.halfYearly.sports}" ></td>
+												<td class="r-line" th:text="${student.finalYearly.sports}"></td>
+												<td class="text-left r-line">BHEHAVIOR & VALUES</td>
+												<td class="r-line"></td>
+												<td>&nbsp;</td>
+											</tr>
+											<tr>
+												<td class="text-left r-line">CCA</td>
+												<td class="r-line" th:text="${student.halfYearly.cca}" ></td>
+												<td class="r-line" th:text="${student.finalYearly.cca}"></td>
+												<td class="text-left r-line">RESPECT FULNESS FOR RULES & REGULATIONS </td>
+												<td class="r-line"></td>
+												<td>&nbsp;</td>
+											</tr>
+											<tr>
+												<td class="text-left r-line">MUSIC</td>
+												<td class="r-line" th:text="${student.halfYearly.music}" ></td>
+												<td class="r-line" th:text="${student.finalYearly.music}"></td>
+												<td class="text-left r-line">ATTITUDES TOWARDS TEACHERS</td>
+												<td class="r-line"></td>
+												<td>&nbsp;</td>
+											</tr>
+											<tr >
+												<td class="text-left r-line">DANCE</td>
+												<td class="r-line" th:text="${student.halfYearly.dance}" ></td>
+												<td class="r-line" th:text="${student.finalYearly.dance}"></td>
+												<td class="text-left r-line">ATTITUDES TOWARDS SCHOOL MATES</td>
+												<td class="r-line"></td>
+												<td>&nbsp;</td>
+											</tr>
+											<tr >
+												<td colspan="3"  class="text-left r-line"></td>
+												<td class="text-left r-line">ATTITUDES TOWARDS SOCIETY</td>
+												<td class="r-line"></td>
+												<td>&nbsp;</td>
+											</tr>
+											<tr class="tr-line">
+												<td colspan="3"  class="text-left r-line"></td>
+												<td class="text-left r-line">ATTITUDES TOWARDS NATION</td>
+												<td class="r-line"></td>
+												<td>&nbsp;</td>
+											</tr>
+
+										</tbody>
+									</table>
+
+
+								</td>
+								<td valign="top">
+									<table
+										class="table table-bordered text-uppercase bold text-center">
+										<thead>
+											<tr>
+												<th colspan="3" class="text-center">CLASS TEACHER'S
+													REMAKRS & SIGN</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr >
+												<td class="text-left r-line" style="width: 10px;height: 140px;">TERM I</td>
+												<td colspan="2" th:text="${student.halfYearly.remarks}"></td>
+											</tr>
+											<tr  >
+												<td class="text-left r-line" style="width: 10px;height: 140px;">TERM II</td>
+												<td colspan="2" th:text="${student.finalYearly.remarks}"></td>
+											</tr>
+
+										</tbody>
+									</table>
+
+								</td>
+
+							</tr>
+						</table>
+
+
+					</div>
+				</div>
+
+
+				<div class="portlet-footer">
+					<button type="button" id="printId" class="btn btn-sec">
+						<i class="icon-printer" style="margin-right: 7px"></i>Print
+					</button>
+				</div>
+
+			</div>
+		</div>
+	</div>
+	</div>
+</body>
+
+</html>

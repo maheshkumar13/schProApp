@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+<div class="tab-pane p515" id="tab_1_2_1" style="margin-bottom:10px">
+                                                   <div class="row">
+                                                       <div class="col-md-12">
+                                                           <table class="table table-bordered leave-status-table">
+                                                               <thead>
+                                                                   <tr>
+                                                                        <th>S.No</th>
+                                                                        <th>Head Name</th>
+                                                                        <th>Fee Paid</th>
+                                                                        <th>Payment Mode</th>
+                                                                        <th>Payment Date</th>
+                                                                   </tr>
+                                                               </thead>
+                                                               <tbody>
+                                                                     <tr th:each="headNameTrans,status:${headNameTransList}">
+                                                                        <td >
+                                                                        <span th:text="${status.index+1}"></span>
+                                                                       </td>
+                                                                        <td><span th:text="${headNameTrans.subHeadCode}"></span></td>
+                                                                        <td><span th:text="${headNameTrans.amount}"></span></td>
+                                                                        <td><span th:text="${headNameTrans.payMode}"></span></td>
+                                                                        <td><span th:text="${#dates.format(headNameTrans.payDate, 'dd/MM/yyyy')}"></span></td>
+                                                                    </tr>
+                                                               </tbody>
+                                                           </table>
+                                                       </div>
+                                                       <div class="clearfix" style="margin-bottom:10px"></div>
+                                                   </div>
+                                               </div>
+</body>
+</html>

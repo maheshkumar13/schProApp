@@ -1,0 +1,1511 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+<head>
+<meta charset="utf-8" />
+<title>Scaits</title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta content="width=device-width, initial-scale=1" name="viewport" />
+<meta
+	content="Preview page of Metronic Admin Theme #4 for statistics, charts, recent events and reports"
+	name="description" />
+<meta content="" name="author" />
+<!-- BEGIN GLOBAL MANDATORY STYLES -->
+<link href='http://fonts.googleapis.com/css?family=Roboto'
+	rel='stylesheet' type='text/css'>
+<link
+	th:href="@{/assets/global/plugins/font-awesome/css/font-awesome.min.css}"
+	rel="stylesheet" type="text/css" />
+<link
+	th:href="@{/assets/global/plugins/simple-line-icons/simple-line-icons.min.css}"
+	rel="stylesheet" type="text/css" />
+<link
+	th:href="@{/assets/global/plugins/bootstrap/css/bootstrap.min.css}"
+	rel="stylesheet" type="text/css" />
+<link
+	th:href="@{/assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css}"
+	rel="stylesheet" type="text/css" />
+<!-- END GLOBAL MANDATORY STYLES -->
+<!-- BEGIN PAGE LEVEL PLUGINS -->
+<link
+	th:href="@{/assets/global/plugins/bootstrap-daterangepicker/daterangepicker.min.css}"
+	rel="stylesheet" type="text/css" />
+<link th:href="@{/assets/global/plugins/morris/morris.css}"
+	rel="stylesheet" type="text/css" />
+<link
+	th:href="@{/assets/global/plugins/fullcalendar/fullcalendar.min.css}"
+	rel="stylesheet" type="text/css" />
+<link th:href="@{/assets/global/plugins/jqvmap/jqvmap/jqvmap.css}"
+	rel="stylesheet" type="text/css" />
+<link th:href="@{/assets/global/css/jquery-ui.css}" rel="stylesheet"
+	type="text/css" />
+
+<link th:href="@{/assets/global/plugins/select2/css/select2.min.css}"
+	rel="stylesheet" type="text/css" />
+<!-- END PAGE LEVEL PLUGINS -->
+<!-- BEGIN THEME GLOBAL STYLES -->
+<link th:href="@{/assets/global/css/components.min.css}"
+	rel="stylesheet" id="style_components" type="text/css" />
+
+<!-- END THEME GLOBAL STYLES -->
+<!-- BEGIN THEME LAYOUT STYLES -->
+<link th:href="@{/assets/layouts/layout4/css/layout.min.css}"
+	rel="stylesheet" type="text/css" />
+<link th:href="@{/assets/layouts/layout4/css/themes/default.min.css}"
+	rel="stylesheet" type="text/css" id="style_color" />
+<link th:href="@{/assets/layouts/layout4/css/custom.min.css}"
+	rel="stylesheet" type="text/css" />
+<link th:href="@{/assets/pages/css/profile.min.css}" rel="stylesheet"
+	type="text/css" />
+<!-- <link
+	th:href="@{/assets/global/plugins/bootstrap-modal/css/bootstrap-modal-bs3patch.css}"
+	rel="stylesheet" type="text/css" /> -->
+<link
+	th:href="@{/assets/global/plugins/bootstrap-modal/css/bootstrap-modal.css}"
+	rel="stylesheet" type="text/css" />
+
+<!-- END THEME LAYOUT STYLES -->
+<link rel="shortcut icon"
+	th:href="@{/assets/global/img/sri-favicon.ico}" />
+<link
+	th:href="@{/assets/global/plugins/bootstrap-datepicker/css/bootstrap-datepicker3.min.css}"
+	rel="stylesheet" type="text/css" />
+
+<link
+	href="../assets/global/plugins/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css"
+	rel="stylesheet" type="text/css" />
+<link
+	th:href="@{/assets/global/plugins/bootstrap-toastr/toastr.min.css}"
+	rel="stylesheet" type="text/css" />
+
+
+<link th:href="@{/assets/global/plugins/datatables/datatables.min.css}"
+	rel="stylesheet" type="text/css" />
+
+<link
+	th:href="@{/assets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.css}"
+	rel="stylesheet" type="text/css" />
+
+<link th:href="@{/assets/global/css/plugins.min.css}" rel="stylesheet"
+	type="text/css" />
+
+<link
+	th:href="@{/assets/global/plugins/bootstrap-fileinput/bootstrap-fileinput.css}"
+	rel="stylesheet" type="text/css" />
+<link
+    th:href="@{/assets/global/plugins/select2/css/select2-bootstrap.min.css}"
+    rel="stylesheet" type="text/css" />
+<!-- icheck checkbox  start -->
+<link href="../assets/global/plugins/icheck/skins/all.css"
+	rel="stylesheet" type="text/css" />
+<!-- icheck checkbox  end -->
+
+<!-- Ticketing -->
+
+
+<style>
+.ui-menu .ui-menu-item a {
+	text-decoration: none;
+	display: block;
+	padding: 7px 0px !important;
+	background: #ffffff;
+	font-weight: normal;
+	font-size: 11px !important;
+	border-bottom: 1px solid #3598dc60;
+	text-transform: capitalize !important;
+	color: #3598dc;
+	width: 320px !important
+}
+
+.ui-menu .ui-menu-item a:hover {
+	text-decoration: none;
+	display: block;
+	padding: 7px 0px !important;
+	background: #3598dc40;
+	font-weight: normal;
+	font-size: 11px !important;
+	text-transform: capitalize !important;
+	/*color: #3598dc;*/
+	border-top: 1px solid #3598dc70;
+	border-bottom: 1px solid #3598dc70;
+}
+
+.form-control::-moz-placeholder {
+	color: #fff !important;
+	opacity: 1
+}
+
+.counter {
+	background-color: #fff;
+	border: none;
+	color: #000;
+	width: 30px
+}
+
+.modal-dialog {
+	margin: 5px auto;
+	width: 480px;
+}
+
+.table-hight {
+	height: 800px;
+	overflow: auto;
+}
+
+.ui-autocomplete {
+	z-index: 1000000;
+}
+
+.form-control::-moz-placeholder{color:#b6b8ba !important;opacity:1}
+</style>
+<!-- Ticketing End -->
+<!-- Group Oprations  -->
+<style type="text/css">
+.inputtextmoney {
+	color: #ff0000;
+	text-align: right;
+	font-weight: bold;
+}
+</style>
+<!-- Group Oprations  -->
+</head>
+<!-- END HEAD -->
+
+<body
+	class="page-container-bg-solid page-header-fixed page-sidebar-fixed page-sidebar-closed">
+	<div id="loading" style="display: none;"></div>
+	<div id="bodyId">
+		<!-- BEGIN HEADER -->
+		<!-- <div th:replace="/myTheme1/header :: header"></div> -->
+		<div class="page-header navbar navbar-fixed-top" th:fragment="header">
+			<!-- BEGIN HEADER INNER -->
+			<div class="page-header-inner">
+				<!-- BEGIN LOGO -->
+				<div class="page-logo">
+					<a href="javascript:void(0)"> <img class="logo-default"
+						style="margin: 5px;" alt="logo" th:src="@{/assets/sri_logo.png}" />
+					</a>
+					<div class="menu-toggler sidebar-toggler">
+						<!-- DOC: Remove the above "hide" to enable the sidebar toggler button on header -->
+					</div>
+				</div>
+				<!-- END LOGO -->
+				<!-- BEGIN RESPONSIVE MENU TOGGLER -->
+				<a href="javascript:;" class="menu-toggler responsive-toggler"
+					data-toggle="collapse" data-target=".navbar-collapse"> </a>
+				<!-- END RESPONSIVE MENU TOGGLER -->
+				<!-- BEGIN PAGE ACTIONS -->
+				<!-- DOC: Remove "hide" class to enable the page header actions -->
+				<div class="page-actions">
+					<div class="btn-group">
+						<button type="button"
+							class="btn btn-default btn-sm dropdown-toggle btn-circle"
+							data-toggle="dropdown" data-hover="dropdown"
+							data-close-others="true">
+							<span class="hidden-sm hidden-xs" id="project">Projects&nbsp;</span>
+							<i class="fa fa-angle-down"></i>
+						</button>
+						<ul class="dropdown-menu" role="menu">
+							<li><a href="/scaits"> <i class="icon-docs"></i> Scaits
+
+							</a></li>
+							<li><a href="/" target="_blank"> <i class="icon-tag"></i>
+									QB Analysis
+
+							</a></li>
+							<li><a href="/call/showRecordings" target="_blank"> <i
+									class="icon-share"></i> Call Recordings
+							</a></li>
+							<li><a href="/reports/home" target="_blank"> <i
+									class="icon-share"></i>CFO Reports
+							</a></li>
+						</ul>
+
+						<button type="button" class="btn btn-default btn-sm  btn-circle"
+							style="margin-left: 5px" href="#responsive" data-toggle="modal">
+							<span class="hidden-sm hidden-xs">Test&nbsp;</span> <i
+								class="fa fa-link"></i>
+						</button>
+					</div>
+				</div>
+				<!-- END PAGE ACTIONS -->
+				<!-- BEGIN PAGE TOP -->
+				<div class="page-top">
+					<!-- BEGIN HEADER SEARCH BOX -->
+					<!-- DOC: Apply "search-form-expanded" right after the "search-form" class to have half expanded search box -->
+					<form class="search-form open"
+						action="http://keenthemes.com/preview/metronic/theme/admin_4/page_general_search_2.html"
+						method="GET" style="width: 200px !important">
+						<div class="input-group">
+							<input type="text" style="color: #ffffff !important"
+								class="form-control input-sm" placeholder="Student Search..."
+								name="searchstr" id="searchStudentId"> <span
+								class="input-group-btn"> <a href="javascript:void(0)"
+								class="btn submit"> <i class="icon-magnifier"></i>
+							</a>
+							</span>
+						</div>
+					</form>
+
+					<!-- END HEADER SEARCH BOX -->
+					<!-- BEGIN TOP NAVIGATION MENU -->
+					<div class="top-menu">
+						<ul class="nav navbar-nav pull-right">
+							<li class="separator hide"></li>
+							<!-- BEGIN NOTIFICATION DROPDOWN -->
+							<!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
+							<!-- DOC: Apply "dropdown-hoverable" class after "dropdown" and remove data-toggle="dropdown" data-hover="dropdown" data-close-others="true" attributes to enable hover dropdown mode -->
+							<!-- DOC: Remove "dropdown-hoverable" and add data-toggle="dropdown" data-hover="dropdown" data-close-others="true" attributes to the below A element with dropdown-toggle class -->
+
+							<li class="separator hide"></li>
+
+							<!-- BEGIN INBOX DROPDOWN -->
+							<!-- END INBOX DROPDOWN -->
+
+							<li class="separator hide"></li>
+							<!-- BEGIN TODO DROPDOWN -->
+							<!-- END TODO DROPDOWN -->
+
+							<!-- BEGIN USER LOGIN DROPDOWN -->
+							<!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
+							<li class="dropdown dropdown-user dropdown-dark"><a
+								href="javascript:;" class="dropdown-toggle"
+								data-toggle="dropdown" data-hover="dropdown"
+								data-close-others="true"> <span
+									class="username username-hide-on-mobile"
+									style="white-space: nowrap; width: 60px; font-size: 12px; overflow: hidden; text-overflow: ellipsis; text-transform: capitalize;"
+									th:text="${'Hi,'+@currentUser.getCurrentUser().getUserName().toLowerCase()}">
+								</span> <!-- DOC: Do not remove below empty space(&nbsp;) as its purposely used -->
+									<img alt="" class="img-circle"
+									style="width: 35px; height: 35px;"
+									th:src="'http://scaits.info/attachment/empImage/'+${@currentUser.getCurrentUser().getPayRollId()}+'_Photo.jpg'" />
+							</a>
+								<ul class="dropdown-menu dropdown-menu-default">
+									<li><a style="text-transform: capitalize;"
+										th:href="@{/qb/employeeProfile}"
+										th:text="${@currentUser.getCurrentUser().getUserName().toLowerCase()}">
+									</a></li>
+									<li><a href="javascript:;;"
+										th:text="${@currentUser.getCurrentUser().getPayRollId()}"></a></li>
+									<li class="divider"></li>
+									<li><a th:href="@{/qb/employeeProfile}"> <i
+											class="icon-user"></i> My Profile
+									</a></li>
+									<li><a href="javascript:;;"> <i
+											class="icon-envelope-open"></i> My Inbox <span
+											class="badge badge-danger"> 3 </span>
+									</a></li>
+									<li class="divider"></li>
+									<li><a th:href="@{/lockscreen}"> <i class="icon-lock"></i>
+											Lock Screen
+									</a></li>
+									<li><a th:href="@{/logout}"> <i class="icon-key"></i>
+											Log Out
+									</a></li>
+								</ul></li>
+							<!-- END USER LOGIN DROPDOWN -->
+							<!-- BEGIN QUICK SIDEBAR TOGGLER -->
+							<!-- END QUICK SIDEBAR TOGGLER -->
+						</ul>
+					</div>
+					<!-- END TOP NAVIGATION MENU -->
+				</div>
+				<!-- END PAGE TOP -->
+			</div>
+			<!-- END HEADER INNER -->
+
+			<form action="" method="post" id="getStudentQnSummaryId">
+				<input type="hidden" id="selStuAdmNo" name="student">
+			</form>
+
+			<form action="" method="post" id="getSelTestSummaryId1">
+				<input type="hidden" id="testId" name="testId"> <input
+					type="hidden" id="cityValId" name="cityValId"> <input
+					type="hidden" id="selCampusId" name="selCampusId">
+			</form>
+
+			<div id="responsive" class="modal fade" tabindex="-1"
+				data-width="760">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-hidden="true"></button>
+					<h4 class="modal-title">Tests</h4>
+				</div>
+				<!-- <div class="modal-body">
+					<div class="row">
+						<div class="col-md-6">
+							<label class="control-label">City</label> <select name="cityVal"
+								id="selCityValId" class="form-control">
+								<option th:value="0" th:text="${'Select City'}"></option>
+
+								<option
+									th:each="city,cityStatus:${@currentUser.getLoginEmpCityList()}"
+									th:value="${city.cityId}" th:text="${city.cityName}"></option>
+
+							</select>
+
+						</div>
+						<div class="col-md-6">
+							<label class="control-label">Campus</label> <select
+								name="campusVal" id="selCampusValId" class="form-control">
+								<option th:value="0" th:text="${'Select Campus'}"></option>
+
+								<option
+									th:each="campus,campusStatus:${@currentUser.getLoginEmpCampusList()}"
+									th:value="${campus.id}" th:text="${campus.campusName}">
+								</option>
+							</select>
+
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-12">
+							<label class="control-label">Test</label> <select name="selTest"
+								id="selTestId" class="form-control">
+								<option th:value="0" th:text="${'Select Test'}"></option>
+
+								<option
+									th:each="test,testStatus:${@currentUser.getAllOfflineExamList()}"
+									th:value="${test.id}" th:text="${test.testCode}"></option>
+							</select>
+						</div>
+					</div>
+				</div> -->
+				<div class="modal-footer">
+					<button type="button" data-dismiss="modal"
+						class="btn btn-outline dark">Close</button>
+					<button type="button" class="btn green"
+						onclick="javascript:getSelTestDetails()">Save changes</button>
+				</div>
+			</div>
+
+
+			<div id="errorDisplayId" class="modal fade" tabindex="-1"
+				data-width="760">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-hidden="true"></button>
+					<h4 class="modal-title"></h4>
+				</div>
+				<div class="modal-body">
+					<div class="row">
+						<span id="errorMsgDisplayId"></span>
+					</div>
+
+				</div>
+				<div class="modal-footer"></div>
+			</div>
+		</div>
+		<!-- END HEADER -->
+		<!-- BEGIN HEADER & CONTENT DIVIDER -->
+		<div class="clearfix"></div>
+		<!-- END HEADER & CONTENT DIVIDER -->
+		<!-- BEGIN CONTAINER -->
+		<div class="page-container">
+			<!-- BEGIN SIDEBAR -->
+			<!-- <div th:replace="/myTheme1/sidebar :: sidebar"></div> -->
+			<div class="page-sidebar-wrapper">
+				<!-- BEGIN SIDEBAR -->
+				<!-- DOC: Set data-auto-scroll="false" to disable the sidebar from auto scrolling/focusing -->
+				<!-- DOC: Change data-auto-speed="200" to adjust the sub menu slide up/down speed -->
+				<div class="page-sidebar navbar-collapse collapse">
+					<!-- BEGIN SIDEBAR MENU -->
+					<!-- DOC: Apply "page-sidebar-menu-light" class right after "page-sidebar-menu" to enable light sidebar menu style(without borders) -->
+					<!-- DOC: Apply "page-sidebar-menu-hover-submenu" class right after "page-sidebar-menu" to enable hoverable(hover vs accordion) sub menu mode -->
+					<!-- DOC: Apply "page-sidebar-menu-closed" class right after "page-sidebar-menu" to collapse("page-sidebar-closed" class must be applied to the body element) the sidebar sub menu mode -->
+					<!-- DOC: Set data-auto-scroll="false" to disable the sidebar from auto scrolling/focusing -->
+					<!-- DOC: Set data-keep-expand="true" to keep the submenues expanded -->
+					<!-- DOC: Set data-auto-speed="200" to adjust the sub menu slide up/down speed -->
+					<ul class="page-sidebar-menu   page-sidebar-menu-closed"
+						data-keep-expanded="false" data-auto-scroll="true"
+						data-slide-speed="200">
+						<li class="nav-item active"><a href="/scaits"
+							class="nav-link "> <i class="fa fa-dashboard"></i> <span
+								class="title">Dashboard</span>
+						</a></li>
+						<li class="nav-item  "><a href="javascript:;"
+							class="nav-link nav-toggle"> <i class="fa fa-bus"></i> <span
+								class="title">Bus Reports</span> <span class="arrow"></span>
+						</a>
+							<ul class="sub-menu">
+								<li class="nav-item  "><a
+									href="javascript:showPage('/scaits/busDailyReport',false);"
+									class="nav-link "> <span class="title">Bus GPS Daily
+											Report</span>
+								</a></li>
+							</ul></li>
+						<li class="nav-item  "><a href="javascript:;"
+							class="nav-link nav-toggle"><i class="fa fa-ticket"></i><span
+								class="title">Ticketing</span> <span class="arrow"></span> </a>
+							<ul class="sub-menu">
+								<li class="nav-item  "><a
+									href="javascript:showPage('/scaits/ticketCreation');"
+									class="nav-link "> <span class="title">Ticket
+											Creation</span>
+								</a></li>
+								<li class="nav-item  "><a
+									href="javascript:showPage('/scaits/ticketAssign');"
+									class="nav-link "> <span class="title">Ticket Assign</span>
+								</a></li>
+								<li class="nav-item  "><a
+									href="javascript:showPage('/scaits/ticketCreationReport');"
+									class="nav-link "> <span class="title">Ticket
+											Creation Report</span>
+								</a></li>
+							</ul></li>
+						<li class="nav-item  "><a href="javascript:;"
+							class="nav-link nav-toggle"> <i class="fa fa-comment"></i> <span
+								class="title">SMS </span> <span class="arrow"></span>
+						</a>
+							<ul class="sub-menu">
+								<li class="nav-item  "><a
+									href="javascript:showPage('/scaits/smsCreation');"
+									class="nav-link "> <span class="title">SMS Creation
+									</span>
+								</a></li>
+								<li class="nav-item  "><a
+									href="javascript:showPage('/scaits/smsApprove');"
+									class="nav-link "> <span class="title">SMS Approve </span>
+								</a></li>
+								<li class="nav-item  "><a
+									href="javascript:showPage('/scaits/smsSend');"
+									class="nav-link "> <span class="title">SMS Send </span>
+								</a></li>
+								<li class="nav-item  "><a
+									href="javascript:showPage('/scaits/smsFileUpload');"
+									class="nav-link "> <span class="title"> SMS Upload </span>
+								</a></li>
+							</ul></li>
+						<li class="nav-item  "><a href="javascript:;"
+							class="nav-link nav-toggle"> <i class="fa fa-signal"></i> <span
+								class="title">Application Sales </span> <span class="arrow"></span>
+						</a>
+							<ul class="sub-menu">
+								<li class="nav-item  "><a
+									href="javascript:showPage('/scaits/interApplicationSales');"
+									class="nav-link "> <span class="title">Intermediate/Longterm/STC</span>
+								</a></li>
+								<li class="nav-item  "><a
+									href="javascript:showPage('/scaits/schoolApplicationSales');"
+									class="nav-link "> <span class="title">School</span>
+								</a></li>
+								<li class="nav-item  "><a
+									href="javascript:showPage('/scaits/northApplicationSales');"
+									class="nav-link "> <span class="title">North Sale</span>
+								</a></li>
+							</ul></li>
+							
+							<li class="nav-item"><a href="javascript:;"
+							class="nav-link nav-toggle"> <i class="fa fa-cog"></i> <span class="title">HR Module</span> <span class="arrow"></span>
+						</a>
+							<ul class="sub-menu">
+								<li class="nav-item  "><a
+									href="javascript:showPage('/scaits/employeeAttendanceClose');"
+									class="nav-link "> <span class="title">Employee Attendance Close</span>
+								</a></li>
+								<li class="nav-item  "><a
+									href="javascript:showPage('/scaits/principalMonthlyEmpAttendanceClose');"
+									class="nav-link "> <span class="title">Principal Attendance Close</span>
+								</a></li>
+								<li class="nav-item  "><a
+									href="javascript:showPage('/scaits/showDeanMonthlyEmpAttendanceClose');"
+									class="nav-link "> <span class="title">Dean Attendance Close</span>
+								</a></li>
+								<li class="nav-item  "><a
+									href="javascript:showPage('/scaits/showDivHrMonthlyEmpAttendanceClose');"
+									class="nav-link "> <span class="title">Div Hr Attendance Close</span>
+								</a></li>
+								<li class="nav-item  "><a
+									href="javascript:showPage('/scaits/showHrMonthlyEmpAttendanceClose');"
+									class="nav-link "> <span class="title">HR Attendance Close</span>
+								</a></li>
+								<li class="nav-item  "><a
+									href="javascript:showPage('/scaits/showCampusHolidays');"
+									class="nav-link "> <span class="title">Campus Holidays</span>
+								</a></li>
+							</ul>
+							
+							</li>
+							<li class="nav-item"><a href="javascript:;"
+							class="nav-link nav-toggle"> <i class="fa fa-cog"></i> 
+							<span class="title">Leave Management</span> <span class="arrow"></span>
+						</a>
+							<ul class="sub-menu">
+								<li class="nav-item  "><a
+									href="javascript:showPage('/leaveManagement/leaveRequest');"
+									class="nav-link "> <span class="title">Leave Request</span>
+								</a></li>
+								<li class="nav-item  "><a
+									href="javascript:showPage('/leaveManagement/leaveApprove');"
+									class="nav-link "> <span class="title">Leave Approve</span>
+								</a></li>
+								<li class="nav-item  "><a
+									href="javascript:showPage('/leaveManagement/leaveCancel');"
+									class="nav-link "> <span class="title">Leaves</span>
+								</a></li>
+								<li class="nav-item  "><a
+									href="javascript:showPage('/leaveManagement/leaveReport?monthVal=0&year=0');"
+									class="nav-link "> <span class="title">Leave Report</span>
+								</a></li>
+							</ul>
+							
+							</li>
+
+
+						<li class="nav-item  "><a href="javascript:;"
+							class="nav-link nav-toggle"> <i class="fa fa-signal"></i> <span
+								class="title">Application Confirmation </span> <span
+								class="arrow"></span>
+						</a>
+							<ul class="sub-menu">
+								<li class="nav-item  "><a
+									href="javascript:showPage('/scaits/interApplicationConfirmation');"
+									class="nav-link "> <span class="title">Intermediate/Longterm/STC</span>
+								</a></li>
+							</ul></li>
+
+						<li class="nav-item"><a href="javascript:;"
+							class="nav-link nav-toggle"> <i class="fa fa-users"></i> <span
+								class="title">HR Module</span> <span class="arrow"></span>
+						</a>
+							<ul class="sub-menu">
+								<li class="nav-item  "><a
+									href="javascript:showPage('/scaits/employeeAttendanceClose');"
+									class="nav-link "> <span class="title">Employee
+											Attendance Close</span>
+								</a></li>
+								<li class="nav-item  "><a
+									href="javascript:showPage('/scaits/principalMonthlyEmpAttendanceClose');"
+									class="nav-link "> <span class="title">Principal
+											Attendance Close</span>
+								</a></li>
+								<li class="nav-item  "><a
+									href="javascript:showPage('/scaits/showDeanMonthlyEmpAttendanceClose');"
+									class="nav-link "> <span class="title">Dean
+											Attendance Close</span>
+								</a></li>
+								<li class="nav-item  "><a
+									href="javascript:showPage('/scaits/showDivHrMonthlyEmpAttendanceClose');"
+									class="nav-link "> <span class="title">Div Hr
+											Attendance Close</span>
+								</a></li>
+								<li class="nav-item  "><a
+									href="javascript:showPage('/scaits/showHrMonthlyEmpAttendanceClose');"
+									class="nav-link "> <span class="title">HR Attendance
+											Close</span>
+								</a></li>
+								<li class="nav-item  "><a
+									href="javascript:showPage('/scaits/showCampusHolidays');"
+									class="nav-link "> <span class="title">Campus
+											Holidays</span>
+								</a></li>
+								<li class="nav-item  "><a
+									href="javascript:showPage('/scaits/showEmpShifts');"
+									class="nav-link "> <span class="title">Employee
+											Shifts</span>
+								</a></li>
+							</ul></li>
+						<li class="nav-item"><a href="javascript:;"
+							class="nav-link nav-toggle"> <i class="fa fa-clock-o"></i> <span
+								class="title">Leave Management</span> <span class="arrow"></span>
+						</a>
+							<ul class="sub-menu">
+								<li class="nav-item  "><a
+									href="javascript:showPage('/leaveManagement/leaveRequest');"
+									class="nav-link "> <span class="title">Leave Request</span>
+								</a></li>
+								<li class="nav-item  "><a
+									href="javascript:showPage('/leaveManagement/leaveApprove');"
+									class="nav-link "> <span class="title">Leave Approve</span>
+								</a></li>
+								<li class="nav-item  "><a
+									href="javascript:showPage('/leaveManagement/leaveCancel');"
+									class="nav-link "> <span class="title">Leaves</span>
+								</a></li>
+								<li class="nav-item  "><a
+									href="javascript:showPage('/leaveManagement/leaveReport?monthVal=0&year=0');"
+									class="nav-link "> <span class="title">Leave Report</span>
+								</a></li>
+							</ul></li>
+
+						<li class="nav-item  "><a href="javascript:;"
+							class="nav-link nav-toggle"> <i class="fa fa-object-group"></i>
+								<span class="title">Group Operations </span> <span class="arrow"></span>
+						</a>
+							<ul class="sub-menu">
+								<li class="nav-item  "><a
+									href="javascript:showPage('/scaits/bulkStudentDetails');"
+									class="nav-link "> <span class="title">Student
+											Details</span>
+								</a></li>
+								<li class="nav-item  "><a
+									href="javascript:showPage('/scaits/creategroupSectionTransfer');"
+									class="nav-link "> <span class="title">Section
+											Transfer</span>
+								</a></li>
+								<li class="nav-item  "><a
+									href="javascript:showPage('/scaits/creategroupStudentTransfer');"
+									class="nav-link "> <span class="title">Student
+											Transfer</span>
+								</a></li>
+								<li class="nav-item  "><a
+									href="javascript:showPage('/scaits/createStudentPromot');"
+									class="nav-link "> <span class="title">Student
+											Promoting</span>
+								</a></li>
+								<li class="nav-item  "><a
+									href="javascript:showPage('/scaits/createDegreeStudentPromot');"
+									class="nav-link "> <span class="title">Degree
+											Student Promoting</span>
+								</a></li>
+								<li class="nav-item  "><a
+									href="javascript:showPage('/scaits/createPgStudentPromot');"
+									class="nav-link "> <span class="title">PG Student
+											Promoting </span>
+								</a></li>
+								<li class="nav-item  "><a
+									href="javascript:showPage('/scaits/createNorthStudentPromot');"
+									class="nav-link "> <span class="title">North Student
+											Promoting</span>
+								</a></li>
+								<li class="nav-item  "><a
+									href="javascript:showPage('/scaits/createGroupPocMoneyIssue');"
+									class="nav-link "> <span class="title">PocketMoney
+											Issue </span>
+								</a></li>
+								<li class="nav-item  "><a
+									href="javascript:showPage('/scaits/createGroupPocMoneyUpdateIssue');"
+									class="nav-link "> <span class="title">PocketMoney
+											Update </span>
+								</a></li>
+								<li class="nav-item  "><a
+									href="javascript:showPage('/scaits/createExamCollegeCodes');"
+									class="nav-link "> <span class="title">Exam College
+											Codes </span>
+								</a></li>
+								<li class="nav-item  "><a
+									href="javascript:showPage('/scaits/bulkStudentOuting');"
+									class="nav-link "> <span class="title">Student
+											Outing </span>
+								</a></li>
+								<li class="nav-item  "><a
+									href="javascript:showPage('/scaits/bulkStudentIn');"
+									class="nav-link "> <span class="title">Student In </span>
+								</a></li>
+								<li class="nav-item  "><a
+									href="javascript:showPage('/scaits/createconcessionXl');"
+									class="nav-link "> <span class="title">Bulk
+											Concession XLUpload </span>
+								</a></li>
+								<li class="nav-item  "><a
+									href="javascript:showPage('/scaits/createPocketMoneyCorrection');"
+									class="nav-link "> <span class="title">Pocket Money
+											Upload</span>
+								</a></li>
+								<li class="nav-item  "><a
+									href="javascript:showPage('/scaits/createCOGroupPocMoneyUpdateIssue');"
+									class="nav-link "> <span class="title">CO
+											PocketMoney Update </span>
+								</a></li>
+								<li class="nav-item  "><a
+									href="javascript:showPage('/scaits/createCOGroupPocMoneyCancelIssue');"
+									class="nav-link "> <span class="title">CO
+											PocketMoney Cancel</span>
+								</a></li>
+								<li class="nav-item  "><a
+									href="javascript:showPage('/scaits/uniformIssueDetails');"
+									class="nav-link "> <span class="title">Uniform Issue
+											Details </span>
+								</a></li>
+
+							</ul></li>
+
+						<li class="nav-item  "><a href="javascript:;"
+							class="nav-link nav-toggle"> <i class="fa fa-file-text-o"></i>
+								<span class="title">Reports </span> <span class="arrow"></span>
+						</a>
+							<ul class="sub-menu">
+								<li class="nav-item  "><a
+									href="javascript:showPage('/scaits/campusDueReport');"
+									class="nav-link "> <span class="title">Campus Due
+											Report </span>
+								</a></li>
+
+								<li class="nav-item  "><a
+									href="javascript:showPage('/scaits/studentWiseReport');"
+									class="nav-link "> <span class="title">Student Wise
+											Report </span>
+								</a></li>
+
+								<li class="nav-item  "><a
+									href="javascript:showPage('/scaits/sectionWiseDueReport');"
+									class="nav-link "> <span class="title">Section Wise
+											Due Report </span>
+								</a></li>
+
+								<li class="nav-item  "><a
+									href="javascript:showPage('/scaits/courseTrackWiseDueReport');"
+									class="nav-link "> <span class="title">CourseTrack
+											Wise Due Report </span>
+								</a></li>
+
+								<li class="nav-item  "><a
+									href="javascript:showPage('/scaits/incomeDaysheetReport');"
+									class="nav-link "> <span class="title">Income
+											Daysheet Report </span>
+								</a></li>
+
+								<li class="nav-item  "><a
+									href="javascript:showPage('/scaits/applicationConcessionReport');"
+									class="nav-link "> <span class="title">Application
+											Concession Report </span>
+								</a></li>
+
+								<li class="nav-item  "><a
+									href="javascript:showPage('/scaits/concessionStatusReport');"
+									class="nav-link "> <span class="title"> Concession
+											Status Report </span>
+								</a></li>
+
+								<li class="nav-item  "><a
+									href="javascript:showPage('/scaits/busPassReport');"
+									class="nav-link "> <span class="title">Bus Pass
+											Report </span>
+								</a></li>
+								<li class="nav-item  "><a
+									href="javascript:showPage('/scaits/InternalExamFee');"
+									class="nav-link "> <span class="title">InternalExam
+											Fee Report </span>
+								</a></li>
+
+								<li class="nav-item  "><a
+									href="javascript:showPage('/scaits/buildingReport');"
+									class="nav-link "> <span class="title">Building
+											Report </span>
+								</a></li>
+
+								<li class="nav-item  "><a
+									href="javascript:showPage('/scaits/pocketMoneyDueReport');"
+									class="nav-link "> <span class="title">Pocket Money
+											Due Report </span>
+								</a></li>
+
+								<li class="nav-item  "><a
+									href="javascript:showPage('/scaits/appToVja');"
+									class="nav-link "> <span class="title"> App To Vja</span>
+								</a></li>
+
+								<li class="nav-item  "><a
+									href="javascript:showPage('/scaits/ltcToVja');"
+									class="nav-link "> <span class="title"> ltc To Vja</span>
+								</a></li>
+
+								<li class="nav-item  "><a
+									href="javascript:showPage('/scaits/appOutToVja');"
+									class="nav-link "> <span class="title"> app Out of
+											Vja</span>
+								</a></li>
+
+								<li class="nav-item  "><a
+									href="javascript:showPage('/scaits/vijRoomAllotment');"
+									class="nav-link "> <span class="title"> Vij Room
+											Allotment Report</span>
+								</a></li>
+								<li class="nav-item  "><a
+									href="javascript:showPage('/scaits/vizagAdmReport');"
+									class="nav-link "> <span class="title">Vizag
+											Admission Report</span>
+								</a></li>
+								<li class="nav-item  "><a
+									href="javascript:showPage('/scaits/outgoingStudentDetails');"
+									class="nav-link "> <span class="title">Out Going
+											Student Details</span>
+								</a></li>
+								<li class="nav-item  "><a
+									href="javascript:showPage('/scaits/applicationSalesConfirmationDetails');"
+									class="nav-link "> <span class="title">Application
+											Sales Confirmation Details</span>
+								</a></li>
+
+								<li class="nav-item  "><a
+									href="javascript:showPage('	/scaits/longTermApllicationSalesConfirmation');"
+									class="nav-link "> <span class="title">Long
+											TermApplication Sales Confirmation Details</span>
+								</a></li>
+
+								<li class="nav-item  "><a
+									href="javascript:showPage('	/scaits/degreeApplicationSalesConfirmation');"
+									class="nav-link "> <span class="title">Degree
+											Application Sales Confirmation Details</span>
+								</a></li>
+								<li class="nav-item  "><a
+									href="javascript:showPage('/scaits/northApplicationReport');"
+									class="nav-link "> <span class="title">North
+											Application Report</span>
+								</a></li>
+
+								<li class="nav-item  "><a
+									href="javascript:showPage('	/scaits/shortTermApplicationSalesConfirmation');"
+									class="nav-link "> <span class="title">Short Term
+											Application Report</span>
+								</a></li>
+								<li class="nav-item  "><a
+									href="javascript:showPage('	/scaits/refundStatusReport');"
+									class="nav-link "> <span class="title">Refund Status
+											Report</span>
+								</a></li>
+
+								<li class="nav-item  "><a
+									href="javascript:showPage('	/scaits/attendanceReport');"
+									class="nav-link "> <span class="title">Attendance
+											Report</span>
+								</a></li>
+
+								<li class="nav-item  "><a
+									href="javascript:showPage('	/scaits/campusAttendanceReport');"
+									class="nav-link "> <span class="title">Campus
+											Attendance Report</span>
+								</a></li>
+								<li class="nav-item  "><a
+									href="javascript:showPage('	/scaits/transferToCampusReport');"
+									class="nav-link "> <span class="title">Tranfer To
+											Campus Report</span>
+								</a></li>
+
+								<li class="nav-item  "><a
+									href="javascript:showPage('	/scaits/transferFromOtherCampus');"
+									class="nav-link "> <span class="title">Tranfer From
+											Other Campus Report</span>
+								</a></li>
+
+								<li class="nav-item  "><a
+									href="javascript:showPage('	/scaits/refundReport');"
+									class="nav-link "> <span class="title">Refund Report</span>
+								</a></li>
+
+
+
+								<li class="nav-item  "><a
+									href="javascript:showPage('	/scaits/bankPaymentReport');"
+									class="nav-link "> <span class="title">Bank Payments
+											Report</span>
+								</a></li>
+
+								<li class="nav-item  "><a
+									href="javascript:showPage('	/scaits/schoolConversionReport');"
+									class="nav-link "> <span class="title">School
+											Conversion Report</span>
+								</a></li>
+
+								<li class="nav-item  "><a
+									href="javascript:showPage('	/scaits/schoolConversionCountReport');"
+									class="nav-link "> <span class="title">School
+											Conversion Count Report</span>
+								</a></li>
+
+								<li class="nav-item  "><a
+									href="javascript:showPage('	/scaits/employeeMappingStatusReport');"
+									class="nav-link "> <span class="title">Employee
+											Mapping Status Report</span>
+								</a></li>
+
+								<li class="nav-item  "><a
+									href="javascript:showPage('	/scaits/employeeManagerialMappingstatus');"
+									class="nav-link "> <span class="title">EmployeeManagerial
+											Mapping Status Report</span>
+								</a></li>
+
+								<li class="nav-item  "><a
+									href="javascript:showPage('	/scaits/timeTableDaySheetCloseStatus');"
+									class="nav-link "> <span class="title">Time Table
+											Day Sheet Close Status</span>
+								</a></li>
+
+								<li class="nav-item  "><a
+									href="javascript:showPage('	/scaits/empWiseTimeTableAssignedorNot');"
+									class="nav-link "> <span class="title">Employee Wise
+											Time Table Assignrd or Not Assigned Report</span>
+								</a></li>
+								<li class="nav-item  "><a
+									href="javascript:showPage('	/scaits/employeeWiseWorkLoad');"
+									class="nav-link "> <span class="title">EmployeeWise
+											Work Load Report</span>
+								</a></li>
+
+								<li class="nav-item  "><a
+									href="javascript:showPage('	/scaits/headWiseReports');"
+									class="nav-link "> <span class="title">Head Wise
+											 Report</span>
+								</a></li>
+									<li class="nav-item  "><a
+									href="javascript:showPage('	/scaits/bounceReports');"
+									class="nav-link "> <span class="title">Bounce
+											 Report</span>
+								</a></li>
+								
+								<li class="nav-item  "><a
+									href="javascript:showPage('	/scaits/headWiseRefundReport');"
+									class="nav-link "> <span class="title">Head Wise Refund
+											 Report</span>
+								</a></li>
+										<li class="nav-item  "><a
+									href="javascript:showPage('	/scaits/studentWiseRefundReport');"
+									class="nav-link "> <span class="title">Student Wise Refund
+											 Report</span>
+								</a></li>
+								
+								<li class="nav-item  "><a
+									href="javascript:showPage('	/scaits/exStudentPaymentDetailsReport');"
+									class="nav-link "> <span class="title">Ex Student Payment
+											 Report</span>
+								</a></li>
+							</ul></li>
+
+
+
+
+
+						<li class="nav-item  "><a href="javascript:;"
+							class="nav-link nav-toggle"> <i class="fa fa-check"></i> <span
+								class="title">Confirmation </span> <span class="arrow"></span>
+						</a>
+							<ul class="sub-menu">
+								<!--  <li class="nav-item  "><a
+                                    href="javascript:showPage('/scaits/studentConfirmation');"
+                                    class="nav-link "> <span class="title">Student Confirmation</span>
+                                </a></li> -->
+								<li class="nav-item  "><a
+									href="javascript:showPage('/scaits/bulkTransferConfirmation');"
+									class="nav-link "> <span class="title">Bulk Transfer
+											Confirmation</span>
+								</a></li>
+
+								<li class="nav-item  "><a
+									href="javascript:showPage('/scaits/singleTransferConfirmation ');"
+									class="nav-link "> <span class="title">Single
+											Transfer Confirmation </span>
+								</a></li>
+
+								<li class="nav-item  "><a
+									href="javascript:showPage('/scaits/transferCancellation');"
+									class="nav-link "> <span class="title">Transfer
+											Cancellation</span>
+								</a></li>
+
+							</ul></li>
+
+						<li class="nav-item  "><a href="javascript:;"
+							class="nav-link nav-toggle"> <i class="fa fa-bolt"></i> <span
+								class="title">Power Management </span> <span class="arrow"></span>
+						</a>
+							<ul class="sub-menu">
+
+								<li class="nav-item  "><a
+									href="javascript:showPage('/scaits/electricityMaster');"
+									class="nav-link "> <span class="title">Electricity
+											Master</span>
+								</a></li>
+
+								<li class="nav-item  "><a
+									href="javascript:showPage('/scaits/electricityConDetails');"
+									class="nav-link "> <span class="title">Electricity
+											Consumption Details </span>
+								</a></li>
+
+								<li class="nav-item  "><a
+									href="javascript:showPage('/scaits/monthlyElectricityConDetails');"
+									class="nav-link "> <span class="title">Monthly
+											Electricity Consumption Details</span>
+								</a></li>
+								<li class="nav-item  "><a
+									href="javascript:showPage('/scaits/generatorInfo');"
+									class="nav-link "> <span class="title">Generator
+											Information Details</span>
+								</a></li>
+								<li class="nav-item  "><a
+									href="javascript:showPage('/scaits/generatorDiesel');"
+									class="nav-link "> <span class="title">Generator
+											Diesel Details</span>
+								</a></li>
+								<li class="nav-item  "><a
+									href="javascript:showPage('/scaits/generatorFilling');"
+									class="nav-link "> <span class="title">Generator
+											Filling Details</span>
+								</a></li>
+								<li class="nav-item  "><a
+									href="javascript:showPage('/scaits/generatorReading');"
+									class="nav-link "> <span class="title">Generator
+											Reading Details</span>
+								</a></li>
+								<li class="nav-item  "><a
+									href="javascript:showPage('/scaits/generatorNotUsedData');"
+									class="nav-link "> <span class="title">Generator Not
+											Used Details</span>
+								</a></li>
+
+							</ul></li>
+					</ul>
+					<!-- END SIDEBAR MENU -->
+				</div>
+				<!-- END SIDEBAR -->
+			</div>
+			<!-- END SIDEBAR -->
+			<!-- BEGIN CONTENT -->
+			<div class="page-content-wrapper">
+				<div class="page-content">
+					<div layout:fragment="page_content" id="displayContentId"></div>
+				</div>
+			</div>
+			<!-- END CONTENT -->
+			<!-- BEGIN QUICK SIDEBAR -->
+			<!-- <div th:replace="/myTheme1/quickSidebar :: quickSidebar"></div> -->
+			<!-- END QUICK SIDEBAR -->
+		</div>
+		<!-- END CONTAINER -->
+		<!-- BEGIN FOOTER -->
+		<!-- <div th:replace="/myTheme1/footer ::footer"></div> -->
+		<div class="page-footer">
+			<div class="page-footer-inner">
+				<span dir="ltr"> © 2018 &nbsp;Sri Chaitanya Infosystems Ltd.</span>
+			</div>
+			<div class="scroll-to-top">
+				<i class="icon-arrow-up"></i>
+			</div>
+		</div>
+	</div>
+	<!-- END FOOTER -->
+	<!-- BEGIN QUICK NAV -->
+	<!-- <div th:replace="/myTheme1/quickNav ::quickNav"></div> -->
+	<!-- END QUICK NAV -->
+	<!--[if lt IE 9]>
+<script th:src="@{/assets/global/plugins/respond.min.js}"></script>
+<script th:src="@{/assets/global/plugins/excanvas.min.js}"></script> 
+<script th:src="@{/assets/global/plugins/ie8.fix.min.js}"></script> 
+<![endif]-->
+	<!-- BEGIN CORE PLUGINS -->
+	<script th:src="@{/assets/global/plugins/jquery.min.js}"
+		type="text/javascript"></script>
+
+	<script th:src="@{/assets/global/plugins/jquery-ui.js}"
+		type="text/javascript"></script>
+
+	<script
+		th:src="@{/assets/global/plugins/bootstrap/js/bootstrap.min.js}"
+		type="text/javascript"></script>
+	<script th:src="@{/assets/global/plugins/js.cookie.min.js}"
+		type="text/javascript"></script>
+	<script
+		th:src="@{/assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js}"
+		type="text/javascript"></script>
+
+	<script
+		th:src="@{/assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js}"
+		type="text/javascript"></script>
+	<!-- END CORE PLUGINS -->
+	<!-- BEGIN PAGE LEVEL PLUGINS -->
+	<script th:src="@{/assets/global/plugins/moment.min.js}"
+		type="text/javascript"></script>
+	<script
+		th:src="@{/assets/global/plugins/bootstrap-daterangepicker/daterangepicker.min.js}"
+		type="text/javascript"></script>
+	<script th:src="@{/assets/global/plugins/morris/morris.min.js}"
+		type="text/javascript"></script>
+	<script th:src="@{/assets/global/plugins/morris/raphael-min.js}"
+		type="text/javascript"></script>
+	<script
+		th:src="@{/assets/global/plugins/counterup/jquery.waypoints.min.js}"
+		type="text/javascript"></script>
+	<script
+		th:src="@{/assets/global/plugins/counterup/jquery.counterup.min.js}"
+		type="text/javascript"></script>
+	<script
+		th:src="@{/assets/global/plugins/amcharts/amcharts/amcharts.js}"
+		type="text/javascript"></script>
+	<script th:src="@{/assets/global/plugins/amcharts/amcharts/serial.js}"
+		type="text/javascript"></script>
+	<script th:src="@{/assets/global/plugins/amcharts/amcharts/pie.js}"
+		type="text/javascript"></script>
+	<script th:src="@{/assets/global/plugins/amcharts/amcharts/radar.js}"
+		type="text/javascript"></script>
+	<script
+		th:src="@{/assets/global/plugins/amcharts/amcharts/themes/light.js}"
+		type="text/javascript"></script>
+	<script
+		th:src="@{/assets/global/plugins/amcharts/amcharts/themes/patterns.js}"
+		type="text/javascript"></script>
+	<script
+		th:src="@{/assets/global/plugins/amcharts/amcharts/themes/chalk.js}"
+		type="text/javascript"></script>
+	<script th:src="@{/assets/global/plugins/amcharts/ammap/ammap.js}"
+		type="text/javascript"></script>
+	<script
+		th:src="@{/assets/global/plugins/amcharts/ammap/maps/js/worldLow.js}"
+		type="text/javascript"></script>
+	<script
+		th:src="@{/assets/global/plugins/amcharts/amstockcharts/amstock.js}"
+		type="text/javascript"></script>
+	<script
+		th:src="@{/assets/global/plugins/fullcalendar/fullcalendar.min.js}"
+		type="text/javascript"></script>
+	<script
+		th:src="@{/assets/global/plugins/horizontal-timeline/horizontal-timeline.js}"
+		type="text/javascript"></script>
+	<script th:src="@{/assets/global/plugins/flot/jquery.flot.min.js}"
+		type="text/javascript"></script>
+	<script
+		th:src="@{/assets/global/plugins/flot/jquery.flot.resize.min.js}"
+		type="text/javascript"></script>
+	<script
+		th:src="@{/assets/global/plugins/flot/jquery.flot.categories.min.js}"
+		type="text/javascript"></script>
+	<script
+		th:src="@{/assets/global/plugins/jquery-easypiechart/jquery.easypiechart.min.js}"
+		type="text/javascript"></script>
+	<script th:src="@{/assets/global/plugins/jquery.sparkline.min.js}"
+		type="text/javascript"></script>
+	<script th:src="@{/assets/global/plugins/jqvmap/jqvmap/jquery.vmap.js}"
+		type="text/javascript"></script>
+	<script
+		th:src="@{/assets/global/plugins/jqvmap/jqvmap/maps/jquery.vmap.russia.js}"
+		type="text/javascript"></script>
+	<script
+		th:src="@{/assets/global/plugins/jqvmap/jqvmap/maps/jquery.vmap.world.js}"
+		type="text/javascript"></script>
+	<script
+		th:src="@{/assets/global/plugins/jqvmap/jqvmap/maps/jquery.vmap.europe.js}"
+		type="text/javascript"></script>
+	<script
+		th:src="@{/assets/global/plugins/jqvmap/jqvmap/maps/jquery.vmap.germany.js}"
+		type="text/javascript"></script>
+	<script
+		th:src="@{/assets/global/plugins/jqvmap/jqvmap/maps/jquery.vmap.usa.js}"
+		type="text/javascript"></script>
+	<script
+		th:src="@{/assets/global/plugins/jqvmap/jqvmap/data/jquery.vmap.sampledata.js}"
+		type="text/javascript"></script>
+	<!-- END PAGE LEVEL PLUGINS -->
+	<!-- BEGIN THEME GLOBAL SCRIPTS -->
+	<script th:src="@{/assets/global/scripts/app.min.js}"
+		type="text/javascript"></script>
+	<!-- END THEME GLOBAL SCRIPTS -->
+	<!-- BEGIN PAGE LEVEL SCRIPTS -->
+	<script th:src="@{/assets/pages/scripts/dashboard.min.js}"
+		type="text/javascript"></script>
+	<!-- END PAGE LEVEL SCRIPTS -->
+	<!-- BEGIN THEME LAYOUT SCRIPTS -->
+	<script th:src="@{/assets/layouts/layout4/scripts/layout.min.js}"
+		type="text/javascript"></script>
+	<script th:src="@{/assets/layouts/layout4/scripts/demo.min.js}"
+		type="text/javascript"></script>
+	<script th:src="@{/assets/layouts/global/scripts/quick-sidebar.min.js}"
+		type="text/javascript"></script>
+	<script th:src="@{/assets/layouts/global/scripts/quick-nav.min.js}"
+		type="text/javascript"></script>
+	<script th:src="@{/assets/pages/scripts/profile.min.js}"
+		type="text/javascript"></script>
+
+	<script th:src="@{/assets/highcharts/highstock.js}"></script>
+	<script th:src="@{/assets/highcharts/exporting.js}"></script>
+	<script th:src="@{/assets/highcharts/export-data.js}"></script>
+
+	<script
+		th:src="@{/assets/global/plugins/select2/js/select2.full.min.js}"
+		type="text/javascript"></script>
+	<script th:src="@{/assets/pages/scripts/components-select2.min.js}"
+		type="text/javascript"></script>
+
+	<script
+		th:src="@{/assets/global/plugins/jquery-validation/js/jquery.validate.min.js}"
+		type="text/javascript"></script>
+	<script
+		th:src="@{/assets/global/plugins/jquery-validation/js/additional-methods.min.js}"
+		type="text/javascript"></script>
+	<script
+		th:src="@{/assets/global/plugins/bootstrap-wizard/jquery.bootstrap.wizard.min.js}"
+		type="text/javascript"></script>
+
+
+
+	<script th:src="@{/assets/pages/scripts/form-wizard.min.js}"
+		type="text/javascript"></script>
+
+	<script th:src="@{/assets/global/plugins/dropzone/dropzone.min.js}"
+		type="text/javascript"></script>
+
+	<script
+		th:src="@{/assets/global/plugins/bootstrap-modal/js/bootstrap-modalmanager.js}"
+		type="text/javascript"></script>
+	<script
+		th:src="@{/assets/global/plugins/bootstrap-modal/js/bootstrap-modal.js}"
+		type="text/javascript"></script>
+	<script th:src="@{/assets/pages/scripts/ui-extended-modals.min.js}"
+		type="text/javascript"></script>
+
+	<script th:src="@{/assets/global/scripts/datatable.js}"
+		type="text/javascript"></script>
+	<script th:src="@{/assets/global/plugins/datatables/datatables.min.js}"
+		type="text/javascript"></script>
+	<script src="assets/pages/scripts/table-datatables-scroller.min.js"
+		type="text/javascript"></script>
+	<!-- <script
+		th:src="@{/assets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.js}"
+		type="text/javascript"></script> -->
+	<script
+		th:src="@{/assets/pages/scripts/table-datatables-responsive.min.js}"
+		type="text/javascript"></script>
+	<script
+		th:src="@{/assets/pages/scripts/components-date-time-pickers.min.js}"
+		type="text/javascript"></script>
+
+	<script type="text/javascript"
+		src="/assets/global/plugins/bootstrap-toastr/toastr.min.js"></script>
+
+	<script type="text/javascript"
+		src="/assets/global/plugins/bootstrap-fileinput/bootstrap-fileinput.js"></script>
+
+	<script src="../assets/pages/scripts/form-icheck.min.js"
+		type="text/javascript"></script>
+	<!-- END THEME LAYOUT SCRIPTS -->
+	<script>
+		var innerPageTagVal = 0;
+		var tagNames = [];
+		$(document).ready(
+				function() {
+					tagNames = [];
+					//attach autocomplete
+					$("#searchStudentId").autocomplete(
+							{
+								minLength : 5,
+								cacheLength : 0,
+								source : "/qb/suggestion",
+								focus : function(event, ui) {
+									$("#searchStudentId").val(
+											ui.item.surname + " "
+													+ ui.item.name + "/"
+													+ ui.item.parentName + "/"
+													+ ui.item.admNo);
+									return false;
+								},
+								select : function(event, ui) {
+									$("#searchStudentId").val(
+											ui.item.surname + " "
+													+ ui.item.name + "/"
+													+ ui.item.parentName + "/"
+													+ ui.item.admNo);
+									$("#selStuAdmNo").val(ui.item.admNo);
+									getStudentQnSummary(ui.item.admNo);
+
+									return false;
+								}
+							}).data("ui-autocomplete")._renderItem = function(
+							ul, item) {
+						return $("<li>").append(
+								"<a>" + item.surname + " " + item.name + "/"
+										+ item.parentName + "/" + item.admNo
+										+ "</a>").appendTo(ul);
+					};
+				});
+
+		function getStudentQnSummary(admNo) {
+
+			//window.location.replace("/qb/getStudentQnSummary?student=" + admNo);
+			pageOverlay(0);
+			$("#selStuAdmNo").val(admNo);
+			$.ajax({
+				url : '/qb/getStudentQnSummary',
+				type : 'GET',
+				data : $("#getStudentQnSummaryId").serialize(),
+				success : function(data) {
+					$("#displayContentId").html(data);
+					pageOverlay(1);
+				},
+				error : function() {
+					alert("Unable to load details.");
+					pageOverlay(1);
+				}
+			});
+		}
+		function getStudentTest(idVal) {
+			$("#selTestSummaryId").val(idVal);
+
+			pageOverlay(0);
+			$.ajax({
+				url : '/qb/studentTest',
+				type : 'GET',
+				data : $("#getSelTestSummaryId").serialize(),
+				success : function(data) {
+					$('#testDetailsSummaryId').html(data);
+					pageOverlay(1);
+				},
+				error : function(xhr, status, error) {
+
+					pageOverlay(1);
+					var err = JSON.parse(xhr.responseText);
+					$('#errorDisplayId').modal('show');
+
+					$("#errorMsgDisplayId").text(err.message);
+
+				}
+			});
+		}
+
+		function getQuestionWise(qNo, offlineExamId, summaryId) {
+			$("#qNoId").val(qNo);
+			$("#offlineExamId").val(offlineExamId);
+			$("#summaryId").val(summaryId);
+			pageOverlay(0);
+			$.ajax({
+				url : '/qb/getQuestionWise',
+				type : 'GET',
+				data : $("#getQuestionWiseId").serialize(),
+				success : function(data) {
+					$('#questionWiseDetailsId').html(data);
+					pageOverlay(1);
+				},
+				error : function() {
+					alert("Unable to load details.");
+					pageOverlay(1);
+				}
+			});
+		}
+
+		function getSelTestDetails() {
+
+			$("#testId").val(document.getElementById("selTestId").value);
+			$("#cityValId").val(document.getElementById("selCityValId").value);
+			$("#selCampusId").val(
+					document.getElementById("selCampusValId").value);
+
+			pageOverlay(0);
+			$('#responsive').modal('hide');
+			$.ajax({
+				url : '/qb/getSelTestDetails',
+				type : 'GET',
+				data : $("#getSelTestSummaryId1").serialize(),
+				success : function(data) {
+					$('#displayContentId').html(data);
+					pageOverlay(1);
+				},
+				error : function() {
+					alert("Unable to load details.");
+					pageOverlay(1);
+				}
+			});
+		}
+
+		function pageOverlay(i) {
+			if (i == 0) {
+				App.startPageLoading({
+					animate : !0
+				});
+				$("#bodyId").fadeTo('slow', 0.5);
+				$("#bodyId").hide();
+				$("#loading").show();
+			} else {
+				App.stopPageLoading();
+				$("#bodyId").fadeTo('slow', 1);
+				$("#bodyId").show();
+				$("#loading").hide();
+			}
+		}
+
+		function showToastr(message, type) {
+			toastr.options = {
+				"closeButton" : true,
+				"newestOnTop" : true,
+				"progressBar" : true,
+				"positionClass" : "toast-top-right",
+				"preventDuplicates" : true,
+				"onclick" : null,
+				"showDuration" : "300",
+				"hideDuration" : "1000",
+				"timeOut" : "5000",
+				"extendedTimeOut" : "1000",
+				"showEasing" : "swing",
+				"hideEasing" : "linear",
+				"showMethod" : "fadeIn",
+				"hideMethod" : "fadeOut"
+			}
+			if (type == "success") {
+				toastr.success(message);
+			} else if (type == "error") {
+				toastr.error(message);
+			} else if (type == "info") {
+				toastr.info(message);
+			} else {
+				toastr.warning(message);
+			}
+		}
+
+		var button = '<button class="close" type="button" title="Remove this page">×</button>';
+
+		function resetTab() {
+			var tabs = $("#tab-list li:not(:first)");
+			var len = 1
+			$(tabs).each(function(k, v) {
+				len++;
+				$(this).find('a').html('Tab ' + len + button);
+			})
+			tabID--;
+		}
+
+		function getQuestionDetails(questionId) {
+			pageOverlay(0);
+			$.ajax({
+				type : "GET",
+				url : "/qb/getQuestionDetails",
+				data : {
+					questionId : questionId
+				},
+				success : function(data) {
+					$('#showQuestionWisePopupDivId').html(data);
+					pageOverlay(1);
+				},
+				error : function() {
+					alert('Error occured');
+					pageOverlay(1);
+				}
+			});
+		}
+
+		var list = document.getElementById("tab-list");
+
+		$(document).ready(function() {
+			$(".nav-link").click(function() {
+				$(".nav-item").removeClass("active");
+			});
+			$("ul li .nav-item").click(function() {
+				$("ul li .nav-item").removeClass("active");
+				$(this).addClass("active");
+			});
+
+			var pageURL = $(location).attr("href");
+			var index = pageURL.lastIndexOf("/");
+			var project = pageURL.substring(index + 1, pageURL.length);
+			//$('#project').html(project);
+
+		});
+
+		function showPage(serverUrl) {
+			if (serverUrl != undefined) {
+				pageOverlay(0);
+				$.ajax({
+					type : "GET",
+					url : serverUrl,
+					success : function(data) {
+						pageOverlay(1);
+						$('#displayContentId').html(data);
+					},
+					error : function() {
+						alert('Error occured');
+						pageOverlay(1);
+					}
+				});
+			}
+		}
+	</script>
+	<th:block layout:fragment="scripts">
+	</th:block>
+</body>
+</html>

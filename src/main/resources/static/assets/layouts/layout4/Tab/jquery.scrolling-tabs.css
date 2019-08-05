@@ -1,0 +1,166 @@
+/**
+ * jquery-bootstrap-scrolling-tabs
+ * @version v2.4.0
+ * @link https://github.com/mikejacobson/jquery-bootstrap-scrolling-tabs
+ * @author Mike Jacobson <michaeljjacobson1@gmail.com>
+ * @license MIT License, http://www.opensource.org/licenses/MIT
+ */
+.scrtabs-tab-container * {
+  box-sizing: border-box; }
+
+.scrtabs-tab-container {
+  height: 42px; }
+  .scrtabs-tab-container .tab-content {
+    clear: left; }
+
+.scrtabs-tab-container.scrtabs-bootstrap4 .scrtabs-tabs-movable-container > .navbar-nav {
+  -ms-flex-direction: row;
+  flex-direction: row; }
+
+.scrtabs-tabs-fixed-container {
+  float: left;
+  height: 42px;
+  overflow: hidden;
+  width: 100%; }
+
+.scrtabs-tabs-movable-container {
+  position: relative; }
+  .scrtabs-tabs-movable-container .tab-content {
+    display: none; }
+
+.scrtabs-tab-container.scrtabs-rtl .scrtabs-tabs-movable-container > ul.nav-tabs {
+  padding-right: 0; }
+
+.scrtabs-tab-scroll-arrow {
+/*  border: 1px solid #dddddd;*/
+  text-align:center;
+  border-top: none;
+  color: #666;
+  display: none;
+  float: left;
+  font-size: 12px;
+  height: 42px;
+  width: 42px;
+  border-radius:50% !important;
+  margin-bottom: -1px;
+  padding-left: 2px;
+  padding-top: 13px;
+   box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+  transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+   }
+  .scrtabs-tab-scroll-arrow:hover {
+    background-color: #eeeeee; }
+
+.scrtabs-tab-scroll-arrow,
+.scrtabs-tab-scroll-arrow .scrtabs-click-target {
+  cursor: pointer; }
+
+.scrtabs-tab-scroll-arrow.scrtabs-with-click-target {
+  cursor: default; }
+
+.scrtabs-tab-scroll-arrow.scrtabs-disable,
+.scrtabs-tab-scroll-arrow.scrtabs-disable .scrtabs-click-target {
+  color: #ddd;
+  cursor: default; }
+
+.scrtabs-tab-scroll-arrow.scrtabs-disable:hover {
+  background-color: initial; }
+
+.scrtabs-tabs-fixed-container ul.nav-tabs > li {
+  white-space: nowrap; }
+  
+  
+/******************************custom**********************/  
+
+body {
+  background: #eaeff3;
+}
+
+.card {
+  background: #fff;
+  border-radius: 6px !important;
+  display: inline-block;
+  height: auto;
+  position: relative;
+  width: 100%;
+  padding:20px 30px;
+  text-align: left;
+}
+
+.card-1 {
+  box-shadow: 0px 6px 18px 6px rgba(0,0,0,0.06);
+  transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+   border-radius: 6px !important;
+   margin-bottom:40px !important
+}
+
+
+.nav-tabs > li.active > a, .nav-tabs > li.active > a:focus, .nav-tabs > li.active > a:hover {
+    color: #555;
+    cursor: default;
+    background-color: #fff;
+    border: none;
+    border-bottom:3px solid #FF4848;
+}
+.nav > li > a:focus, .nav > li > a {color:#999}
+
+.nav > li > a:focus, .nav > li > a:hover {
+    text-decoration: none;
+    background-color: #f1f1f1;
+	color:#666;
+}
+.btn-sec {  padding:8px 30px 7px 30px; border-radius:4px !important; margin-bottom:10px;
+    background-color: #ffffff; border:1px solid #ff6f61; color:#ff6f61; cursor:pointer; 
+	font-size:14px;
+	font-weight:bold;}
+.btn-sec:hover{ background-color: #ff6f6120;   }
+        .btn + .btn { margin-left:7px !important}
+.btn-pri { 
+    padding:8px 30px 7px 30px; border-radius:4px !important;
+	/*background-color: #f6b024;*/ 
+	/*border:1px solid #8862e0; */
+	background: #ff6f61 !important;
+	box-shadow: 0px 0px 0px 3px rgba(255,111,97,0.5) !important;
+	color:#ffffff; 
+	transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+	font-size:14px;
+	font-weight:bold;
+	margin-bottom:10px;
+	border:none;
+	}
+.btn-pri:hover{ box-shadow: 0px 4px 3px 0px rgba(255,111,97,0.2) !important; }
+
+
+
+
+.mb20 { margin-bottom:20px}
+
+
+.line { border-left:1px solid #666}
+.arrowleft { background:url(arrow-left.png) no-repeat; width:9px; height:17px; display:block; margin-left:12px }
+.arrowright{ background:url(arrow-right.png) no-repeat; width:9px; height:17px; display:block; margin-left:14px }
+.txt18{font-size:18px; display:block; color:#333;}
+.txt16{font-size:16px; color:#333;}
+.txt12{font-size:12px; color:#666666;}
+.boxSubject { width:auto; height:auto; margin-top:5px; float:left}
+.boxQuestion { width:auto; height:auto; margin-top:5px; float:left}
+.boxdivider { width:auto; border-left:1px solid #999; height:45px; margin:5px 20px;float:left}
+.note-txt { font-size:12px; color:#999; font-style:italic; }
+.txtRed { color:#F30}
+.form-control { display:inline-block}
+.tooltip-inner {background-color: #cacaca;  color:#333; border:2px solid #939393}
+.tooltip.right .tooltip-arrow {
+    top:50%;
+    left:0;
+    margin-top:-5px;
+    border-top:5px solid transparent;
+    border-bottom:5px solid transparent;
+    border-right:5px solid #939393
+}
+
+ @media (min-width:1200px) and (max-width:1440px){
+   .custom-div { width:80%}
+ }
+  @media (min-width:1441px) and (max-width:1920px){
+   .custom-div { width:70%}
+ }

@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<style type="text/css">
+.ui-datepicker .ui-datepicker-title select {
+    color: #3a3a3a;
+}
+</style>
+<script type="text/javascript">
+
+
+var minyear=(new Date().getFullYear())-50;
+var maxyear=(new Date().getFullYear())-12;
+var mindate=new Date(minyear, 0, 1);
+var maxDate=new Date(maxyear, 11, 31);
+
+
+
+$('#stDoaY1').datepicker({
+	format : 'dd/mm/yy',
+	changeMonth : true,
+	changeYear : true,
+	autoClose : true,
+	clearBtn : true
+});
+
+$('#stDob1').datepicker({
+	format : 'dd/mm/yy',
+	startDate : mindate,
+	endDate : maxyear,
+	changeMonth : true,
+	changeYear : true,
+	autoClose : true,
+	clearBtn : true
+});
+
+
+
+$('#dateOfAppliedTransferCertificateStrId').datepicker({
+	format : 'dd/mm/yy',
+	changeMonth : true,
+	changeYear : true,
+	autoClose : true,
+	clearBtn : true
+});
+$('#dateOfIssuTransferCertificateStrId').datepicker({
+	format : 'dd/mm/yy',
+	changeMonth : true,
+	changeYear : true,
+	autoClose : true,
+	clearBtn : true
+});
+$("#stDoaY1").keypress(function(event) {event.preventDefault();});
+$("#stDob1").keypress(function(event) {event.preventDefault();});
+$("#dateOfAppliedTransferCertificateStrId").keypress(function(event) {event.preventDefault();});
+$("#dateOfIssuTransferCertificateStrId").keypress(function(event) {event.preventDefault();});
+
+
+
+
+
+</script>
+</head>
+<body onload="getDivs();" >
+
+<form th:action="@{/student/getStudentTcPrint}" id="submit_form"
+						method="POST" >
+						
+	<div class="panel-heading">Student Transfer Details</div>
+	<div class="panel-body">
+	
+	<div class="row">
+			<div class="col-md-4">
+				<div class="form-group" style="text-align: right">
+				</div>
+			</div>
+			<div class="col-md-2">
+				<div class="form-group">
+					<label>Category : </label>&nbsp;
+				</div>
+			</div>
+			<div class="col-md-2">
+				<div class="form-group">
+				
+				<input name="category" id="categoryId" type="text" class="form-control"  ondrop="return false" ondrag="return false" autocomplete="off"
+									 placeholder="Enter Category"   maxlength="100" th:value="${stuTcVal!=null?stuTcVal.category:''}">
+									 
+				</div>
+			</div>
+			
+			<div class="col-md-2">
+				<div class="form-group">
+					<label>Admission No : </label>&nbsp;
+				</div>
+			</div>
+			<div class="col-md-2">
+				<div class="form-group">
+				
+				<input name="admissionNo" id="admissionNoId" type="text" class="form-control"  ondrop="return false" ondrag="return false" autocomplete="off"
+									 placeholder="Enter AdmissionNo"   maxlength="100" th:value=${admNumber.studentNo} readonly="readonly">
+									 
+				</div>
+			</div>
+		</div>
+		
+		
+		
+	
+	
+	<div class="row">
+			<div class="col-md-1">
+				<div class="form-group" style="text-align: right">
+					<label>1.</label>
+				</div>
+			</div>
+			<div class="col-md-5">
+				<div class="form-group">
+					<label>Student Name : </label>&nbsp;
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="form-group">
+				
+				<input name="name" id="stName1" type="text" class="form-control"  ondrop="return false" ondrag="return false" autocomplete="off"
+									 placeholder="Enter Student Name"   maxlength="100" th:value="${stuTcVal!=null?stuTcVal.name:''}">
+									 
+				</div>
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="col-md-1">
+				<div class="form-group" style="text-align: right">
+					<label>2.</label>
+				</div>
+			</div>
+			<div class="col-md-5">
+				<div class="form-group">
+					<label>Father Name/Guardian Name : </label>&nbsp;
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="form-group">
+				
+				<input name="fatherName" id="pName1" type="text" class="form-control"  ondrop="return false" ondrag="return false" autocomplete="off"
+									 placeholder="Enter Father Name/Guardian Name"   maxlength="100"  th:value="${stuTcVal!=null?stuTcVal.fatherName:''}">
+									 
+									 
+				</div>
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="col-md-1">
+				<div class="form-group" style="text-align: right">
+					<label>3.</label>
+				</div>
+			</div>
+			<div class="col-md-5">
+				<div class="form-group">
+					<label>Mother Name : </label>&nbsp;
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="form-group">
+				
+				<input name="motherName" id="mName1" type="text" class="form-control"  ondrop="return false" ondrag="return false" autocomplete="off"
+									 placeholder="Enter Mother Name"  maxlength="100"   th:value="${stuTcVal!=null?stuTcVal.motherName:''}">
+									 
+									 
+				</div>
+			</div>
+		</div>
+		
+
+		<div class="row">
+			<div class="col-md-1">
+				<div class="form-group" style="text-align: right">
+					<label>4.</label>
+				</div>
+			</div>
+			<div class="col-md-5">
+				<div class="form-group">
+					<label>Nationality and Religion : </label>&nbsp;
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="form-group">
+				
+				<input name="nationalityAndReligion" id="stNatRel1" type="text" class="form-control"  ondrop="return false" ondrag="return false" autocomplete="off"
+									 placeholder="Enter Nationality and Religion" maxlength="100"   th:value="${stuTcVal!=null?stuTcVal.nationalityAndReligion:''}">
+									 
+									 
+				</div>
+			</div>
+		</div>
+		
+		
+		<div class="row">
+			<div class="col-md-1">
+				<div class="form-group" style="text-align: right">
+					<label>5.</label>
+				</div>
+			</div>
+			<div class="col-md-5">
+				<div class="form-group">
+					<label>Whether Candidate Belongs to SC/ST/OBC: </label>&nbsp;
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="form-group">
+				
+				<input name="studentCast" id="stCasSubC1" type="text" class="form-control"  ondrop="return false" ondrag="return false" autocomplete="off"
+									 placeholder="Enter Cast and SubCast" maxlength="20"  th:value="${stuTcVal!=null?stuTcVal.studentCast:''}">
+									 
+				</div>
+			</div>
+		</div>
+		
+		
+		<div class="row">
+			<div class="col-md-1">
+				<div class="form-group" style="text-align: right">
+					<label>6.</label>
+				</div>
+			</div>
+			<div class="col-md-5">
+				<div class="form-group">
+					<label>Date of Admission in the school with class : </label>&nbsp;
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="form-group">
+					<input class="form-control" type="text"
+						placeholder="Click Here To Show ADate Calander"
+						data-provide="datepicker" id="stDoaY1"
+						th:value="${(stuTcVal!=null &&  stuTcVal.dateOfAdmission!=null)?#dates.format(stuTcVal.dateOfAdmission, 'dd/MM/yyyy'):''}"
+						name="dateOfAdmissionStr" />
+				</div>
+			</div>
+		</div>
+		
+		
+		<div class="row">
+			<div class="col-md-1">
+				<div class="form-group" style="text-align: right">
+					<label>7.</label>
+				</div>
+			</div>
+			<div class="col-md-5">
+				<div class="form-group">
+					<label>Date of Birth(In Christian Era) according to Admission Register : </label>&nbsp;
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="form-group">
+
+					<input class="form-control" type="text"
+						placeholder="Click Here To Show DoB Calander"
+						data-provide="datepicker" id="stDob1"
+						th:value="${(stuTcVal!=null &&  stuTcVal.studentDob!=null)?#dates.format(stuTcVal.studentDob, 'dd/MM/yyyy'):''}"
+						name="studentDobStr"  />
+
+
+				</div>
+			</div>
+		</div>
+		
+		
+		<div class="row">
+			<div class="col-md-1">
+				<div class="form-group" style="text-align: right">
+					<label>8.</label>
+				</div>
+			</div>
+			<div class="col-md-5">
+				<div class="form-group">
+					<label> Class in which the student last studied/is studying : </label>&nbsp;
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="form-group">
+				
+				<input name="classOfLeaving" id="stCalAtL1" type="text" class="form-control"  ondrop="return false" ondrag="return false" autocomplete="off"
+									placeholder="Enter last studied/is studying" maxlength="100"  th:value="${stuTcVal!=null?stuTcVal.classOfLeaving:''}">
+									 
+				</div>
+			</div>
+		</div>
+		
+		
+		
+		<div class="row">
+			<div class="col-md-1">
+				<div class="form-group" style="text-align: right">
+					<label>9.</label>
+				</div>
+			</div>
+			<div class="col-md-5">
+				<div class="form-group">
+					<label> School/Board Annual Exams last taken with result : </label>&nbsp;
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="form-group">
+				
+				<input name="annualExamsLastTaken" id="annualExamsLastTakenId" type="text" class="form-control"  ondrop="return false" ondrag="return false" autocomplete="off"
+									placeholder="Enter Annual Exams last taken with result" maxlength="100" th:value="${stuTcVal!=null?stuTcVal.annualExamsLastTaken:''}">
+									 
+				</div>
+			</div>
+		</div>
+		
+		
+		<div class="row">
+			<div class="col-md-1">
+				<div class="form-group" style="text-align: right">
+					<label>10.</label>
+				</div>
+			</div>
+			<div class="col-md-5">
+				<div class="form-group">
+					<label> Whether failed.if so once/twice in same class : </label>&nbsp;
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="form-group">
+				
+				<input name="onceOrtwiceinSameClass" id="onceOrtwiceinSameClassId" type="text" class="form-control"  ondrop="return false" ondrag="return false" autocomplete="off"
+									placeholder="Enter once/twice in same class" maxlength="100" th:value="${stuTcVal!=null?stuTcVal.onceOrtwiceinSameClass:''}">
+									 
+				</div>
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="col-md-1">
+				<div class="form-group" style="text-align: right">
+					<label>11.</label>
+				</div>
+			</div>
+			<div class="col-md-2">
+				<div class="form-group">
+					<label> Subjects Studied : </label>&nbsp;
+				</div>
+			</div>
+			<div class="col-md-3">
+				<div class="form-group">
+				
+				<input name="subject1" id="subject1Id" type="text" class="form-control"  ondrop="return false" ondrag="return false" autocomplete="off"
+									placeholder="Enter Subject" maxlength="100"  th:value="${stuTcVal!=null?stuTcVal.subject1:''}">
+									 
+				</div>
+			</div>
+			<div class="col-md-3">
+				<div class="form-group">
+				
+				<input name="subject2" id="subject2Id" type="text" class="form-control"  ondrop="return false" ondrag="return false" autocomplete="off"
+									placeholder="Enter Subject" maxlength="100"  th:value="${stuTcVal!=null?stuTcVal.subject2:''}">
+									 
+				</div>
+			</div>
+			<div class="col-md-3">
+				<div class="form-group">
+				
+				<input name="subject3" id="subject3Id" type="text" class="form-control"  ondrop="return false" ondrag="return false" autocomplete="off"
+									placeholder="Enter Subject" maxlength="100" th:value="${stuTcVal!=null?stuTcVal.subject3:''}">
+									 
+				</div>
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="col-md-1">
+				<div class="form-group" style="text-align: right">
+				</div>
+			</div>
+			<div class="col-md-2">
+				<div class="form-group">
+				</div>
+			</div>
+			<div class="col-md-3">
+				<div class="form-group">
+				
+				<input name="subject4" id="subject4Id" type="text" class="form-control"  ondrop="return false" ondrag="return false" autocomplete="off"
+									placeholder="Enter Subject" maxlength="100"  th:value="${stuTcVal!=null?stuTcVal.subject4:''}">
+									 
+				</div>
+			</div>
+			<div class="col-md-3">
+				<div class="form-group">
+				
+				<input name="subject5" id="subject5Id" type="text" class="form-control"  ondrop="return false" ondrag="return false" autocomplete="off"
+									placeholder="Enter Subject" maxlength="100"  th:value="${stuTcVal!=null?stuTcVal.subject5:''}">
+									 
+				</div>
+			</div>
+			<div class="col-md-3">
+				<div class="form-group">
+				
+									 
+				</div>
+			</div>
+		</div>
+		
+		
+		
+		<div class="row">
+			<div class="col-md-1">
+				<div class="form-group" style="text-align: right">
+					<label>12.</label>
+				</div>
+			</div>
+			<div class="col-md-5">
+				<div class="form-group">
+					<label>Whether qualifier for promotion to higher class if so,which class : </label>&nbsp;
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="form-group">
+					<input name="qualifierforPromotiontoHigherClass" id="qualifierforPromotiontoHigherClassId" type="text" class="form-control"  ondrop="return false" ondrag="return false" autocomplete="off"
+									placeholder="Enter qualifier for promotion to higher class" maxlength="100"  th:value="${stuTcVal!=null?stuTcVal.qualifierforPromotiontoHigherClass:''}">
+				</div>
+			</div>
+		</div>
+		
+		
+		<div class="row">
+			<div class="col-md-1">
+				<div class="form-group" style="text-align: right">
+					<label>13.</label>
+				</div>
+			</div>
+			<div class="col-md-5">
+				<div class="form-group">
+					<label>Month upto which the student has paid school dues;paid upto : </label>&nbsp;
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="form-group">
+					<input name="paidSchoolDues" id="paidSchoolDuesId" type="text" class="form-control"  ondrop="return false" ondrag="return false" autocomplete="off"
+									placeholder="Enter student has paid school dues" maxlength="100"  th:value="${stuTcVal!=null?stuTcVal.paidSchoolDues:''}">
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-1">
+				<div class="form-group" style="text-align: right">
+					<label>14.</label>
+				</div>
+			</div>
+			<div class="col-md-5">
+				<div class="form-group">
+					<label>Any Fee Concession availed of; if so,the nature of such concession : </label>&nbsp;
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="form-group">
+					<input name="concessionAvailed" id="concessionAvailedId" type="text" class="form-control"  ondrop="return false" ondrag="return false" autocomplete="off"
+									placeholder="Enter Fee Concession availed" maxlength="100" th:value="${stuTcVal!=null?stuTcVal.concessionAvailed:''}">
+				</div>
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="col-md-1">
+				<div class="form-group" style="text-align: right">
+					<label>15.</label>
+				</div>
+			</div>
+			<div class="col-md-5">
+				<div class="form-group">
+					<label>Total No.of Working Days : </label>&nbsp;
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="form-group">
+					<input name="noOfWorkingDays" id="noOfWorkingDaysId" type="text" class="form-control"  ondrop="return false" ondrag="return false" autocomplete="off"
+									placeholder="Enter Total No.of Working Days" maxlength="100"  th:value="${stuTcVal!=null?stuTcVal.noOfWorkingDays:''}">
+				</div>
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="col-md-1">
+				<div class="form-group" style="text-align: right">
+					<label>16.</label>
+				</div>
+			</div>
+			<div class="col-md-5">
+				<div class="form-group">
+					<label>Total No.of Working Days Present : </label>&nbsp;
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="form-group">
+					<input name="noOfWorkingDaysPresent" id="noOfWorkingDaysPresentId" type="text" class="form-control"  ondrop="return false" ondrag="return false" autocomplete="off"
+									placeholder="Enter Total No.of Working Days Present" maxlength="100"  th:value="${stuTcVal!=null?stuTcVal.noOfWorkingDaysPresent:''}">
+				</div>
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="col-md-1">
+				<div class="form-group" style="text-align: right">
+					<label>17.</label>
+				</div>
+			</div>
+			<div class="col-md-5">
+				<div class="form-group">
+					<label>Co-curricular activities in which the student usually took part(mention achievements level there in) : </label>&nbsp;
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="form-group">
+					<input name="coCcurricularActivities" id="coCcurricularActivitiesId" type="text" class="form-control"  ondrop="return false" ondrag="return false" autocomplete="off"
+									placeholder="Enter Co-curricular activities" maxlength="100"  th:value="${stuTcVal!=null?stuTcVal.coCcurricularActivities:''}">
+				</div>
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="col-md-1">
+				<div class="form-group" style="text-align: right">
+					<label>18.</label>
+				</div>
+			</div>
+			<div class="col-md-5">
+				<div class="form-group">
+					<label>General Conduct : </label>&nbsp;
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="form-group">
+				
+				<input name="conduct" id="stCond1" type="text" class="form-control"  ondrop="return false" ondrag="return false" autocomplete="off"
+									 placeholder="Enter Student Conduct" maxlength="100"   th:value="${stuTcVal!=null?stuTcVal.conduct:''}">
+									 
+				</div>
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="col-md-1">
+				<div class="form-group" style="text-align: right">
+					<label>19.</label>
+				</div>
+			</div>
+			<div class="col-md-5">
+				<div class="form-group">
+					<label>Date of Applied of Transfer Certificate : </label>&nbsp;
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="form-group">
+					<input class="form-control" type="text"
+						placeholder="Click Here To Show Applied TDate Calander"
+						data-provide="datepicker" id="dateOfAppliedTransferCertificateStrId" name="dateOfAppliedTransferCertificateStr"
+						th:value="${(stuTcVal!=null &&  stuTcVal.dateOfAppliedTransferCertificate!=null)?#dates.format(stuTcVal.dateOfAppliedTransferCertificate, 'dd/MM/yyyy'):''}"
+						 />
+				</div>
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="col-md-1">
+				<div class="form-group" style="text-align: right">
+					<label>20.</label>
+				</div>
+			</div>
+			<div class="col-md-5">
+				<div class="form-group">
+					<label>Date of Issue of Transfer Certificate : </label>&nbsp;
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="form-group">
+					<input class="form-control" type="text"
+						placeholder="Click Here To Show Issue TDate Calander"
+						data-provide="datepicker" id="dateOfIssuTransferCertificateStrId" name="dateOfIssuTransferCertificateStr"
+						th:value="${(stuTcVal!=null &&  stuTcVal.dateOfIssuTransferCertificate!=null)?#dates.format(stuTcVal.dateOfIssuTransferCertificate, 'dd/MM/yyyy'):''}"
+						 />
+				</div>
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="col-md-1">
+				<div class="form-group" style="text-align: right">
+					<label>21.</label>
+				</div>
+			</div>
+			<div class="col-md-5">
+				<div class="form-group">
+					<label>Reason For Leaving the school : </label>&nbsp;
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="form-group">
+				
+				<input name="reasonForLeaving" id="reasonForLeavingId" type="text" class="form-control"  ondrop="return false" ondrag="return false" autocomplete="off"
+									 placeholder="Enter Reason For Leaving the school" maxlength="100"  th:value="${stuTcVal!=null?stuTcVal.reasonForLeaving:''}">
+									 
+				</div>
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="col-md-1">
+				<div class="form-group" style="text-align: right">
+					<label>22.</label>
+				</div>
+			</div>
+			<div class="col-md-5">
+				<div class="form-group">
+					<label>Any Other Remarks : </label>&nbsp;
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="form-group">
+				
+				<input name="anyOtherRemarks" id="anyOtherRemarksId" type="text" class="form-control"  ondrop="return false" ondrag="return false" autocomplete="off"
+									 placeholder="Enter Other Remarks" maxlength="100" th:value="${stuTcVal!=null?stuTcVal.anyOtherRemarks:''}">
+									 
+				</div>
+			</div>
+		</div>
+		
+
+	</div></form>
+	</body></html>

@@ -1,0 +1,1195 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<link
+	href="../assets/global/plugins/bootstrap-datepicker/css/bootstrap-datepicker3.min.css"
+	rel="stylesheet" type="text/css" />
+<script
+	src="../assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js"
+	type="text/javascript"></script>
+
+
+<link href="../assets/global/plugins/select2/css/select2.min.css"
+	rel="stylesheet" type="text/css" />
+<link
+	href="../assets/global/plugins/select2/css/select2-bootstrap.min.css"
+	rel="stylesheet" type="text/css" />
+
+</head>
+
+<script type="text/javascript">
+	var curTabCnt = 1;
+	$(document).ready(function() {
+		$(".button-previous,.button-submit").hide();
+		$("#tabId1").click();
+
+		$(".button-next").click(function() {
+				curTabCnt++;
+				$("#tabId" + curTabCnt).click();
+		});
+
+		$(".button-previous").click(function() {
+			curTabCnt--;
+			$("#tabId" + curTabCnt).click();
+		});
+
+		$('[id^="tabId"]').click(function() {
+			curTabCnt = this.id.substring(5);
+			if (curTabCnt == 1) {
+				$(".button-next").show();
+				$(".button-previous,.button-submit").hide();
+			} else if (curTabCnt == 4) {
+				$(".button-next").hide();
+				$(".button-previous,.button-submit").show();
+			} else {
+				$(".button-submit").hide();
+				$(".button-previous,.button-next").show();
+			}
+		})
+
+		$('.number').keyup(function(event) {
+			if (isNaN($(this).val())) {
+				showToastr("Please Enter Numericals", "error");
+				$(this).val('');
+			}
+		});
+
+	});
+
+	function validateTab(tabId) {
+		if (tabId == 1) {
+			document.getElementById("tabId2").className = "tab-pane active";
+			document.getElementById("tab2").className = "active";
+		} else if (tabId == 2) {
+			document.getElementById("tabId3").className = "tab-pane active";
+			document.getElementById("tab3").className = "active";
+		} else if (tabId == 3) {
+			document.getElementById("tabId4").className = "tab-pane active";
+			document.getElementById("tab4").className = "active";
+		} else if (tabId == 4) {
+			document.getElementById("tabId5").className = "tab-pane active";
+			document.getElementById("tab5").className = "active";
+		} else if (tabId == 5) {
+			document.getElementById("tabId6").className = "tab-pane active";
+			document.getElementById("tab6").className = "active";
+		} else if (tabId == 6) {
+		}
+	}
+</script>
+
+<body>
+
+	<form th:action="@{/application/saveApplicationInformation}"
+		id="submit_form" method="POST" onsubmit="return Verify();">
+		<input type="hidden" id="campusTypeid" />
+		<div class="row">
+
+			<div class="col-md-12">
+				<div class=" portlet-fit bordered card-1" style="padding: 20px">
+					<div class="row">
+						<div class="col-md-12">
+							<ul class="nav nav-tabs custom-tab-active">
+								<li><a id="tabId1" href="#tab1" data-toggle="tab"
+									class="step "> <span class="bold"> General </span>
+								</a></li>
+								<li><a id="tabId2" href="#tab2" data-toggle="tab"
+									class="step "> <span class="bold">Course </span>
+								</a></li>
+								<li><a id="tabId3" href="#tab3" data-toggle="tab"
+									class="step "> <span class="bold"> Study </span>
+								</a></li>
+								<!-- <li><a id="tabId4" href="#tab4" data-toggle="tab"
+									class="step"> <span class="bold"> Concession </span>
+								</a></li> -->
+								<li><a id="tabId4" href="#tab4" data-toggle="tab"
+									class="step active"> <span class="bold">Address </span>
+								</a></li>
+								<!-- <li><a id="tabId5" href="#tab5" data-toggle="tab"
+									class="step"> <span class="bold"> Payment </span>
+								</a></li> -->
+							</ul>
+							<div class="tab-content" style="height: 400px;">
+
+
+								<div class="alert alert-danger display-none">
+									<button class="close" data-dismiss="alert"></button>
+									You have some form errors. Please check below.
+								</div>
+								<div class="alert alert-success display-none">
+									<button class="close" data-dismiss="alert"></button>
+									Your form validation is successful!
+								</div>
+								<br>
+								<div class="tab-pane active" id="tab1">
+									<div class="row">
+										<div class="col-md-4">
+											<div class="form-group">
+												<label>Application No:</label> <input type="text"
+													readonly="readonly" id="appNoValId"
+													placeholder="Application No" maxlength="10"
+													class="form-control number" />
+											</div>
+										</div>
+										<div class="col-md-4">
+											<div class="form-group">
+												<label>Aadhaar Card No:</label> <input type="text"
+													name="aadharCardNo" id="aadharCardId"
+													placeholder="Aadhaar Card No" class="form-control number"
+													maxlength="16" />
+											</div>
+										</div>
+										<div class="col-md-4">
+											<div class="form-group">
+												<label>Date Of Birth:</label> <input type="text" id="dobId"
+													name="dobStr" readonly="readonly"
+													placeholder="Date Of Birth (dd-mm-yyyy)"
+													class="form-control placeholder-no-fix" />
+											</div>
+										</div>
+
+									</div>
+									<div class="row">
+										<div class="col-md-4">
+											<div class="form-group">
+												<label>Pro Name:</label> <input type="text" id="proNameId"
+													readonly="readonly" placeholder="Pro Name"
+													class="form-control" />
+											</div>
+										</div>
+										<div class="col-md-4">
+											<div class="form-group">
+												<label>App Type:</label> <input type="text" id="appTypeId"
+													placeholder="App Type" class="form-control"
+													readonly="readonly" value="CAMP" />
+											</div>
+										</div>
+										<div class="col-md-4">
+											<div class="form-group">
+												<label>App Fee:</label> <input type="text" id="appFeeId"
+													readonly="readonly" placeholder="App Fee"
+													class="form-control number" />
+											</div>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-md-4">
+											<div class="form-group">
+												<label>Surname:</label> <input type="text" id="surnameId"
+													name="surname" placeholder="Surname" class="form-control" />
+											</div>
+										</div>
+										<div class="col-md-4">
+											<div class="form-group">
+												<label>Student Name:</label> <input type="text" name="name"
+													id="studentNameId" placeholder="Student Name"
+													class="form-control" />
+											</div>
+										</div>
+										<div class="col-md-4">
+											<div class="form-group">
+												<label>Parent Name:</label> <input type="text"
+													name="fatherName" id="parentNameId"
+													placeholder="Parent Name" maxlength="15"
+													class="form-control" />
+											</div>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-md-4">
+											<div class="form-group">
+												<label>Gender:</label><br> <label class="radio-inline"><input
+													type="radio" id="rbMale" name="gender" value="M">Male</label>
+												<label class="radio-inline"><input type="radio"
+													id="rbFeMale" name="gender" value="F">Female</label>
+											</div>
+										</div>
+										<div class="col-md-4">
+											<div class="form-group">
+												<label>Phone Type:</label><br> <label
+													class="radio-inline"><input type="radio"
+													name="phoneType" id="rbMobile" value="M">Mobile</label>
+												<label class="radio-inline"><input type="radio"
+													id="rbPhone" name="phoneType" value="L">Landline</label>
+											</div>
+										</div>
+										<div class="col-md-4">
+											<div class="form-group">
+												<label>Phone Number:</label> <input type="text"
+													name="phoneNo" id="phoneNumberId"
+													placeholder="Phone Number" maxlength="10"
+													class="form-control number" />
+											</div>
+										</div>
+									</div>
+									<div class="row">
+
+
+										<div class="col-md-4" id="otherDivId"
+											style="visibility: hidden;">
+											<div class="form-group">
+												<label>Hall Ticket:</label> <input type="text"
+													name="sscHtno" id="txtschoolhtnumber" maxlength="10"
+													placeholder="Hallticket Number" class="form-control number" />
+											</div>
+										</div>
+										<div class="col-md-4">
+											<div class="form-group"></div>
+										</div>
+										<div class="col-md-4">
+											<div class="form-group"></div>
+										</div>
+									</div>
+								</div>
+								<div class="tab-pane" id="tab2">
+									<div class="row">
+										<div class="col-md-4">
+											<div class="form-group">
+												<label>Joined Campus:</label> <select class="form-control"
+													name="proposedCampus" id="ddlcampusName">
+													<option value="0">Select Join Into</option>
+
+												</select>
+											</div>
+										</div>
+										<div class="col-md-4">
+											<div class="form-group">
+												<label>City:</label> <input type="text" placeholder="City"
+													readonly="readonly" id="txtCityName" class="form-control" />
+											</div>
+										</div>
+										<div class="col-md-4">
+											<div class="form-group">
+												<label>Joined Into:</label> <select class="form-control"
+													id="ddlJoinedClass" name="studyClass">
+													<option value="0">Select Join Into</option>
+												</select>
+											</div>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-md-4">
+											<div class="form-group">
+												<label>Course:</label> <select class="form-control"
+													id="coursesListId" name="campusTrack">
+													<option value="0">Select Course</option>
+
+												</select>
+											</div>
+										</div>
+										<div class="col-md-4">
+											<div class="form-group">
+												<label>Course Batch:</label> <select class="form-control"
+													id="ddlBatch" name="courseBatchVal">
+													<option value="0">Select Batch</option>
+
+
+												</select>
+											</div>
+										</div>
+										<div class="col-md-4">
+											<div class="form-group">
+												<label>Course Dates:</label> <input type="text"
+													id="courseBatchDatesid" placeholder="Course Dates"
+													readonly="readonly" class="form-control" />
+											</div>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-md-4">
+											<div class="form-group">
+												<label>Fees:</label> <input type="text" placeholder="Fees"
+													readonly="readonly" id="txtCourseFee"
+													class="form-control number" />
+											</div>
+										</div>
+										<div class="col-md-4">
+											<div class="form-group">
+												<label>Additional Course Fee:</label> <input type="text"
+													id="txtadditionalCoursefee" name="additionalCourseFee"
+													placeholder="Additional Course Fee"
+													class="form-control number" />
+											</div>
+										</div>
+										<div class="col-md-4" id="messTypeId"
+											style="visibility: hidden;">
+											<div class="form-group">
+												<label>Mess Type:</label><br> <label
+													class="radio-inline"><input type="radio"
+													id="nonVegId" name="entry.messType" value="n">Non
+													Veg</label> <label class="radio-inline"><input type="radio"
+													name="entry.messType" id="vegId" value="v">Veg</label>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="tab-pane" id="tab3">
+									<div class="row">
+										<div class="col-md-4">
+											<div class="form-group">
+												<label>School State:</label> <select class="form-control"
+													name="schoolState" id="ddlSchoolStatesid">
+													<option value="0">Select State</option>
+
+												</select>
+											</div>
+										</div>
+										<div class="col-md-4">
+											<div class="form-group">
+												<label>School District:</label> <select id="ddlDistrictid"
+													name="schoolDisctrict" class="form-control"><option
+														value="0">Select School District</option>
+
+
+
+
+												</select>
+											</div>
+										</div>
+										<div class="col-md-4">
+											<div class="form-group">
+												<label></label>
+
+											</div>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-md-4">
+											<div class="form-group">
+												<label>School Type:</label> <select class="form-control"
+													name="schoolType" id="ddlSyllabusid">
+													<option value="0">Select Syllabus</option>
+
+												</select>
+											</div>
+										</div>
+										<div class="col-md-8">
+											<div class="form-group">
+												<label>School Name:</label> <input type="text"
+													id="autoSchoolId" placeholder="School Name"
+													class="form-control" /> <input type="hidden"
+													id="newSchoolId" name="schoolName">
+
+											</div>
+										</div>
+									</div>
+								</div>
+								<!-- <div class="tab-pane" id="tab4">
+									<div class="row">
+										<div class="col-md-4">
+											<div class="form-group">
+												<label>1st Year Concession:</label> <input type="text"
+													name="fyConcession" id="txt1ndCon"
+													placeholder="1st Year Concession"
+													class="form-control number" maxlength="6" />
+											</div>
+										</div>
+										<div class="col-md-4">
+											<div class="form-group">
+												<label>2nd Year Concession:</label> <input type="text"
+													name="syConcession" id="txt2ndCon"
+													placeholder="2nd Year Concession"
+													class="form-control number" maxlength="6" />
+											</div>
+										</div>
+										<div class="col-md-4">
+											<div class="form-group">
+												<label>3rd Year Concession:</label> <input type="text"
+													name="thirdConcession" id="txt3ndCon" disabled="disabled"
+													placeholder="3rd Year Concession"
+													class="form-control number" maxlength="6" />
+											</div>
+										</div>
+									</div>
+									<th:if test='${appVal.appType.equals("REG")}'>
+										<div class="row">
+											<div class="col-md-4">
+												<div class="form-group">
+													<label>Given By:</label> <input type="text"
+														id='autoEmployeeId1' class="form-control" />
+													<input type="hidden" id="emplyee_result1" name="givenBy">
+												</div>
+											</div>
+											<div class="col-md-4">
+												<div class="form-group">
+													<label></label>
+												</div>
+											</div>
+											<div class="col-md-4">
+												<div class="form-group">
+													<label></label>
+												</div>
+											</div>
+										</div>
+									</th:if>
+									<th:if test='${!appVal.appType.equals("REG")}'>
+										<div class="row">
+											<div class="col-md-4">
+												<div class="form-group">
+													<label>Given By:</label> <input type="text"
+														class="form-control" id="txtGivenBy" disabled="disabled" />
+												</div>
+											</div>
+											<div class="col-md-4">
+												<div class="form-group">
+													<label>Description:</label> <input type="text"
+														id="txtdescriptionreason" placeholder="Description"
+														class="form-control" name="concessiondescription" />
+												</div>
+											</div>
+											<div class="col-md-4">
+												<div class="form-group">
+													<label>Authorized By:</label> <input type="text"
+														id="autoEmployeeId" placeholder="Authorized By"
+														class="form-control" /> <input type="hidden"
+														id="emplyee_result" name="authorizedBy">
+
+												</div>
+											</div>
+										</div>
+									</th:if>
+
+
+
+									<div class="row">
+										<div class="col-md-4" id="concesionWrittenonAppId">
+											<label class="checkbox-inline"> <input
+												id="conwrritenid" type="checkbox"
+												onclick="concesionWrittenonApp()">Concession Written
+												On Application
+											</label>
+										</div>
+									</div>
+									<div class="clearfix" style="margin-bottom: 15px"></div>
+									<div class="row">
+										<div class="col-md-4">
+											<div class="form-group">
+												<label>1st Year Concession:</label> <input type="text"
+													id="txt1stConapp" placeholder="1st Year Concession"
+													class="form-control number" name="firstConOnApp" />
+											</div>
+										</div>
+										<div class="col-md-4">
+											<div class="form-group">
+												<label>2nd Year Concession:</label> <input type="text"
+													id="txt2ndConapp" placeholder="2nd Year Concession"
+													class="form-control number" name="secondConOnApp" />
+											</div>
+										</div>
+										<div class="col-md-4">
+											<div class="form-group">
+												<label>3rd Year Concession:</label> <input type="text"
+													id="txt3ndConapp" placeholder="3rd Year Concession"
+													disabled="disabled" class="form-control number"
+													name="thirdConOnApp" />
+											</div>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-md-4">
+											<div class="form-group">
+												<label>Reason</label> <select class="form-control"
+													name="concessionReason" id="ddlreason">
+													<option value="0">Select Reason</option>
+												</select>
+
+											</div>
+										</div>
+										<div class="col-md-4" id="showRefferelId"
+											style="display: none;">
+											<div class="form-group">
+												<label>Referral Employee</label> <input type="text"
+													id="autoRefeEmployeeId" placeholder="Authorized By"
+													class="form-control" /> <input type="hidden"
+													id="emplyee_result4" name="autoReferelEmpId">
+
+											</div>
+										</div>
+									</div>
+									<div class="row" id="showTalenDetailsId" style="display: none;">
+										<div class="col-md-4">
+											<div class="form-group">
+												<label>Based On</label> <select class="form-control"
+													name="basedOn" id="basedOnId">
+													<option value="0">Select Type</option>
+
+
+
+												</select>
+
+											</div>
+										</div>
+										<div class="col-md-4" id="showTalenDetailsId2">
+											<div class="form-group">
+												<label>10TH Marks</label> <input type="text"
+													id="tenthMarksId" name="tenthMarks" maxlength="4"
+													class="form-control" />
+
+
+											</div>
+										</div>
+										<div class="col-md-4" id="showTalenDetailsId1">
+											<div class="form-group">
+												<label>Admission Test Marks </label> <input type="text"
+													id="talentTestMarksId" name="talentTestMarks" maxlength="4"
+													class="form-control" />
+
+
+											</div>
+										</div>
+									</div>
+								</div> -->
+								<div class="tab-pane" id="tab4">
+									<div class="row">
+										<div class="col-md-4">
+											<div class="form-group">
+												<label>Door Number:</label> <input type="text"
+													name="commDno" id="addressDnoId" placeholder="Door Number"
+													class="form-control" />
+											</div>
+										</div>
+										<div class="col-md-4">
+											<div class="form-group">
+												<label>Street:</label> <input type="text" id="txtcommStreet"
+													name="commStreet" placeholder="Street" class="form-control" />
+											</div>
+										</div>
+										<div class="col-md-4">
+											<div class="form-group">
+												<label>Landmark:</label> <input type="text" id="txtcommLand"
+													name="commLand" placeholder="Lankmark" class="form-control" />
+											</div>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-md-4">
+											<div class="form-group">
+												<label>Area:</label> <input type="text" placeholder="Area"
+													name="commArea" id="txtcommArea" class="form-control" />
+											</div>
+										</div>
+										<div class="col-md-8">
+											<div class="form-group">
+												<label>Pin Code:</label> <input type="text" id="txtpinCode"
+													placeholder="Pincode" class="form-control"
+													ondrop="return false" ondrag="return false"
+													autocomplete="off" /> <input type="hidden"
+													id="address1_result" name="commPinCodeId">
+											</div>
+										</div>
+									</div>
+									<div id="appPincodeId">
+										<div th:replace="myTheme1/appSales/appPincode"></div>
+									</div>
+
+
+								</div>
+								<!-- <div class="tab-pane" id="tab6">
+									<div class="row">
+										<div class="col-md-12">
+
+											<div class="form-group form-md-line-input">
+												<label class="col-md-3 control-label bold"
+													for="form_control_1">Pay mode</label>
+												<div class="col-md-9">
+													<div class="md-radio-inline">
+														<div class="md-radio">
+															<input type="radio" id="raPROCashId" class="md-radiobtn"
+																checked value="CASH" name="payments[0].payMode">
+															<label for="raPROCashId"> <span></span> <span
+																class="check"></span> <span class="box "></span> Cash
+															</label>
+														</div>
+														<div class="md-radio ">
+															<input type="radio" id="raPRODDId" class="md-radiobtn"
+																value="DD" name="payments[0].payMode">
+															<label for="raPRODDId"> <span></span> <span
+																class="check"></span> <span class="box "></span> DD
+															</label>
+														</div>
+														<div class="md-radio">
+															<input type="radio" id="raPROChequeId"
+																class="md-radiobtn" value="CHEQUE"
+																name="payments[0].payMode"> <label
+																for="raPROChequeId"> <span></span> <span
+																class="check"></span> <span class="box "></span> Cheque
+															</label>
+														</div>
+														<div class="md-radio">
+															<input type="radio" id="raPROCardId" class="md-radiobtn"
+																value="CARD" name="payments[0].payMode"> <label
+																for="raPROCardId"> <span></span> <span
+																class="check"></span> <span class="box "></span> Card
+															</label>
+														</div>
+														<div class="md-radio">
+															<input type="radio" id="raPROSelCardId"
+																class="md-radiobtn" value="PROCARD"
+																name="payments[0].payMode"> <label
+																for="raPROSelCardId"> <span></span> <span
+																class="check"></span> <span class="box "></span> ProCard
+															</label>
+														</div>
+													</div>
+												</div>
+											</div>
+
+										</div>
+										<div class="col-md-6">
+
+											<div class="form-group">
+												<label class="col-md-6 control-label" for="form_control_1">Payment
+													date</label>
+												<div class="col-md-6">
+													<input type="text" id="dtpPROPaymentDateId"
+														name="payments[0].payDateStr" readonly="readonly"
+														placeholder="dd-mm-yyyy"
+														class="form-control placeholder-no-fix" />
+												</div>
+											</div>
+											<div class="form-group">
+												<label class="col-md-6 control-label" for="form_control_1">Amount</label>
+												<div class="col-md-6">
+													<input type="text" id="txtPROAmountId"
+														class="form-control number" name="payments[0].amount"
+														ondrop="return false" ondrag="return false"
+														autocomplete="off" maxlength="5">
+												</div>
+											</div>
+											<div class="form-group">
+												<label class="col-md-6 control-label" for="form_control_1">Pre
+													Printed Receipt No.</label>
+												<div class="col-md-6">
+													<input id="txtPROPrePrintedReceiptId" type="text"
+														class="form-control number" ondrop="return false"
+														ondrag="return false" autocomplete="off"
+														name="payments[0].prePrintedReceiptNo">
+												</div>
+											</div>
+										</div>
+										<div class="col-md-6" id="ddChequeAppAmountId"
+											style="display: none;">
+											<div style="padding: 10px 20px; background: #f1f1f170">
+
+												<div class="form-group">
+													<label class="col-md-6 control-label" for="form_control_1">Bank
+														Name</label>
+													<div class="col-md-6">
+														<input id="txtPRODDBankNameId" type="text"
+															class="form-control" name="payments[0].bankName">
+													</div>
+												</div>
+												<div class="form-group">
+													<label class="col-md-6 control-label" for="form_control_1">Branch
+														Name</label>
+													<div class="col-md-6">
+														<input id="txtPRODDBranchNameId" type="text"
+															class="form-control" name="payments[0].branchName">
+													</div>
+												</div>
+												<div class="form-group">
+													<label class="col-md-6 control-label" for="form_control_1">City
+														Name</label>
+													<div class="col-md-6">
+														<input id="txtPRODDCityNameId" type="text"
+															class="form-control" name="payments[0].cityName">
+													</div>
+												</div>
+												<div class="form-group">
+													<label class="col-md-6 control-label" for="form_control_1">DD/Cheque
+														Number</label>
+													<div class="col-md-6">
+
+														<input id="txtPRODDNumberId" type="text"
+															class="form-control" name="payments[0].ddNumber">
+
+													</div>
+												</div>
+												<div class="form-group">
+													<label class="col-md-6 control-label" for="form_control_1">DD/Cheque
+														Date</label>
+													<div class="col-md-6">
+
+														<input type="text" id="dtpPRODDDateId"
+															name="payments[0].ddDateStr" readonly="readonly"
+															placeholder="dd-mm-yyyy"
+															class="form-control placeholder-no-fix" />
+
+													</div>
+												</div>
+
+												<div class="form-group">
+													<label class="col-md-6 control-label" for="form_control_1">Favorable
+														of</label>
+													<div class="col-md-6">
+														<select class="form-control" name="appCardBankAccountOrg"
+															id="bankAccountVlaId">
+															<option value="-1">Select Type</option>
+														</select>
+													</div>
+												</div>
+
+											</div>
+										</div>
+										<div class="col-md-6" id="cardAppAmountId"
+											style="display: none;">
+											<div style="padding: 10px 20px; background: #f1f1f170">
+												<div class="form-body">
+
+													<div class="form-group">
+														<label class="col-md-6 control-label" for="form_control_1">Appr
+															Code </label>
+														<div class="col-md-6">
+
+															<input type="text" class="form-control" maxlength="6"
+																name="payments[0].swipeApprNO">
+
+														</div>
+													</div>
+													<div class="form-group">
+														<label class="col-md-6 control-label" for="form_control_1">Swiping
+															Date</label>
+														<div class="col-md-6">
+
+															<input type="text" id="datepickerProSwipe"
+																name="payments[0].proSwipeDate" readonly="readonly"
+																placeholder="dd-mm-yyyy"
+																class="form-control placeholder-no-fix" />
+
+														</div>
+													</div>
+													<div class="form-group">
+														<label class="col-md-6 control-label" for="form_control_1">Invoice
+															No.</label>
+														<div class="col-md-6">
+
+															<input id="txtProInvoiceNo" type="text"
+																class="form-control" maxlength="6"
+																name="payments[0].proSwipeInvoiceNo">
+
+														</div>
+													</div>
+													<div class="form-group">
+														<label class="col-md-6 control-label" for="form_control_1">Merchant
+															ID</label>
+														<div class="col-md-6">
+
+															<select class="form-control" name="payments[0].swipeMId"
+																id="txtProMerchantId">
+																<option value="-1">Select Merchant Id</option>
+															</select>
+
+														</div>
+													</div>
+													<div class="form-group">
+														<label class="col-md-6 control-label" for="form_control_1">Terminal
+															ID</label>
+														<div class="col-md-2">
+															<input id="txtProTerminal1Id" type="text" maxlength="2"
+																class="form-control" name="payments[0].swipeTId1">
+														</div>
+														<div class="col-md-4">
+
+															<select id="txtProTerminalId" name="payments[0].swipeTId"
+																class="form-control">
+																<option value="-1">Select Terminal Id</option>
+
+															</select>
+
+														</div>
+
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="col-md-6" id="proCardAppAmountId"
+											style="display: none;">
+											<div style="padding: 10px 20px; background: #f1f1f170">
+												<div class="form-body">
+
+													<div class="form-group">
+														<label class="col-md-6 control-label" for="form_control_1">Appr
+															Code </label>
+														<div class="col-md-6">
+
+															<input id="txtProApprNo1" type="text"
+																class="form-control" maxlength="6"
+																name="payments[0].proSwipeApprNO">
+
+														</div>
+													</div>
+													<div class="form-group">
+														<label class="col-md-6 control-label" for="form_control_1">Swiping
+															Date</label>
+														<div class="col-md-6">
+
+															<input type="text" id="datepickerProSwipe1"
+																name="payments[0].proSelSwipeDate" readonly="readonly"
+																placeholder="dd-mm-yyyy"
+																class="form-control placeholder-no-fix" />
+
+														</div>
+													</div>
+													<div class="form-group">
+														<label class="col-md-6 control-label" for="form_control_1">Invoice
+															No.</label>
+														<div class="col-md-6">
+
+															<input id="txtProInvoiceNo1" type="text"
+																class="form-control" maxlength="6"
+																name="payments[0].proCardSwipeInvoiceNo">
+
+														</div>
+													</div>
+													<div class="form-group">
+														<label class="col-md-6 control-label" for="form_control_1">Pro
+															Employee</label>
+														<div class="col-md-6">
+															<input id='autoPosProEmp' type="text"
+																class="form-control" name="autoPosProEmp">
+															<input type="hidden" id="posemplyee_result" name="posEmp">
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+
+									<div class="row">
+										<div class="col-md-12">
+											<div class="form-group form-md-line-input">
+												<label class="col-md-3 control-label" for="form_control_1">Application
+													Fee Received</label>
+												<div class="col-md-9">
+													<div class="md-checkbox-inline">
+
+														<div class="md-checkbox">
+															<input type="checkbox" id="appFeechkid" class="md-check"
+																onclick="showAppFee()"> <label for="appFeechkid">
+																<span></span> <span class="check"></span> <span
+																class="box"></span> &nbsp;
+															</label>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+
+									<div class="row" id="appFeeShowId" style="display: none;">
+										<div class="col-md-12">
+
+											<div class="form-group form-md-line-input">
+												<label class="col-md-3 control-label bold"
+													for="form_control_1">Pay mode</label>
+												<div class="col-md-9">
+													<div class="md-radio-inline">
+														<div class="md-radio">
+															<input type="radio" id="raAppFeeCashId"
+																name="payment.payMode" class="md-radiobtn" value="CASH"
+																onclick="showAppFeePaymentDiv(this.value)"> <label
+																for="raAppFeeCashId"> <span></span> <span
+																class="check"></span> <span class="box "></span> Cash
+															</label>
+														</div>
+														<div class="md-radio ">
+															<input type="radio" id="raAppFeeDDId"
+																name="payment.payMode" class="md-radiobtn"
+																onclick="showAppFeePaymentDiv(this.value)" value="DD">
+															<label for="raAppFeeDDId"> <span></span> <span
+																class="check"></span> <span class="box "></span> DD
+															</label>
+														</div>
+														<div class="md-radio">
+															<input type="radio" id="raAppFeeChequeId"
+																name="payment.payMode" class="md-radiobtn"
+																onclick="showAppFeePaymentDiv(this.value)"
+																value="CHEQUE"> <label for="raAppFeeChequeId">
+																<span></span> <span class="check"></span> <span
+																class="box "></span> Cheque
+															</label>
+														</div>
+														<div class="md-radio">
+															<input type="radio" id="raAppFeeCardId"
+																name="payment.payMode" class="md-radiobtn"
+																onclick="showAppFeePaymentDiv(this.value)" value="CARD">
+															<label for="raAppFeeCardId"> <span></span> <span
+																class="check"></span> <span class="box "></span> Card
+															</label>
+														</div>
+														<div class="md-radio">
+															<input type="radio" id="raAppFeeProCardId"
+																name="payment.payMode" class="md-radiobtn"
+																onclick="showAppFeePaymentDiv(this.value)"
+																value="PROCARD"> <label for="raAppFeeProCardId">
+																<span></span> <span class="check"></span> <span
+																class="box "></span> ProCard
+															</label>
+														</div>
+													</div>
+												</div>
+											</div>
+
+										</div>
+										<div class="col-md-6">
+
+											<div class="form-group">
+												<label class="col-md-6 control-label" for="form_control_1">Application
+													Fee Pay date</label>
+												<div class="col-md-6">
+
+													<input type="text" id="dtpAppFeeDateId"
+														name="payment.payDateStr" readonly="readonly"
+														placeholder="dd-mm-yyyy"
+														class="form-control placeholder-no-fix" />
+												</div>
+											</div>
+											<div class="form-group">
+												<label class="col-md-6 control-label" for="form_control_1">Amount</label>
+												<div class="col-md-6">
+													<input id="txtAppFeeAmountId" type="text"
+														ondrop="return false" ondrag="return false"
+														autocomplete="off" class="form-control number"
+														name="payment.amount" maxlength="5">
+												</div>
+											</div>
+											<div class="form-group">
+												<label class="col-md-6 control-label" for="form_control_1">Pre
+													Printed Receipt No.</label>
+												<div class="col-md-6">
+													<input id="txtAppFeePrePrintedReceiptId" type="text"
+														ondrop="return false" ondrag="return false"
+														autocomplete="off" class="form-control number"
+														name="secondprePrintedReceiptNo">
+												</div>
+											</div>
+										</div>
+										<div class="col-md-6" id="ddChequeAppFeeAmountId"
+											style="display: none;">
+											<div style="padding: 10px 20px; background: #f1f1f170">
+
+												<div class="form-group">
+													<label class="col-md-6 control-label" for="form_control_1">Bank
+														Name</label>
+													<div class="col-md-6">
+														<input id="txtAppFeeDDBankNameId" type="text"
+															class="form-control" name="payment.bankName">
+													</div>
+												</div>
+												<div class="form-group">
+													<label class="col-md-6 control-label" for="form_control_1">Branch
+														Name</label>
+													<div class="col-md-6">
+														<input id="txtAppFeeDDBranchNameId" type="text"
+															class="form-control" name="payment.branchName">
+													</div>
+												</div>
+												<div class="form-group">
+													<label class="col-md-6 control-label" for="form_control_1">City
+														Name</label>
+													<div class="col-md-6">
+														<input id="txtAppFeeDDCityNameId" type="text"
+															class="form-control" name="payment.cityName">
+													</div>
+												</div>
+												<div class="form-group">
+													<label class="col-md-6 control-label" for="form_control_1">DD/Cheque
+														Number</label>
+													<div class="col-md-6">
+
+														<input id="txtAppFeeDDNumberId" type="text"
+															class="form-control" name="payment.ddNumber">
+
+													</div>
+												</div>
+												<div class="form-group">
+													<label class="col-md-6 control-label" for="form_control_1">DD/Cheque
+														Date</label>
+													<div class="col-md-6">
+
+														<input type="text" id="dtpAppeFeeDDDateId"
+															name="payment.ddDateStr" readonly="readonly"
+															placeholder="dd-mm-yyyy"
+															class="form-control placeholder-no-fix" />
+
+													</div>
+												</div>
+
+												<div class="form-group">
+													<label class="col-md-6 control-label" for="form_control_1">Favorable
+														of</label>
+													<div class="col-md-6">
+														<select class="form-control"
+															name="appFeeCardBankAccountOrg"
+															id="appFeeBankAccountVlaId">
+															<option value="-1">Select Type</option>
+															<option
+																th:each="campusOrganization: ${campusOrganizationList}"
+																th:value="${campusOrganization.id}"
+																th:text="${campusOrganization.organizationName}"></option>
+														</select>
+
+													</div>
+												</div>
+
+											</div>
+										</div>
+										<div class="col-md-6" id="cardAppFeeAmountId"
+											style="display: none;">
+											<div style="padding: 10px 20px; background: #f1f1f170">
+												<div class="form-body">
+
+													<div class="form-group">
+														<label class="col-md-6 control-label" for="form_control_1">Appr
+															Code </label>
+														<div class="col-md-6">
+
+															<input id="txtAppFeeApprNo" type="text"
+																class="form-control" maxlength="6"
+																name="payment.swipeApprNO">
+
+														</div>
+													</div>
+													<div class="form-group">
+														<label class="col-md-6 control-label" for="form_control_1">Swiping
+															Date</label>
+														<div class="col-md-6">
+
+															<input type="text" id="datepickerAppFeeSwipe"
+																name="payment.proSwipeDate" readonly="readonly"
+																placeholder="dd-mm-yyyy"
+																class="form-control placeholder-no-fix" />
+
+														</div>
+													</div>
+													<div class="form-group">
+														<label class="col-md-6 control-label" for="form_control_1">Invoice
+															No.</label>
+														<div class="col-md-6">
+
+															<input id="txtAppFeeInvoiceNo" type="text" maxlength="6"
+																class="form-control" name="payment.appFeeSwipeInvoiceNo">
+
+														</div>
+													</div>
+													<div class="form-group">
+														<label class="col-md-6 control-label" for="form_control_1">Merchant
+															ID</label>
+														<div class="col-md-6">
+
+															<select class="form-control" name="payment.swipeMId"
+																id="txtAppFeeMerchantId"
+																onchange="loadTerminalList(this.id)">
+																<option value="-1">Select Merchant Id</option>
+															</select>
+
+
+														</div>
+													</div>
+													<div class="form-group">
+														<label class="col-md-6 control-label" for="form_control_1">Terminal
+															ID</label>
+														<div class="col-md-2">
+															<input type="text" class="form-control" maxlength="2"
+																name="payment.swipeTId1" id="txtAppFeeTerminal1Id">
+														</div>
+														<div class="col-md-4">
+
+															<select id="txtAppFeeTerminalId" name="payment.swipeTId"
+																class="form-control">
+																<option value="-1">Select Terminal Id</option>
+															</select>
+														</div>
+
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="col-md-6" id="proCardAppFeeAmountId"
+											style="display: none;">
+											<div style="padding: 10px 20px; background: #f1f1f170">
+												<div class="form-body">
+
+													<div class="form-group">
+														<label class="col-md-6 control-label" for="form_control_1">Appr
+															Code </label>
+														<div class="col-md-6">
+
+															<input id="txtAppFeeApprNo1" type="text" maxlength="6"
+																class="form-control" name="payment.appFeeSwipeApprNO">
+
+														</div>
+													</div>
+													<div class="form-group">
+														<label class="col-md-6 control-label" for="form_control_1">Swiping
+															Date</label>
+														<div class="col-md-6">
+
+															<input type="text" id="datepickerAppFeeSwipe1"
+																name="payment.appFeeSwipeDate" readonly="readonly"
+																placeholder="dd-mm-yyyy"
+																class="form-control placeholder-no-fix" />
+
+														</div>
+													</div>
+													<div class="form-group">
+														<label class="col-md-6 control-label" for="form_control_1">Invoice
+															No.</label>
+														<div class="col-md-6">
+
+															<input id="txtAppFeeInvoiceNo1" type="text" maxlength="6"
+																class="form-control"
+																name="payment.appFeeCardSwipeInvoiceNo">
+
+														</div>
+													</div>
+													<div class="form-group">
+														<label class="col-md-6 control-label" for="form_control_1">Pro
+															Employee</label>
+														<div class="col-md-6">
+															<input id='autoPosProEmpId' type="text"
+																class="form-control" name="autoPosProEmpId">
+															<input type="hidden" id="appPosemplyee_result"
+																name="appPosEmp">
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div> -->
+							</div>
+							<!-- ----------------------------------TAB CONTENT-------------------------------------- -->
+						</div>
+						<div class="col-md-12"
+							style="border-top: 1px solid #ddd; padding-top: 15px">
+							<div class="form-actions" id="submitId">
+								<div class="row">
+									<div class="col-md-12">
+										<div class="pull-right">
+											<a href="javascript:;" class="btn default button-previous">
+												<i class="fa fa-long-arrow-left"></i> Previous
+											</a> <a href="javascript:;"
+												class="btn btn-outline green button-next"> Next <i
+												class="fa fa-long-arrow-right"></i>
+											</a>
+											<button class="btn green button-submit">
+												Submit <i class="fa fa-check"></i>
+											</button>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+
+	<div id="printId" style="display: none;"></div>
+
+
+</body>
+</html>

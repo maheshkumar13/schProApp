@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<script type="text/javascript">
+$('#testDateStrId').datepicker({
+	format : 'dd/mm/yyyy',
+	changeMonth : true,
+	changeYear : true,
+	autoClose : true,
+	clearBtn : true
+});
+</script>
+</head>
+<body>
+	<div class="portlet box green">
+		<div class="portlet-title">
+			<div class="caption">HALF YEARLY MARKS UPLOAD</div>
+		</div>
+	</div>
+	<form th:action="@{/student/uploadHalfYearlyMarksUpload}" id="formId"
+		method="post" enctype="multipart/form-data">
+		
+
+												 <div class="row">
+                                                 <div class="col-md-2">
+											<label>Study Class</label> <select class="form-control"
+												name="studyClass" id="studyClassId">
+												<option value="0">Select Class</option>
+												<option th:each="classVal: ${classList}"
+													th:value="${classVal.id}" th:text="${classVal.displayName}"></option>
+											</select>
+										</div>
+										
+										<div class="col-md-2">
+											<div class="clearfix"></div>
+											<a href="/halfYearlyUpload.xlsx"
+													class="lblalert" >  Sample Excel</a>
+										</div>
+										
+										</div>
+										<div class="row">
+										<div class="col-md-4">
+
+											<label>Upload File</label> <input type="file" id="uplodeFile" name="uploadFile">
+										</div>   
+										</div>
+											</form>
+										<div class="col-md-12"
+						style="border-top: 1px solid #ddd; padding-top: 15px">
+						<div class="form-actions" id="submitId">
+							<div class="row">
+								<div class="col-md-12">
+									<div class="pull-left">
+										<button 
+											class="btn green button-submit"
+											onclick="uploadFile()">
+											<span th:text="${'Upload File'}"></span> <i
+												class="fa fa-check"></i>
+										</button>
+										
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					
+
+</body>
+<script th:inline="javascript">
+	function uploadFile() {
+		var form = $('#formId')[0];
+		var data = new FormData(form);
+		$.ajax({
+			type : "post",
+			url : $("#formId").attr("action"),
+			data : data,
+			enctype : 'multipart/form-data',
+			processData : false,
+			contentType : false,
+			success : function(data) {
+				if(data.toString().indexOf("FEEDBACK-1")!=-1) {
+					showToastr("Successfully Uploaded!!!", "success");
+					showPage('/student/showUploadTestMarks',false);
+				} else {
+					alert(data);
+				}
+			},
+			error : function() {
+				alert('Error occured');
+			}
+		});
+	}
+</script>
+</html>

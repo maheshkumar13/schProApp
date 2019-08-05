@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<title>Half Yearly</title>
+
+<link th:href="@{/assets/global/plugins/tables/table.css}"
+	rel="stylesheet" type="text/css" />
+
+
+
+<script type="text/javascript">
+	$(function() {
+		$('button[type="button"]')
+				.click(
+						function() {
+							//	document.getElementById('printId').style.display = "none";
+							var pageTitle = 'Page Title', stylesheet = '/assets/global/plugins/bootstrap/css/bootstrap.min.css', stylesheet1 = '/assets/global/plugins/tables/table.css', stylesheet2 = '/assets/global/css/components.min.css', win = window
+									.open('', 'Print', 'width=1024,height=300');
+							win.document
+									.write('<html><head><title>'
+											+ pageTitle
+											+ '</title>'
+											+ '<link rel="stylesheet" href="' + stylesheet + '">'
+											+ '<link rel="stylesheet" href="' + stylesheet1 + '">'
+											+ '<link rel="stylesheet" href="' + stylesheet2 + '">'
+											+ '</head><body>'
+											+ $('#resultId')[0].outerHTML
+											+ '</body></html>');
+							win.document.close();
+							document.getElementById('printId').style.display = "visible";
+							//win.print();
+							// win.close();
+							return false;
+						});
+	});
+
+	function getResult() {
+
+		var classId = document.getElementById("studyClassId").value;
+		var sectionVal = document.getElementById("sectionValId").value;
+
+		if ($("select#subjectId").val() == 0) {
+			showToastr("Please select subject", "error");
+			$("#subjectId").focus();
+			return false;
+		} else if (document.getElementById("studyClassId").selectedIndex == 0) {
+			showToastr("Please Select class year", "error");
+			document.getElementById("studyClassId").focus();
+			return false;
+		} else {
+			$.ajax({
+				type : "GET",
+				url : "/report/getFinalyearly",
+				data : {
+					classId : classId,
+					section : sectionVal,
+					subject : $("select#subjectId").val()
+				},
+				success : function(data) {
+					$('#resultId').html(data);
+
+				},
+				error : function(jqXHR, exception, textStatus) {
+					alert('Uncaught Error.\n' + jqXHR.responseText);
+				},
+			});
+		}
+	}
+
+	function getClassWiseSections() {
+		if ($("select#studyClassId").val() == 0) {
+			alert("Please select join study class");
+			$("#studyClassId").focus();
+			return false;
+		} else {
+			$.ajax({
+				type : "GET",
+				url : "/student/getClassWiseSections",
+				data : {
+					studyClass : $("select#studyClassId").val()
+				},
+				success : function(data) {
+
+					var select = $('#sectionValId');
+					select.find('option').remove();
+					$.each(data, function(key, value) {
+						$('<option>').val(key).text(value).appendTo(select);
+					});
+				}
+			});
+		}
+
+	}
+</script>
+
+
+</head>
+<body>
+
+
+	<div class="row">
+
+
+		<div class="col-md-8">
+			<label>Subject Name</label> <select class="form-control"
+				name="subject" id="subjectId">
+				<option value="0">Select Subject</option>
+				<option th:each="subVal: ${subList}" th:value="${subVal.id}"
+					th:text="${subVal.subjectName}"></option>
+			</select>
+		</div>
+		<div class="col-md-4"></div>
+		<div class="col-md-8">
+			<label>Study Class</label> <select class="form-control"
+				name="studyClass" id="studyClassId"
+				onchange="getClassWiseSections();">
+				<option value="0">Select Class</option>
+				<option th:each="classVal: ${classList}" th:value="${classVal.id}"
+					th:text="${classVal.displayName}"></option>
+			</select>
+
+
+		</div>
+		<div class="col-md-4"></div>
+		<div class="col-md-8">
+			<label>Study Section</label> <select class="form-control"
+				name="sectionVal" id="sectionValId">
+				<option value="0">Select Section</option>
+				<option th:each="classSection: ${classSectionList}"
+					th:value="${classSection.id}" th:text="${classSection.sectionName}"></option>
+			</select>
+
+
+		</div>
+		<div class="col-md-4"></div>
+		<div class="col-md-8">
+			<div class="clearfix" style="padding-top: 26px">
+				<button class="btn btn-pri-sm" onclick="getResult()">Result</button>
+			</div>
+		</div>
+		<div class="col-md-4"></div>
+	</div>
+
+	<div id="resultId"></div>
+
+
+</body>
+</html>

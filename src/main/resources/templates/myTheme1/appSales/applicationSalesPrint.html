@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="keywords" content="">
+<meta name="author" content="">
+<title>Print</title>
+<link
+	th:href="@{/assets/global/plugins/bootstrap/css/bootstrap.min.css}"
+	rel="stylesheet" type="text/css" />
+<style>
+.table-custom {
+	width: 100%;
+	font-size: 12px;
+	text-transform: uppercase
+}
+
+.table-custom td {
+	padding: 7px
+}
+
+.sign {
+	border-top: 1px solid #000;
+	padding: 5px 20px;
+	display: block;
+	margin-top: 5px
+}
+
+.sign-img {
+	max-height: 24px !important;
+}
+
+hr {
+	border-color: #000;
+	margin: 7px 0;
+}
+
+thead, td, th {
+	border-color: #000 !important
+}
+
+th {
+	border-top: 1px solid #000 !important;
+}
+
+.txtAdmit {
+	font-size: 18px;
+	font-weight: bold;
+	padding: 0 30px;
+	line-height: 35px;
+	margin: 0;
+	border: 1px solid #000;
+	border-radius: 40px;
+	margin-top: 10px;
+	margin-bottom: 30px;
+}
+
+.bold {
+	font-weight: bold
+}
+
+.line25 {
+	line-height: 20px
+}
+
+label {
+	display: inline-block;
+	max-width: 100%;
+	margin-bottom: 0 !important;
+	font-weight: 700;
+}
+
+.table {
+	font-size: 12px;
+}
+
+@media print {
+	button {
+		visibility: hidden
+	}
+	body {
+		margin: 40px 0;
+		font-size: 14px
+	}
+	@page {
+		margin: 0 40px;
+	}
+	.table-custom td {
+		padding: 5px 7px
+	}
+}
+</style>
+
+
+
+
+</head>
+
+<body>
+	<div id="customers">
+		<div class="container">
+		
+		
+		
+		<div th:each="transaction,transactionVar:${traList}">
+		
+		<table align="center">
+		<tr style="text-align: center;">
+			<td colspan="6" align="center"><table width="100%" border="0" >
+					<tr >
+						<td width="13%" height="72"><img
+							src="/assets/logo_scil1.png" width="58" height="53" />
+						</td>
+						<td width="87%" ><div
+								style="font: normal 22px/24px impact; color: #000000; padding: 2px;">
+								SRI CHAITANYA JUNIOR KALASALA</div>
+
+							<div
+								style="font: bold 12px/14px verdana; color: #000000; padding: 2px;">
+								HYDERABAD</div>
+						</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+		</table>
+		
+			<div class="row">
+				<div class="col-md-12">
+					
+						<div >
+							<div align="center">
+							<h3><p th:value="${(transaction.student!=null && transaction.student.schoolName!=null)?transaction.student.schoolName:''}" /></h3>
+								
+							</div>
+						</div>
+						
+						
+				</div>
+				<div class="col-md-12">
+					<div
+						style="width: 100%; height: auto; padding: 5px; margin-bottom: 10px; border-top: 1px solid #666666; border-bottom: 1px solid #666666;">
+						<label><p th:text="${'Receipt No: '+transaction.manualReceipt}" /></label> <label class="pull-right">
+							<p th:text="${'Date: '+#dates.format(new java.util.Date(), 'dd-MM-yyyy hh:mm:ss')}"></p></label>
+					</div>
+				</div>
+
+
+				<div class="clearfix" style="margin-bottom: 10px"></div>
+				<div class="col-xs-6">
+					<table class="table-custom">
+						<tr>
+							<td style="width: 35%">Admn.No</td>
+							<td style="width: 5%">:</td>
+							<td style="width: 60%"><p th:text="${(transaction.student!=null && transaction.student.studentNo!=null)?transaction.student.studentNo:''}"></p></td>
+						</tr>
+						<tr>
+							<td>Student Name</td>
+							<td>:</td>
+							<td><p th:text="${(transaction.student!=null && transaction.student.surName!=null && transaction.student.name!=null)?(transaction.student.surName.substring(0,1)+' '+transaction.student.name):''}"></p></td>
+						</tr>
+						<tr>
+							<td>Class</td>
+							<td>:</td>
+							<td>
+								<p th:text="${(transaction.student!=null && transaction.student.classId!=null)?transaction.student.classId.displayName:''}"></p>
+							</td>
+						</tr>
+					</table>
+				</div>
+				<div class="col-xs-6">
+					<table class="table-custom">
+						<tr>
+							<td style="width: 30%">School Name</td>
+							<td style="width: 10%">:</td>
+							<td style="width: 60%"><p th:text="${(transaction.student!=null && transaction.student.schoolName!=null)?transaction.student.schoolName:''}"></p></td>
+						</tr>
+						<tr>
+							<td>S/o./D/o.</td>
+							<td>:</td>
+							<td><p th:text="${(transaction.student!=null && transaction.student.fatherName!=null)?transaction.student.fatherName:''}"></p></td>
+						</tr>
+												<tr>
+							<td>Sex</td>
+							<td>:</td>
+							<td><p th:text="${(transaction.student!=null && transaction.student.gender!=null)?transaction.student.gender:''}"></p></td>
+						</tr>
+						
+					</table>
+				</div>
+
+				<div class="clearfix" style="margin-bottom: 20px"></div>
+
+					<table class="table table-bordered">
+						<thead>
+							<tr>
+								<th>Description of Product/Service</th>
+								<th>Pay Mode</th>
+								<th class="text-right">Total Amount</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td><p th:text="${transaction.manualReceipt+'/'+transaction.subHeadCode}"></p></td>
+								<td><p th:text="${transaction.payMode}"></p></td>
+								<td class="text-right"><p th:text="${#numbers.formatDecimal(transaction.amount, 0, 'DEFAULT', 2, 'DEFAULT')}"></p></td>
+							</tr>
+						</tbody>
+						<tfoot>
+							<tr>
+								<td colspan="2" class="bold">Total Amount</td>
+								<td class="text-right bold"><p th:text="${#numbers.formatDecimal(transaction.amount, 0, 'DEFAULT', 2, 'DEFAULT')}"></p></td>
+							</tr>
+							<tr>
+								<td colspan="3" class="text-center"><p th:text="${'Total Advance Received (In words) - '+transaction.amountInWords}"></p></td>
+							</tr>
+						</tfoot>
+					</table>
+				
+
+			</div>
+			
+			<div th:if="${transactionVar.index==0}">
+			<br/>
+				<br/>
+				<br/>
+				<br/>
+				<br/>
+				</div>
+			</div>
+			
+			
+			<button type="button" class="btn btn-default printMe">PRINT</button>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+		</div>
+	</div>
+
+	<script th:src="@{/assets/global/plugins/jquery.min.js}"
+		type="text/javascript"></script>
+	<script
+		th:src="@{/assets/global/plugins/bootstrap/js/bootstrap.min.js}"
+		type="text/javascript"></script>
+	<script>
+$('.printMe').click(function(){
+      window.print();
+});
+</script>
+</body>
+</html>

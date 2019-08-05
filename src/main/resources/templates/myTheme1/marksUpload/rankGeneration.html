@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<script type="text/javascript">
+	$('#testDateStrId').datepicker({
+		format : 'dd/mm/yyyy',
+		changeMonth : true,
+		changeYear : true,
+		autoClose : true,
+		clearBtn : true
+	});
+</script>
+</head>
+<body>
+	<div class="portlet box green">
+		<div class="portlet-title">
+			<div class="caption">Rank Generation</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-4">
+			<label>Test Name</label> <select class="form-control" name="testVal"
+				id="testValId">
+				<option value="0">Select Test</option>
+				<option th:each="testName: ${testList}" th:value="${testName.id}"
+					th:text="${testName.name}"></option>
+			</select>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-md-4">
+			<label>Study Class</label> <select class="form-control"
+				name="studyClass" id="studyClassId" onchange="getRankGeneration()">
+				<option value="0">Select Class</option>
+				<option th:each="classVal: ${classList}" th:value="${classVal.id}"
+					th:text="${classVal.displayName}"></option>
+			</select>
+		</div>
+	</div>
+
+	<div id="rankGenrateInfoDivId"></div>
+
+
+</body>
+<script th:inline="javascript">
+	function getRankGeneration() {
+
+		var e = document.getElementById("testValId");
+		var testTypeVal = e.options[e.selectedIndex].text;
+
+		$.ajax({
+			type : "GET",
+			url : "/student/showPeriodicRankGeneration",
+			data : {
+				testTypeVal : testTypeVal,
+				studyClass : document.getElementById("studyClassId").value
+			},
+			success : function(data) {
+
+				$("#rankGenrateInfoDivId").show();
+				$('#rankGenrateInfoDivId').html(data);
+				if ($('#rankGenrateInfoDivId').is(":hidden")) {
+					$("#rankGenrateInfoDivId").show();
+				}
+
+			},
+			error : function(jqXHR, exception, textStatus) {
+				alert('Uncaught Error.\n' + jqXHR.responseText);
+			},
+		});
+
+	}
+
+	function getTestDetails(testVal) {
+
+		var e = document.getElementById("testValId");
+		var testVal = e.options[e.selectedIndex].text;
+		var urlVal = "";
+		//alert(testVal);
+		if (testVal.indexOf("Half Yearly")!=-1) {
+			urlVal = "/student/getHalfYearlyRankGeneration";
+		} else if (testVal.indexOf("Periodic")!=-1) {
+			urlVal = "/student/getPeriodicRankGeneration";
+		} else if (testVal.indexOf("Final Year")!=-1) {
+			urlVal = "/student/getFinalYearRankGeneration";
+		} else {
+			urlVal = "#";
+		}
+
+		var form = $('#formId')[0];
+		var data = new FormData(form);
+
+		$.ajax({
+			type : "GET",
+			url : urlVal,
+			data : {
+				testVal : document.getElementById("testValId").value,
+				studyClass : document.getElementById("studyClassId").value
+			},
+			success : function(data) {
+
+				if (data.indexOf("FEEDBACK-1") != -1) {
+					showToastr("Successfully Generated!!!", "success");
+					showPage('/student/showRankGeneration', false);
+				} else {
+					showToastr(data, "error");
+				}
+			},
+			error : function(jqXHR, exception, textStatus) {
+				alert('Uncaught Error.\n' + jqXHR.responseText);
+			},
+		});
+
+	}
+</script>
+</html>

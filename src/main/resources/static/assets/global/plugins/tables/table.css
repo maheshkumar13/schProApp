@@ -1,0 +1,22 @@
+.r-line { border-right:2px solid #666666 !important}
+
+.subject-bg1 {background:#FCF}
+.subject-bg2 { background:#DFFFBF}
+.subject-bg3 { background:#B8E3F8}
+.subject-bg4 { background:#E9E8BC}
+.subject-bg5 { background:#FFCC66}
+.subject-bg6 { background:#99CCCC}
+.fail-bg {color:#ffffff !important; background:#FF5E5E;}
+
+
+
+.table-bordered th,td {
+    font-size: 12px !important;
+    font-weight: bold;
+    padding: 6px 9px !important;
+    color: #47636B;
+	white-space:nowrap;
+}
+.table-bordered thead th {background: #0f5488!important; color: #f5f5f7!important; border-right: 2px solid #fff !important; font-size:12px}
+
+

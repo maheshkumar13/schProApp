@@ -1,0 +1,60 @@
+html, body {
+	height: 100%;
+	weight: 100%;
+}
+
+#mainDivId {
+	height: calc(100vh - 100px);
+	overflow-y: auto;
+	weight: 100%;
+}
+
+#leftDivId {
+	height: calc(100vh - 150px);
+}
+
+#rightDivId {
+	height: calc(100vh - 150px);
+	overflow-y: hidden;
+	weight: 100%;
+}
+
+#rightDivId:hover {
+	overflow-y: auto;
+}
+
+#firstPageId {
+	height: calc(100vh - 250px);
+	overflow-y: auto;
+	weight: 100%;
+}
+
+#secondPageId {
+	height: calc(100vh - 250px);
+	overflow-y: hidden;
+	weight: 100%;
+}
+
+#secondPageId:hover {
+	overflow-y: auto;
+}
+
+#secondPageContentId {
+	height: calc(100vh - 400px);
+	overflow-y: auto;
+	weight: 100%;
+}
+
+#previousBtnId, #nextBtnId {
+	background-color: #fff;
+	color: #252525;
+}
+
+#previousBtnId:hover, #nextBtnId:hover {
+	background-color: #0c7cd5;
+	color: #fff;
+}
+
+.btn {
+	padding: 6px 4px;
+}

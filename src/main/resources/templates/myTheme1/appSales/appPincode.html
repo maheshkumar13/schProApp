@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<body>
+
+<input type="hidden" th:value="${''}" id="pincodeState" />
+	<div class="row">
+							<div class="col-md-4">
+								<div class="form-group">
+									<label>District:</label> <input type="text"
+										id="ddlCityDistName" placeholder="District"
+										class="form-control" />
+								</div>
+							</div>
+							<div class="col-md-4">
+								<div class="form-group">
+									<label>Mandal:</label> 
+									
+										<select class="form-control" name="commMandal"
+															id="ddlMandalName" >
+															<option value="0">Select Mandal</option>
+															
+															</select>
+								</div>
+							</div>
+							<div class="col-md-4">
+								<div class="form-group">
+									<label>City:</label> 
+									
+										<select class="form-control" name="commCity"
+															id="ddlCityName" >
+															<option value="0">Select City</option>
+															
+															</select>
+								</div>
+							</div>
+						</div>
+</body>
+</html>

@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<script th:src="@{/assets/global/plugins/jquery.min.js}"
+	type="text/javascript"></script>
+
+<script th:src="@{/assets/global/plugins/jquery-ui.js}"
+	type="text/javascript"></script>
+<script th:src="@{/assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js}"
+	type="text/javascript"></script>
+	
+        
+<link rel="stylesheet" type="text/css"
+	th:href="@{/assets/global/plugins/bootstrap-datepicker/css/bootstrap-datepicker3.min.css}">
+<link rel="stylesheet" type="text/css"
+	th:href="@{/assets/global/plugins/jquery-multiselect-search/jquery.dropdown.min.css}">
+<script
+	th:src="@{/assets/global/plugins/jquery-multiselect-search/jquery.dropdown.min.js}"></script>
+<head>
+<meta charset="ISO-8859-1">
+<title>Employee Information</title>
+<style>
+.nav-tabs>li.active>a, .nav-tabs>li.active>a:focus, .nav-tabs>li.active>a:hover
+	{
+	border: none
+}
+
+.nav-tabs>li.active>a {
+	color: #ffffff
+}
+
+.nav-tabs>li.active>a:focus {
+	color: #ffffff
+}
+</style>
+<script type="text/javascript">
+	var minyear = (new Date().getFullYear()) - 52;
+	var maxyear = (new Date().getFullYear()) - 12;
+	var mindate = new Date(minyear, 0, 1);
+	var maxyear = new Date(maxyear, 11, 31);
+	
+	
+	$(document).ready(function () {
+        
+        $('#dobId').datepicker({
+            autoclose: true,
+            format: "dd/mm/yyyy"
+        }); 
+        
+        $('#dojId').datepicker({
+            autoclose: true,
+            format: "dd/mm/yyyy"
+        }); 
+    
+    });
+
+	$(document).ready(function() {
+		$('.number').keyup(function(event) {
+			if (isNaN($(this).val())) {
+				showToastr("Please Enter Numericals", "error");
+				$(this).val('');
+			}
+		});
+
+	});
+
+	function permsameaspre() {
+
+		if (document.getElementById("checkbox").checked == true) {
+			document.getElementById("pAddressId").value = document
+					.getElementById("perAddressId").value;
+		}
+
+	}
+
+	function getClassWiseSections() {
+		if ($("select#studyClassId").val() == 0) {
+			alert("Please select join study class");
+			$("#studyClassId").focus();
+			return false;
+		} else {
+			$.ajax({
+				type : "GET",
+				url : "/student/getClassWiseSections",
+				data : {
+					studyClass : $("select#studyClassId").val(),
+					academic : $("select#academicYearId").val()
+				},
+				success : function(data) {
+
+					var select = $('#sectionValId');
+					select.find('option').remove();
+					$.each(data, function(key, value) {
+						$('<option>').val(key).text(value).appendTo(select);
+					});
+				}
+			});
+		}
+
+	}
+
+	$('.jqueryDropSelection').dropdown({
+		input : '<input type="text" maxLength="20" placeholder="Search">',
+		searchNoData : '<li style="color:#ddd">No Results</li>'
+	});
+
+	function getPreSchooDiv() {
+		if (document.getElementById("experienceId").options[document
+				.getElementById("experienceId").selectedIndex].text == "0") {
+			$("#preSchoolNameId").attr('disabled', 'disabled');
+		} else {
+			$("#preSchoolNameId").removeAttr('readonly');
+		}
+	}
+
+	$(document).ready(
+			function() {
+				$("#autoEmployeeId").autocomplete({
+					minChars : 5,
+					source : function(request, response) {
+						$.ajax({
+							url : "/employee/autocompleteEmployee",
+							dataType : "json",
+							data : {
+								term : request.term,
+							},
+							success : function(data) {
+								response(data);
+							}
+						});
+					},
+					focus : function(event, ui) {
+						$("#autoEmployeeId").val(ui.item.value);
+						return false;
+					},
+					select : function(event, ui) {
+						$("#autoEmployeeId").val(ui.item.value);
+						$("#empManagerId").val(ui.item.key);
+
+						return false;
+					}
+				}).data("ui-autocomplete")._renderItem = function(ul, item) {
+					return $("<li>").append(
+							"<a>" + item.value + item.key + "</a>")
+							.appendTo(ul);
+				};
+			});
+</script>
+</head>
+<body>
+	<div class="row mahesh">
+		<div th:if="${employee!=null}"
+			th:class="${employee!=null?'col-md-3':''}">
+			<div class="student-thum">
+				<div class="row">
+					<div class="col-md-12">
+						<table class="student-table">
+							<tr>
+								<td colspan="2">
+								<div class="profile-userpic">
+								<img
+									th:src="@{/empImage/{imageName}(imageName=${employee!=null?employee.payRollId:'assets/layouts/layout4/img/s2.jpg'})}"
+									alt="" class="img-circle">
+								</div>
+									</td>
+							</tr>
+							<tr>
+								<td colspan="2" class="font-orange bold"><span
+									style="font-size: 13px; text-transform: capitalize;"
+									th:text="${employee.name}"></span></td>
+							</tr>
+							<tr>
+								<td colspan="2" class="t-11 bold">DOB<br> <span
+									style="color: #39F; font-size: 13px; text-transform: capitalize;"><span
+										th:value="${(employee!=null &&  employee.dob!=null)?#dates.format(employee.dob, 'dd/MM/yyyy'):''}"></span></span></td>
+							</tr>
+
+							<tr>
+								<td class="t-11 bold text-right" style="width: 50%">Payroll
+									Id :</td>
+								<td class="t-11 bold text-left" style="width: 50%"><span
+									th:text="${employee.payRollId}"></span></td>
+							</tr>
+							<tr>
+								<td class="t-11 bold text-right">Gender :</td>
+								<td class="t-11 bold text-left"><span
+									th:text="${employee.gender}"></span></td>
+							</tr>
+							<tr>
+								<td class="t-11 bold text-right">Subject :</td>
+								<td class="t-11 bold text-left"><span
+									th:text="${employee.subject}"></span></td>
+							</tr>
+							<tr>
+								<td class="t-11 bold text-right">Mobile No :</td>
+								<td class="t-11 bold text-left"><span
+									th:text="${employee.mobileNo}"></span></td>
+							</tr>
+							<tr>
+								<td class="t-11 bold text-right">DOJ :</td>
+								<td class="t-11 bold text-left"><span
+									th:value="${(employee!=null &&  employee.doj!=null)?#dates.format(employee.doj, 'dd/MM/yyyy'):''}"></span></td>
+							</tr>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div th:class="${employee!=null?'col-md-9':'col-md-12'}">
+			<div
+				style="position: absolute; top: 10px; right: 30px; cursor: pointer; z-index: 999"
+				id="btn-full" title="Full Screen">
+				<img src="assets/layouts/layout4/img/fullscreen.png" alt="">
+			</div>
+
+
+
+			<div class="portlet portlet-fit bordered card-1"
+				style="padding: 20px">
+				<div class="row">
+
+					<form th:action="@{/employee/addNewEmployee}" id="submit_form"
+						method="POST" enctype="multipart/form-data">
+
+						<div class="col-md-12">
+							<ul class="nav nav-tabs custom-tab-active">
+								<li class="active" id="tabLiId1"><a id="tabId1"
+									href="#tab1" data-toggle="tab">Information</a></li>
+
+							</ul>
+
+
+
+							<div class="tab-content">
+								<div class="tab-pane active in fade" id="tab1"
+									style="height: 350px">
+									<div class="row">
+
+										<div class="col-md-4" th:if="${employee!=null}">
+											<label>Employee Payroll</label><input name="payRollId"
+												id="payRollId"
+												th:value="${employee!=null?employee.payRollId:''}"
+												type="text" class="form-control" readonly="readonly">
+										</div>
+
+										<div class="col-md-4">
+											<label>Name</label><input name="userName"
+												th:value="${employee!=null?employee.userName:''}"
+												id="userNameId" type="text" class="form-control"
+												onChange="javascript:this.value=this.value.toUpperCase();">
+										</div>
+										<div class="col-md-4">
+											<label>Father Name</label><input name="surName"
+												id="surNameId"
+												th:value="${employee!=null?employee.surName:''}" type="text"
+												class="form-control"
+												onChange="javascript:this.value=this.value.toUpperCase();">
+										</div>
+										<div class="col-md-4">
+											<label>DOB</label> 
+											
+                                                    <input  class="form-control" type="text" placeholder="click to show datepicker"  id="dobId"
+                                                    name="dobStr"
+												th:value="${(employee!=null &&  employee.dob!=null)?#dates.format(employee.dob, 'dd/MM/yyyy'):''}">
+                                                    
+											
+											<!-- <input type="text" id="dobId"
+												name="dobStr"
+												th:value="${(employee!=null &&  employee.dob!=null)?#dates.format(employee.dob, 'dd/MM/yyyy'):''}"
+												placeholder="Date Of Birth (dd/mm/yyyy)"
+												class="form-control placeholder-no-fix" /> -->
+
+										</div>
+
+
+										<div class="col-md-4">
+											<label>MobileNo</label> <input name="mobileNo"
+												id="mobileNoId"
+												th:value="${employee!=null?employee.mobileNo:''}"
+												type="text" class="form-control number" maxlength="10">
+										</div>
+
+										<div class="col-md-4">
+											<label>Gender</label>
+											<div class="clearfix"></div>
+											<label class="radio-inline"><input type="radio"
+												id="rbMale" name="gender"
+												th:checked="${employee!=null && employee.gender=='M'}"
+												value="M">Male</label> <label class="radio-inline"><input
+												type="radio" id="rbFeMale" name="gender"
+												th:checked="${employee!=null && employee.gender=='F'}"
+												value="F">Female</label>
+										</div>
+
+
+
+
+										<div class="col-md-4">
+											<label>Employee Image</label> <input type="file"
+												name="empImgFile" id="fileNameId" /><br />
+											<br />
+										</div>
+
+										<div class="col-md-4">
+											<label>Aadhar No</label><input name="aadharNo"
+												id="aadharNoId" maxlength="12"
+												th:value="${employee!=null?employee.aadharNo:''}"
+												type="text" class="form-control number">
+										</div>
+										<div class="col-md-4">
+											<label>Subject</label>
+											<div class="jqueryDropSelection">
+												<select class="form-control" name="subject" id="subjectId"
+													multiple="multiple">
+													<option value="0">Select Subject</option>
+													<option th:each="subVal: ${subList}"
+														th:value="${subVal.subjectName}"
+														th:selected="${employee!=null &&  employee.subject!=null && employee.subject.contains(subVal.subjectName)}"
+														th:text="${subVal.subjectName}"></option>
+												</select>
+											</div>
+
+										</div>
+										<div class="col-md-4">
+											<label>DOJ</label> <input type="text" id="dojId"
+												name="dojStr"
+												th:value="${(employee!=null &&  employee.doj!=null)?#dates.format(employee.doj, 'dd/MM/yyyy'):''}"
+												placeholder="Date Of Joining (dd/MM/yyyy)"
+												class="form-control placeholder-no-fix" />
+
+										</div>
+
+
+										<div class="col-md-4">
+											<label>School Name</label><input name="schoolName"
+												id="schoolNameId"
+												th:value="${employee!=null?employee.schoolName:'B.S.F. Primary School, Kadamtala'}"
+												type="text" class="form-control" readonly="readonly">
+										</div>
+
+										<div class="col-md-4">
+											<label>Experience(Years)</label> <select class="form-control"
+												name="experience" id="experienceId" 
+												>
+												<option value="0">Select Experience</option>
+												<option value="0"
+													th:selected="${employee!=null &&  employee.experience!=null && employee.experience=='0'}">0</option>
+												<option value="1-2"
+													th:selected="${employee!=null &&  employee.experience!=null && employee.experience=='1-2'}">1-2</option>
+												<option value="3-5"
+													th:selected="${employee!=null &&  employee.experience!=null && employee.experience=='3-5'}">3-5</option>
+												<option value="5-10"
+													th:selected="${employee!=null &&  employee.experience!=null && employee.experience=='5-10'}">5-10</option>
+												<option value="11-20"
+													th:selected="${employee!=null &&  employee.experience!=null && employee.experience=='11-20'}">11-20</option>
+												<option value="20+"
+													th:selected="${employee!=null &&  employee.experience!=null && employee.experience=='20+'}">20+</option>
+											</select>
+										</div>
+
+
+										<div class="col-md-4">
+											<label>Prev. School Name</label> <input name="preSchoolName"
+												id="preSchoolNameId"
+												th:value="${employee!=null?employee.preSchoolName:''}"
+												type="text" class="form-control">
+
+										</div>
+										<div class="col-md-4" th:if="${employee==null}">
+											<label>Password</label> <input name="passWord"
+												id="passWordId" type="text" class="form-control"
+												maxlength="30">
+
+										</div>
+
+										<div class="col-md-4">
+											<label>Designation</label> <select class="form-control"
+												name="designation" id="designationId">
+												<option value="0">Select Designation</option>
+												<option value="Teacher"
+													th:selected="${employee!=null &&  employee.designation!=null && employee.designation=='Teacher'}">Teacher</option>
+												<option value="Class Teacher"
+													th:selected="${employee!=null &&  employee.designation!=null && employee.designation=='Class Teacher'}">Class
+													Teacher</option>
+												<option value="Teacher in Charge"
+													th:selected="${employee!=null &&  employee.designation!=null && employee.designation=='Teacher in Charge'}">Teacher
+													in Charge</option>
+												<option value="HeadMaster"
+													th:selected="${employee!=null &&  employee.designation!=null && employee.designation=='HeadMaster'}">HeadMaster</option>
+												<option value="Admin"
+													th:selected="${employee!=null &&  employee.designation!=null && employee.designation=='Admin'}">Admin</option>
+												<option value="Finance"
+													th:selected="${employee!=null &&  employee.designation!=null && employee.designation=='Finance'}">Finance</option>
+												<option value="Receptionist"
+													th:selected="${employee!=null &&  employee.designation!=null && employee.designation=='Receptionist'}">Receptionist</option>
+											</select>
+										</div>
+
+										<div class="col-md-8">
+											<label>Immediate Reporting Authority</label> <input
+												type="text" id="autoEmployeeId"
+												placeholder="Employee Name/Payroll ID" ondrop="return false"
+												ondrag="return false" autocomplete="off"
+												class="form-control"
+												th:value="${(employee!=null && employee.managerId!=null)?@currentUser.getEmpName(employee.managerId):''}">
+											<input type="hidden" id="empManagerId" name="empManager"
+												th:value="${(employee!=null && employee.managerId!=null)?employee.managerId:null}">
+
+
+										</div>
+
+
+
+
+									</div>
+								</div>
+
+								<div class="clearfix" style="margin-bottom: 10px"></div>
+
+							</div>
+
+						</div>
+
+
+					</form>
+					<div class="col-md-12"
+						style="border-top: 1px solid #ddd; padding-top: 15px">
+						<div class="form-actions" id="submitId">
+							<div class="row">
+								<div class="col-md-12">
+									<div class="pull-right">
+										<button class="btn green button-submit"
+											th:onclick="${employee!=null}?'updateEmployee(\'' + ${employee.employeeId} + '\');':'addNewemployee();'">
+											<span
+												th:text="${employee!=null?'UPDATE employee':'ADD EMPLOYEE'}"></span>
+											<i class="fa fa-check"></i>
+										</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+
+		</div>
+	</div>
+</body>
+</html>

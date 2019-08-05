@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+
+<style>
+.student-thum {
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.13), 0 2px 4px rgba(0, 0, 0, 0.18);
+	cursor: pointer;
+	background: #f9f9f9;
+	border-radius: 6px;
+	display: block;
+	overflow: hidden;
+	height: auto;
+	position: relative;
+	width: auto;
+	padding: 0;
+	text-align: center;
+	margin-bottom: 15px;
+}
+
+.student-table {
+	width: 100%
+}
+
+.student-table td {
+	padding: 10px 3px;
+	border-bottom: 1px dotted #999;
+}
+
+.student-table td:last-line {
+	padding: 10px 3px;
+	border-bottom: none;
+}
+
+.t-12 {
+	font-size: 12px;
+}
+
+.font-orange {
+	color: #ff6f61;
+}
+
+.student-thum img {
+	display: block;
+	text-align: center;
+	margin: auto;
+	margin-bottom: 10px;
+	margin-top: 10px;
+	border: 3px solid #cccccc
+}
+
+.table {
+	width: 100%;
+	margin-bottom: 0;
+}
+
+.dataTables_scrollHead {
+	border-bottom: none !important;
+}
+
+#sample_3_filter, #sample_3_length, #sample_3_paginate {
+	display: none
+}
+
+.dt-button {
+	display: none;
+}
+
+.m-b-15 {
+	margin-bottom: 15px;
+}
+
+.bg-active {
+	background: #b2e1ff80 !important;
+	color: #000 !important
+}
+
+.tab-content {
+	font-size: 12px
+}
+
+.tab-content .form-control {
+	margin-bottom: 10px;
+	height: 28px;
+	line-height: 28px;
+}
+
+.tab-content label {
+	display: inline-block;
+	margin-bottom: 2px;
+}
+
+.t-11 {
+	font-size: 11px
+}
+
+.txt-open {
+	color: #ffffff;
+	background: #6200ee;
+	text-align: center;
+	padding: 4px 15px;
+	border-radius: 2px !important;
+	font-weight: bold;
+	font-size: 12px;
+}
+
+.txt-close {
+	color: #ffffff;
+	background: #ff0266;
+	text-align: center;
+	padding: 4px 15px;
+	border-radius: 2px !important;
+	font-weight: bold;
+	font-size: 12px;
+}
+
+.form-control {
+	margin-bottom: 5px;
+}
+
+.form-control::-moz-placeholder {
+	color: #999;
+	opacity: 1;
+	font-size: 12px;
+}
+
+input, select {
+	font-size: 12px !important
+}
+</style>
+
+
+<!-- END THEME LAYOUT STYLES -->
+<link rel="shortcut icon" href="favicon.ico" />
+</head>
+<!-- END HEAD -->
+
+<body
+	class="page-container-bg-solid page-header-fixed page-sidebar-closed page-sidebar-fixed">
+	<!--<body class="page-container-bg-solid page-header-fixed page-sidebar-closed page-sidebar-fixed">-->
+	<!-- BEGIN CONTAINER -->
+	
+		<!-- BEGIN PAGE BASE CONTENT -->
+		<div class="row" id="anil">
+			<div class="col-md-12">
+				<div class="portlet light portlet-fit bordered calendar card-1">
+					<div class="portlet-title">
+						<div class="caption">
+							<span class="caption-subject">Admission
+								</span>
+						</div>
+					</div>
+					<div class="portlet-body">
+						<div class="row">
+							<div class="col-md-2">
+								<select name="" class="form-control" id="academicId">
+									<option value="0">Select Academic year</option>
+
+									<th:block th:each="academic:${academicList}">
+										<option th:value="${academic.id}"
+											th:text="${academic.academicYear}"></option>
+									</th:block>
+
+
+
+								</select>
+							</div>
+							<div class="col-md-2">
+								<input name="" type="text" class="form-control"
+									placeholder="Application No." id="txtAppnos" >
+							</div>
+							<div class="col-md-2">
+								<input name="" type="text" class="form-control"
+									placeholder="Student's name" id="txtStudentName" onChange="javascript:this.value=this.value.toUpperCase();">
+							</div>
+							
+							<div class="col-md-2">
+								<input name="" type="text" class="form-control"
+									placeholder="Parent's name" id="txtParentName" onChange="javascript:this.value=this.value.toUpperCase();">
+							</div>
+							<div class="col-md-2">
+								<input name="" type="text" class="form-control number"
+									placeholder="Mobile No" id="mobileNoSelId" >
+							</div>
+							<div class="col-md-2">
+								<button type="button" class="btn bg-grey-custom"
+									id="searchBtnId">Search</button>
+								<button type="button" class="btn bg-grey-custom"
+									id="addStudentId" onclick="addAppDetails()">New
+									</button>
+							</div>
+						</div>
+						<div class="clearfix m-b-15"></div>
+
+						<div id="studentsGridId"></div>
+
+
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+		<div id="studentInfoDivId"></div>
+		<div id="studentAddDivId"></div>
+
+<div id="printId" style="display: none;"></div>
+	
+	<!-- END CONTAINER -->
+	<script>
+ /*  $(function(){
+	  $(".data-table").hide()
+	  $(".mahesh").hide()
+	  $("#btn-search").click(function(){
+		  $(".data-table").show()		 
+		  })
+      $("#btn-mahesh").click(function(){
+		   $(".mahesh").show()	 
+		  })		  
+	  $("#btn-full").click(function(){
+		  $("#anil").toggle()
+		  })
+	  $(".btn-pri").click(function(){
+		  $("#anil").show()
+		  $(".mahesh").hide()
+		  })	  	  
+	  }) */
+	  
+	  
+		$(document).ready(function() {
+			$('.number').keyup(function(event) {
+				if (isNaN($(this).val())) {
+					showToastr("Please Enter Numericals", "error");
+					$(this).val('');
+				}
+			});
+			
+
+		});
+	  
+	  
+			$("#searchBtnId")
+					.click(
+							function() {
+								
+								
+								$("#studentInfoDivId").hide();
+								$("#studentAddDivId").hide(); 
+
+								var sb = null;
+								sb = document.getElementById("txtAppnos").value
+										.trim()
+										+ document.getElementById("mobileNoSelId").value
+												.trim()
+										+ document
+												.getElementById("txtStudentName").value
+												.trim()
+										+ document
+												.getElementById("txtParentName").value
+												.trim();
+
+								if (document.getElementById('academicId').selectedIndex== 0) {
+									alert("Please Select Academic Year");
+									$("#academicId").focus();
+									return false;
+								} else if (sb == "") {
+									alert("Please enter the any fileds");
+									document.getElementById("txtAppnos")
+											.focus();
+									return false;
+								} else if (isNaN(document
+										.getElementById("txtAppnos").value
+										.trim())) {
+									alert("Please Enter Numerics Only For Application No");
+									document.getElementById("txtAppnos").value = '';
+									document.getElementById("txtAppnos")
+											.focus();
+									return false;
+								}
+								if ($('#txtAppnos').val() != ""
+										&& ($('#txtAppnos').val().length < 7 || $('#txtAppnos').val().length > 7)) {
+									alert("Please enter full application no.");
+									if(document.getElementById("studentsGridId")!=null){
+										$('#studentsGridId').html('');	
+									}
+									
+									
+									document.getElementById("txtAppnos")
+											.focus();
+									return false;
+								} else {
+									$("#studentsGridId").show();
+									$
+											.ajax({
+												type : "GET",
+												url : "/student/searchStudent",
+												data : {
+													academic : $("#academicId").val(),
+													appNo : $("#txtAppnos")
+															.val(),
+													mobileNo : $("#mobileNoSelId")
+															.val(),
+													studentName : $(
+															"#txtStudentName")
+															.val(),
+													parentName : $(
+															"#txtParentName")
+															.val()
+												},
+												success : function(data) {
+													$("#studentsGridId").show();
+													$('#studentsGridId').html(
+															data);
+													$("#studentInfoDivId")
+															.slideUp();
+													$("#downId").show();
+												},
+												error : function(jqXHR,
+														exception, textStatus) {
+													alert('Uncaught Error.\n'
+															+ jqXHR.responseText);
+
+												},
+											});
+								}
+							});
+ 
+			$("#addStudentId")
+			.click(
+					function() {
+						
+						$("#studentsGridId").hide();
+						$("#studentInfoDivId").hide();
+						$("#studentAddDivId").show(); 
+
+						
+					});
+
+			function getAppDetails(appNo) {
+				$.ajax({
+					type : "GET",
+					url : "/student/getStudentInfo",
+					data : {
+						studentNo : appNo
+					},
+					success : function(data) {
+						$("#studentInfoDivId").show();
+						$('#studentInfoDivId').html(data);
+						if($('#studentInfoDivId').is(":hidden")){
+							$("#studentInfoDivId").show();
+						}
+						
+						if($('#downId').is(":hidden")){
+							$("#downId").show();
+						}
+						
+					},
+					error : function(jqXHR, exception, textStatus) {
+						alert('Uncaught Error.\n' + jqXHR.responseText);
+					},
+				});
+
+			}
+			
+			function addAppDetails() {
+				$.ajax({
+					type : "GET",
+					url : "/student/addStudentInfo",
+					success : function(data) {
+						$("#studentsGridId").hide();
+						$("#studentInfoDivId").hide();
+						$("#studentAddDivId").show();
+						$('#studentAddDivId').html(data);
+						if($('#studentAddDivId').is(":hidden")){
+							$("#studentAddDivId").show();
+						}
+						
+					},
+					error : function(jqXHR, exception, textStatus) {
+						alert('Uncaught Error.\n' + jqXHR.responseText);
+					},
+				});
+
+			}
+
+			$('.number').keyup(function(event) {
+				if (isNaN($(this).val())) {
+					showToastr("Please Enter Numericals", "error");
+					$(this).val('');
+				}
+			});
+			
+			function deleteStudent(admNo) {
+				
+				if (confirm("Do you want to Delete student with admission No "+admNo)) {
+					$.ajax({
+						type : "GET",
+						url : "/student/deleteStudent",
+						data : {
+							studentNo : admNo
+						},
+						success : function(data) {
+							
+							alert(data);
+							
+							$("#studentsGridId").hide();
+							$("#studentInfoDivId").hide();
+							$("#studentAddDivId").hide(); 
+							
+							document.getElementById("txtAppnos").value="";
+	                        document.getElementById("txtSurname").value="";
+							document.getElementById("txtStudentName").value="";
+							document.getElementById("txtParentName").value="";
+							
+							
+							
+						},
+						error : function(jqXHR, exception, textStatus) {
+							alert('Uncaught Error.\n' + jqXHR.responseText);
+						},
+					});
+					return false;
+				} else {
+					return false;
+				}
+			}
+				
+				
+			function addNewStudent() {
+				
+				  var x = document.getElementById("emailId").value;
+		      	    var atpos = x.indexOf("@");
+		      	    var dotpos = x.lastIndexOf(".");
+		      	    
+		      	    
+		      	  var file = document.getElementById('fileNameId');
+		  		var len=file.value.length;
+		  		var ext1=file.value;
+		  		var ext=ext1.toUpperCase();
+		      	    
+		      	    
+		      	    if (document.getElementById("academicYearId").selectedIndex == 0) {
+						showToastr("Please Select academic year","error");
+						document.getElementById("academicYearId").focus();
+						return false;
+					}else  if (document.getElementById("stuNameId").value == '') {
+						showToastr("Please Enter Student Name","error");
+						document.getElementById("stuNameId").focus();
+						return false;
+					}else  if (document.getElementById("parentNameId").value == '') {
+						showToastr("Please Enter Father Name","error");
+						document.getElementById("parentNameId").focus();
+						return false;
+					}else  if (document.getElementById("motherNameId").value == '') {
+						showToastr("Please Enter Mother Name","error");
+						document.getElementById("motherNameId").focus();
+						return false;
+					}else  if (document.getElementById("pOccupationId").value == '') {
+						showToastr("Please Enter Parent Occupation","error");
+						document.getElementById("pOccupationId").focus();
+						return false;
+					}else  if (document.getElementById("localGuardianId").value == '') {
+						showToastr("Please Enter Local Guardian","error");
+						document.getElementById("localGuardianId").focus();
+						return false;
+					}else  if (document.getElementById("castValId").selectedIndex == 0) {
+						showToastr("Please Select Cast","error");
+						document.getElementById("castValId").focus();
+						return false;
+					}else  if (document.getElementById("bloodGroupId").selectedIndex == 0) {
+						showToastr("Please Select BloodGroup","error");
+						document.getElementById("bloodGroupId").focus();
+						return false;
+					}else  if (document.getElementById("dobId").value == '') {
+						showToastr("Please Enter DOB","error");
+						document.getElementById("dobId").focus();
+						return false;
+					}else  if (document.getElementById("mobileNoId").value == '') {
+						showToastr("Please Enter MobileNo","error");
+						document.getElementById("mobileNoId").focus();
+						return false;
+					}/* else  if (document.getElementById("emailId").value == '') {
+						showToastr("Please Enter Email","error");
+						document.getElementById("emailId").focus();
+						return false;
+					}else  if (atpos< 1 || dotpos<atpos+2 || dotpos+2>=x.length) {   	
+		      	    	showToastr("Please Enter Valid Email Id","error");
+		      	        document.getElementById("emailId").focus();
+		      	        return false;
+		      	    } */else  if (document.getElementById("aadhaarId").value == '') {
+						showToastr("Please Enter Aadhaar","error");
+						document.getElementById("aadhaarId").focus();
+						return false;
+					}else  if (document.getElementById("studyClassId").selectedIndex == 0) {
+						showToastr("Please Select StudyClass","error");
+						document.getElementById("studyClassId").focus();
+						return false;
+					}else if(document.getElementById("nationalityId").checked == false && document.getElementById('otherNationalityId').checked ==false ){
+						showToastr("Please Select Nationality","error");
+			             document.getElementById('nationalityId').focus();
+			             return false;
+			         }else if(document.getElementById('rbMale').checked == false && document.getElementById('rbFeMale').checked ==false ){
+						showToastr("Please select gender","error");
+			             document.getElementById('rbMale').focus();
+			             return false;
+			         }else if(document.getElementById('religionId').selectedIndex == 0){
+						showToastr("Please select Religion","error");
+			             document.getElementById('religionId').focus();
+			             return false;
+			         }else if(document.getElementById('bsfId').checked == false && document.getElementById('nonbsfId').checked ==false && document.getElementById('staffId').checked ==false ){
+							showToastr("Please select BSF","error");
+				             document.getElementById('bsfId').focus();
+				             return false;
+				         }  else  if (document.getElementById("academicYearId").value == '') {
+							showToastr("Please Enter Academic Year","error");
+							document.getElementById("academicYearId").focus();
+							return false;
+						}/* else  if (document.getElementById("schoolNameId").value == '') {
+							showToastr("Please Enter School Name","error");
+							document.getElementById("schoolNameId").focus();
+							return false;
+						} */else  if (document.getElementById("sectionValId").selectedIndex == 0) {
+							showToastr("Please Select Section","error");
+							document.getElementById("sectionValId").focus();
+							return false;
+						}else  if (document.getElementById("perAddressId").value == '') {
+							showToastr("Please Enter Permanent Address","error");
+							document.getElementById("perAddressId").focus();
+							return false;
+						}else  if (document.getElementById("pAddressId").value == '') {
+							showToastr("Please Enter Present Address","error");
+							document.getElementById("pAddressId").focus();
+							return false;
+						}else if(document.getElementById("fileNameId").value!="" && (ext.substr(len-3,len)!="JPG" && ext.substr(len-3,len)!="JPEG" && ext.substr(len-3,len)!="PNG" ))
+						 {
+							 alert("Upload Student Image JPEG/JPG/PNG Only ");
+							 document.getElementById("fileNameId").focus();
+							 document.getElementById("fileNameId").value="";
+							 return false;
+						 } else if (document.getElementById("fileNameId").value!="" && document.getElementById("fileNameId").files[0].size > 1024000) {
+								alert("Student Upload Image too big(max 1MB)");
+								document.getElementById("fileNameId").value = "";
+								return false;
+					    } /* else  if (document.getElementById("rFeeId").value == '') {
+							showToastr("Please Enter Registration Fee","error");
+							document.getElementById("rFeeId").focus();
+							return false;
+						}else  if (document.getElementById("regFeeDateId").value == '') {
+							showToastr("Please Enter Registration Date","error");
+							document.getElementById("regFeeDateId").focus();
+							return false;
+						}else  if (document.getElementById("regFeePayModeId").selectedIndex == 0) {
+							showToastr("Please Select RegFee PayMode","error");
+							document.getElementById("regFeePayModeId").focus();
+							return false;
+						}else  if (document.getElementById("headNameId").selectedIndex == 0) {
+							showToastr("Please Select HeadName","error");
+							document.getElementById("headNameId").focus();
+							return false;
+						}else  if (document.getElementById("headWiseFeeId").value == '') {
+							showToastr("Please Enter Head Amount","error");
+							document.getElementById("headWiseFeeId").focus();
+							return false;
+						}else  if (document.getElementById("headFeeDateId").value == '') {
+							showToastr("Please Enter HeadFee Date","error");
+							document.getElementById("headFeeDateId").focus();
+							return false;
+						}else  if (document.getElementById("headNamePayModeId").selectedIndex == 0) {
+							showToastr("Please Select HeadName PayMode","error");
+							document.getElementById("headNamePayModeId").focus();
+							return false;
+						} */else if (confirm("Do you want to Add New student")) {
+							
+							 var form = $('#submit_form')[0];
+
+							    var data = new FormData(form);
+							    
+							    
+					$.ajax({
+						type : 'POST',
+						url : "/student/addNewStudent",
+						data : data,
+						enctype: 'multipart/form-data',
+					    processData: false,
+					    contentType: false,
+					    cache: false,
+						success : function(data) {
+							
+							if(data.indexOf("ERROR-")!=-1) {
+								alert(data);
+							} else {
+								showToastr("Successfully Done!!!", "success");
+								alert("Save Successfully -- This is your admission No :"+ data);
+								 if (document.getElementById("rFeeId").value != '') {
+									 printReceipt(data);
+								 }
+								showPage('/application/applicationSales',false);
+								
+							}
+						},
+					error: function () {
+						showToastr("Unable to load details","error");
+			        }
+					});
+					return false;
+				} else {
+					return false;
+				}
+			}
+			
+			function printReceipt(admNo){
+			var admNoVal=admNo.replace("\"", "");
+			$.ajax({
+				type : 'GET',
+				url : "/student/printReceipt",
+				data : {
+					admNo : admNoVal
+				},
+				success : function(data) {
+					
+					$("#printId").show();
+					$('#printId').html(data);
+					
+				var divToPrint=document.getElementById('printId');
+
+				  var newWin=window.open('','Print-Window','width=1024,height=300');
+
+				  //newWin.document.open();
+
+				  newWin.document.write('<html><body onload="window.print()">'+divToPrint.innerHTML+'</body></html>');
+				  newWin.focus();
+				  newWin.document.close();
+				  $("#printId").hide();
+				  
+				  
+				},
+			error: function () {
+				showToastr("Unable to load details","error");
+	        }
+			});
+			}
+			
+          function updateStudent(admNo) {
+				
+        	  var x = document.getElementById("emailId").value;
+	      	    var atpos = x.indexOf("@");
+	      	    var dotpos = x.lastIndexOf(".");
+	      	    
+	      	    
+	      	  var file = document.getElementById('fileNameId');
+		  		var len=file.value.length;
+		  		var ext1=file.value;
+		  		var ext=ext1.toUpperCase();
+			
+			 if (document.getElementById("stuNameId").value == '') {
+					showToastr("Please Enter Student Name","error");
+					document.getElementById("stuNameId").focus();
+					return false;
+				}else  if (document.getElementById("parentNameId").value == '') {
+					showToastr("Please Enter Parent Name","error");
+					document.getElementById("parentNameId").focus();
+					return false;
+				}else  if (document.getElementById("pOccupationId").value == '') {
+					showToastr("Please Enter Parent Occupation","error");
+					document.getElementById("pOccupationId").focus();
+					return false;
+				}else  if (document.getElementById("localGuardianId").value == '') {
+					showToastr("Please Enter Local Guardian","error");
+					document.getElementById("localGuardianId").focus();
+					return false;
+				}else  if (document.getElementById("subCastId").value == '') {
+					showToastr("Please Enter Sub Cast","error");
+					document.getElementById("subCastId").focus();
+					return false;
+				}else  if (document.getElementById("castValId").selectedIndex == 0) {
+					showToastr("Please Select Cast","error");
+					document.getElementById("castValId").focus();
+					return false;
+				}else  if (document.getElementById("bloodGroupId").selectedIndex == 0) {
+					showToastr("Please Select BloodGroup","error");
+					document.getElementById("bloodGroupId").focus();
+					return false;
+				}else  if (document.getElementById("dobId").value == '') {
+					showToastr("Please Enter DOB","error");
+					document.getElementById("dobId").focus();
+					return false;
+				}else if(document.getElementById('rbMale').checked == false && document.getElementById('rbFeMale').checked ==false ){
+					showToastr("Please select gender","error");
+		             document.getElementById('rbMale').focus();
+		             return false;
+		         }else  if (document.getElementById("mobileNoId").value == '') {
+					showToastr("Please Enter MobileNo","error");
+					document.getElementById("mobileNoId").focus();
+					return false;
+				}/* else  if (document.getElementById("emailId").value == '') {
+					showToastr("Please Enter Email","error");
+					document.getElementById("emailId").focus();
+					return false;
+				}else  if (atpos< 1 || dotpos<atpos+2 || dotpos+2>=x.length) {   	
+	      	    	showToastr("Please Enter Valid Email Id","error");
+	      	        document.getElementById("emailId").focus();
+	      	        return false;
+	      	    } */else  if (document.getElementById("studyClassId").selectedIndex == 0) {
+					showToastr("Please Select StudyClass","error");
+					document.getElementById("studyClassId").focus();
+					return false;
+				}else if(document.getElementById("nationalityId").checked == false && document.getElementById('otherNationalityId').checked ==false ){
+					showToastr("Please Select Nationality","error");
+		             document.getElementById('nationalityId').focus();
+		             return false;
+		         }else if(document.getElementById('religionId').selectedIndex == 0){
+						showToastr("Please select Religion","error");
+			             document.getElementById('religionId').focus();
+			             return false;
+			         }else if(document.getElementById('bsfId').checked == false && document.getElementById('nonbsfId').checked ==false && document.getElementById('staffId').checked ==false ){
+							showToastr("Please select BSF","error");
+				             document.getElementById('bsfId').focus();
+				             return false;
+				         } else  if (document.getElementById("aadhaarId").value == '') {
+						showToastr("Please Enter Aadhaar","error");
+						document.getElementById("aadhaarId").focus();
+						return false;
+					}  else  if (document.getElementById("academicYearId").value == '') {
+						showToastr("Please Enter Academic Year","error");
+						document.getElementById("academicYearId").focus();
+						return false;
+					}/* else  if (document.getElementById("schoolNameId").value == '') {
+						showToastr("Please Enter School Name","error");
+						document.getElementById("schoolNameId").focus();
+						return false;
+					} */else  if (document.getElementById("sectionValId").selectedIndex == 0) {
+						showToastr("Please Select Section","error");
+						document.getElementById("sectionValId").focus();
+						return false;
+					}else  if (document.getElementById("perAddressId").value == '') {
+						showToastr("Please Enter Permanent Address","error");
+						document.getElementById("perAddressId").focus();
+						return false;
+					}else  if (document.getElementById("pAddressId").value == '') {
+						showToastr("Please Enter Present Address","error");
+						document.getElementById("pAddressId").focus();
+						return false;
+					}else if(document.getElementById("fileNameId").value!="" && (ext.substr(len-3,len)!="JPG" && ext.substr(len-3,len)!="JPEG" && ext.substr(len-3,len)!="PNG" ))
+					 {
+						 alert("Upload Student Image JPEG/JPG/PNG Only ");
+						 document.getElementById("fileNameId").focus();
+						 document.getElementById("fileNameId").value="";
+						 return false;
+					 } else if (document.getElementById("fileNameId").value!="" && document.getElementById("fileNameId").files[0].size > 1024000) {
+							alert("Student Upload Image too big(max 1MB)");
+							document.getElementById("fileNameId").value = "";
+							return false;
+				    }else if (confirm("Do you want to update student")) {
+						
+						 var form = $('#submit_form')[0];
+
+						    var data = new FormData(form);
+						
+						
+						$.ajax({
+							type : 'POST',
+							url : "/student/addNewStudent",
+							data : data,
+							enctype: 'multipart/form-data',
+						    processData: false,
+						    contentType: false,
+						    cache: false,
+							success : function(data) {
+								
+								if(data.indexOf("ERROR-")!=-1) {
+									alert(data);
+								} else {
+									showToastr("Successfully Updated!!!", "success");
+									showPage('/application/applicationSales',false);
+									
+								}
+							},
+						error: function () {
+							showToastr("Unable to load details","error");
+				        }
+						});
+						
+						    
+					return false;
+				} else {
+					return false;
+				}
+			}
+          
+          
+          
+</script>
+
+
+
+</body>
+
+</html>

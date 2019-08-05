@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{myTheme1/base}">
+<head>
+<style type="text/css">
+.month {
+	padding: 20px 25px;
+	width: 100%;
+	background: #1abc9c;
+	text-align: center;
+	height: 74px;
+}
+
+.month ul {
+	margin: 0;
+	padding: 0;
+}
+
+.month ul li {
+	color: white;
+	font-size: 20px;
+	text-transform: capitalize;
+	letter-spacing: 3px;
+}
+
+.month .prev {
+	float: left;
+	padding-top: 10px;
+	cursor: pointer;
+}
+
+.month .next {
+	float: right;
+	padding-top: 10px;
+	cursor: pointer;
+}
+
+.weekdays {
+	margin: 0;
+	padding: 23px 0;
+	background-color: #ddd;
+	font-weight: bold;
+}
+
+.weekdays li {
+	display: inline-block;
+	width: 13.6%;
+	text-align: center;
+}
+
+.days {
+	padding: 10px 0;
+	background: #eee;
+	margin: -13px;
+}
+
+.days li {
+	list-style-type: none;
+	display: inline-block;
+	width: 13.6%;
+	text-align: center;
+	margin-bottom: 30px;
+	font-size: 12px;
+}
+
+.days li .active {
+	padding: 5px;
+	background: #1abc9c;
+	color: white !important
+}
+
+
+</style>
+</head>
+<body  >
+	<div layout:fragment="page_content">
+		<!-- <div class="page-content-wrapper">
+			BEGIN CONTENT BODY
+			<div class="page-content"> -->
+		<!-- BEGIN PAGE HEAD-->
+		<div class="page-head">
+			<!-- BEGIN PAGE TITLE -->
+			<div class="page-title">
+				<h1>Employee Profile</h1>
+			</div>
+			<!-- END PAGE TITLE -->
+			<!-- BEGIN PAGE TOOLBAR -->
+			<div th:replace="/myTheme1/themePanel :: themePanel"></div>
+			<!-- END PAGE TOOLBAR -->
+		</div>
+		<!-- END PAGE HEAD-->
+		<!-- BEGIN PAGE BREADCRUMB -->
+		<ul class="page-breadcrumb breadcrumb">
+			<!-- <li><a href="index.html">Home</a> <i class="fa fa-circle"></i></li> -->
+			<li><span class="active">Employee Profile</span></li>
+		</ul>
+		<!-- END PAGE BREADCRUMB -->
+		<!-- BEGIN PAGE BASE CONTENT -->
+		<!-- BEGIN DASHBOARD STATS 1-->
+		<div class="row">
+			<div class="col-md-12">
+				<!-- BEGIN PROFILE SIDEBAR -->
+				<div class="profile-sidebar">
+					<!-- PORTLET MAIN -->
+					<div class="portlet light profile-sidebar-portlet bordered">
+						<!-- SIDEBAR USERPIC -->
+						<div class="profile-userpic">
+							<img class="img-responsive" alt="employee profile page"
+								style="height: 100px; width: 100px;"
+								th:src="'http://scaits.info/attachment/empImage/'+${@currentUser.getCurrentUser().getPayRollId()}+'_Photo.jpg'">
+						</div>
+						<!-- END SIDEBAR USERPIC -->
+						<!-- SIDEBAR USER TITLE -->
+						<div class="profile-usertitle">
+							<div class="profile-usertitle-name"
+								th:text="${@currentUser.getCurrentUser().getUserName()}"></div>
+							<div class="profile-usertitle-job"
+								th:text="${@currentUser.getCurrentUser().getPayRollId()}"></div>
+							<div class="profile-usertitle-job"
+								th:text="${@currentUser.getCurrentUser().getCampus()}"></div>
+						</div>
+						<!-- END SIDEBAR USER TITLE -->
+						<!-- SIDEBAR BUTTONS -->
+						<!-- END SIDEBAR BUTTONS -->
+						<!-- SIDEBAR MENU -->
+					<!-- 	<div class="profile-usermenu">
+							<ul class="nav">
+								<li class="active"><a href="page_user_profile_1.html">
+										<i class="icon-home"></i> Overview
+								</a></li>
+								<li><a href="page_user_profile_1_account.html"> <i
+										class="icon-settings"></i> Account Settings
+								</a></li>
+								<li><a href="page_user_profile_1_help.html"> <i
+										class="icon-info"></i> Help
+								</a></li>
+							</ul>
+						</div> -->
+						<!-- END MENU -->
+					</div>
+					<!-- END PORTLET MAIN -->
+					<!-- PORTLET MAIN -->
+					<!-- END PORTLET MAIN -->
+				</div>
+				<!-- END BEGIN PROFILE SIDEBAR -->
+				<!-- BEGIN PROFILE CONTENT -->
+				<!-- END PROFILE CONTENT -->
+			</div>
+		</div>
+		<!-- END PAGE BASE CONTENT -->
+	</div>
+	<!-- END CONTENT BODY -->
+	<!-- </div>
+	</div> -->
+</body>
+</html>

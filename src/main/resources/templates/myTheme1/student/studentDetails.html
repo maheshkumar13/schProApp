@@ -1,0 +1,1959 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+<style>
+		.txt-blue {color:#1a73e8}
+		.custom_nav {box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.1); margin-bottom:10px}
+		.custom_nav ul { padding:0 !important; margin:0 !important; overflow:hidden !important; display:block; line-height:31px}
+		.custom_nav li { padding:0; margin:0; list-style:none; float:left; }
+		.custom_nav li a { padding:10px 15px; color:#999999}
+		.custom_nav li a:focus { background:#ffffff}
+		.custom_nav li.active a { box-shadow: inset 0px -3px 0px 0px rgba(234,102,118,1); color:#333333}
+		  .student-thum {
+				box-shadow: 0 2px 3px rgba(0,0,0,0.13), 0 2px 3px rgba(0,0,0,0.18);
+				cursor: pointer;
+				background: #ffffff;
+				border-radius: 4px;
+				display: block;
+				overflow: hidden;
+				height: auto;
+				position: relative;
+				width: auto;
+				padding: 0;
+				text-align: center;
+				margin-bottom:15px;
+			}
+			.student-table { width:100%}
+			.student-table td { padding:8px 3px; border-bottom:1px dotted #999;}
+			.student-table td:last-line { padding:8px 3px; border-bottom:none;}
+			.t-12 {
+				font-size:12px;
+			}
+			.font-orange {
+				color: #ff6f61;
+			}
+			.student-thum img {
+				display: block;
+				text-align: center;
+				margin: auto;
+				border:3px solid #cccccc
+			}
+			.table {
+				width: 100%;
+				margin-bottom: 0;
+			}
+			.student-details td { padding:5px 8px !important}
+			.student-details .nav-tabs a{ color:#999999}
+			.dataTables_scrollHead {
+					border-bottom: none!important;
+				}
+			#sample_3_filter, #sample_3_length, #sample_3_paginate { display:none}
+			.dt-button { display:none;}
+			.m-b-15 { margin-bottom:15px;}
+			.bg-active { background:#b2e1ff80 !important; color: #000 !important}
+			.tab-content { font-size:12px}
+			.tab-content .form-control {
+				height: 28px;
+				line-height:28px;
+				margin-bottom: 5px;
+				padding:0 8px;
+			}
+			.tab-content label {
+				display: inline-block;
+				margin-bottom: 2px;
+			}
+			.t-11 { font-size:11px}
+			.txt-open {
+				color: #ffffff;
+				background: #6200ee;
+				text-align: center;
+				padding: 4px 15px;
+				border-radius: 2px !important;
+				font-weight: bold;
+				font-size: 12px;
+			}
+			.txt-close {
+				color: #ffffff;
+				background: #ff0266;
+				text-align: center;
+				padding: 4px 15px;
+				border-radius: 2px !important;
+				font-weight: bold;
+				font-size: 12px;
+			}
+			
+			.form-control::-moz-placeholder {
+			color:#999;
+			opacity:1;
+			font-size:12px;
+			}
+			input, select, textarea { font-size:12px !important}
+			
+.panel-default>.panel-heading {
+  color: #666666;
+  background-color: #fff;
+/*  border-color: #e4e5e7;*/
+  padding: 0;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.panel-default>.panel-heading a {
+  display: block;
+  padding: 10px;
+  border-bottom:1px solid #dddddd;  
+  padding-left:25px;
+}
+.panel-title { font-size:12px; font-weight:bold;}
+.panel-default>.panel-heading a:after {
+  content: "";
+  position: relative;
+  top: -4px;
+  right:10px;
+  display: inline-block;
+  font-family: 'Glyphicons Halflings';
+  font-style: normal;
+  font-weight: 600;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  float: left;
+  font-size:20px;
+  transition: transform .25s linear;
+  -webkit-transition: -webkit-transform .25s linear;
+}
+
+.panel-default>.panel-heading a[aria-expanded="true"] {
+  background-color: #f5f5f5;
+}
+
+.panel-default>.panel-heading a[aria-expanded="true"]:after {
+  content: "\2212";
+  -webkit-transform: rotate(180deg);
+  transform: rotate(180deg);
+}
+
+.panel-default>.panel-heading a[aria-expanded="false"]:after {
+  content: "\002b";
+  -webkit-transform: rotate(90deg);
+  transform: rotate(90deg);
+}
+.panel-group .panel {
+    margin-bottom: 0;
+    border-radius: 0px;
+}
+.panel { border:none;}
+.panel-group .panel+.panel {
+     margin-top: 0; 
+} 
+.panel-group {
+     margin-bottom:1px !important; 
+}
+.p515 {padding:5px 15px 10px 15px}
+
+.txt-view {background:#f5f5f5; padding:3px 10px; border-radius:2px;}
+
+.btn-tab-active {padding:10px 25px; margin: 0; float:left; background:#fff; color:#333; font-weight:bold;  font-weight:bold; border-radius: 24px 0 0 0 }
+.btn-tab-inactive {padding:10px 25px; margin: 0; float:left; background:#fff; color:#00408080; font-weight:bold;  font-weight:bold; border-radius: 0 24px 0 0 }
+.active-tab { background-image: linear-gradient(to bottom right, #FFA3AE, #C6CFFF); }
+.inactive-tab {background-image: linear-gradient(to bottom right, #EBEFF1 #FBFBFB; }
+.md-checkbox {
+    margin-bottom: 5px;
+}  
+
+
+        </style>
+        
+        <script type="text/javascript">
+        
+        $('#headFeeDateId').datepicker({
+    		format : 'dd/mm/yyyy',
+    		changeMonth : true,
+    		changeYear : true,
+    		autoClose : true,
+    		clearBtn : true
+    	});
+        
+        
+        function saveStuPayment(studentVal) {
+        	
+        	if($("select#headNameId").val()==0){
+    			alert("Please select HeadName");
+    			$("#headNameId").focus();
+    			return false;
+    		}else if ($("#headWiseFeeId").val() == "") {
+				alert("Please Enter Amount");
+				$("#headWiseFeeId").focus();
+				return false;
+			}else if ($("#headFeeDateId").val() == "") {
+				alert("Please HeadFee Date");
+				$("#headFeeDateId").focus();
+				return false;
+			}else if($("select#headNamePayModeId").val()==0){
+    			alert("Please select PayMode");
+    			$("#headNamePayModeId").focus();
+    			return false;
+    		}else{
+    			
+    			 var e = document.getElementById("headNameId");  
+				 var headNameSelectedVal = e.options[e.selectedIndex].text;
+				 
+    			$.ajax({
+    				type : "GET",
+    				url : "/student/saveStuPayment",
+    				data : {
+    					student:studentVal,
+    					headName: headNameSelectedVal,
+    					amount :$("#headWiseFeeId").val(),
+    					headFeeDate :$("#headFeeDateId").val(),
+    					payMode :$("select#headNamePayModeId").val(),
+    				},
+    				success : function(data) {
+    					$('#paymentsShowId').html(data);
+    					showToastr("Successfully Done","success");
+    					document.getElementById("headNameId").selectedIndex = 0;
+    					document.getElementById("headWiseFeeId").value = "";
+    					document.getElementById("headFeeDateId").value = "";
+    					document.getElementById("headNamePayModeId").selectedIndex = 0;
+    					
+    				},
+					error: function () {
+						showToastr("Unable to load details","error");
+			        }
+    			});
+    		}
+		}
+        
+        
+        </script>
+</head>
+<body>
+                      <div class="row">
+                    </div>                                                                                           
+                    <div class="row mahesh">                    
+                      <div class="col-md-3">                                      
+                          <div class="student-thum">
+                              <div class="row">
+                                 <div class="col-md-12">
+                                     <table class="student-table">
+                                          <tr>
+                                              <td colspan="2"><img  
+                                              th:src="@{/image/{imageName}(imageName=${student!=null?student.studentNo:'assets/layouts/layout4/img/s2.jpg'})}"
+                                               alt="" class="img-circle"></td>
+                                          </tr>
+                                          <tr>
+                                               <td class="t-11 bold text-right " style="width:50%">Admission no :  </td>
+                                               <td class="t-11 bold text-left" style="width:50%"> <span th:text=${student.studentNo}></span></td>
+                                          </tr>
+                                          <tr>
+                                               <td class="t-11 bold text-right">Student Name  : </td>
+                                               <td class="t-11 bold text-left"> <span th:text=${student.name}></span></td>
+                                          </tr>
+                                          <tr>
+                                               <td class="t-11 bold text-right">Father Name  : </td>
+                                               <td class="t-11 bold text-left"> <span style="color:#1a73e8; font-weight:bold" th:text=${student.fatherName}></span></td>
+                                          </tr>
+                                          <tr>
+                                               <td class="t-11 bold text-right">Mother Name  : </td>
+                                               <td class="t-11 bold text-left" > <span style="color:#1a73e8; font-weight:bold"  th:text=${student.motherName}></span></td>
+                                          </tr>
+                                          <tr>
+                                               <td class="t-11 bold text-right">Status  : </td>
+                                               <td class="t-11 bold text-left"> <span style="color:#0C0; font-weight:bold"> <span th:text=${student.getStudent()}></span></span></td>
+                                          </tr>
+                                           <tr>
+                                               <td class="t-11 bold text-right">BSF/NON BSF  : </td>
+                                               <td class="t-11 bold text-left"> <span style="color:#FF4848; font-weight:bold"> <span th:text=${student.getBsf()}></span></span></td>
+                                          </tr>
+                                           <tr>
+                                               <td class="t-11 bold text-right">mail : </td>
+                                               <td class="t-11 bold text-left"> <span style="color:#FF4848; font-weight:bold"> <span th:text=${student.email}></span></span></td>
+                                          </tr>
+                                          <tr>
+                                               <td class="t-11 bold text-right">Contact no  : </td>
+                                               <td class="t-11 bold text-left"> <span th:text=${student.mobileNo}></span></td>
+                                          </tr>
+                                          
+                                     </table>
+                                 </div>
+                              </div>                                           
+                           </div>
+                      </div>
+                      <div class="col-md-9">                     
+                        <div class="portlet portlet-fit bordered card-1 student-details">
+                           <div class="row">
+                          <div class="col-md-12" >
+                               <ul class="nav nav-tabs bold">
+                                    <li class="active">
+                                        <a href="#tab_1_1" data-toggle="tab">Student Details </a>
+                                    </li>
+                                    <li>
+                                        <a href="#tab_1_3" data-toggle="tab">Fee Details</a>
+                                    </li>
+                                    <!-- <li class="disabled" onclick="return false;">
+                                        <a href="#tab_1_2" data-toggle="tab">Exam Fee Details </a>
+                                    </li>                                    
+                                    <li class="disabled">
+                                        <a href="#tab_1_6" data-toggle="tab">Pocket Money</a>
+                                    </li>
+                                    <li class="disabled">
+                                        <a href="#tab_1_4" data-toggle="tab">Refund</a>
+                                    </li>
+                                    <li class="disabled">
+                                        <a href="#tab_1_5" data-toggle="tab">Others</a>
+                                    </li> -->
+                                </ul>                                
+                                <div class="tab-content">
+                                   <div class="tab-pane active in fade" id="tab_1_1" style="padding:5px 15px">                                           
+                                      <div class="row" style="height: 190px;">
+                                        <div class="col-md-6">
+                                             <table class="table table-bordered table-striped">
+                                                
+                                                <tr>
+                                                   <td>Calss</td>
+                                                   <td class="txt-blue">
+                                                    <span th:text="${student.classId.displayName}"></span>
+                                                   </td>
+                                                </tr>
+                                                <tr>
+                                                   <td>Section</td>
+                                                   <td class="txt-blue">
+                                                   <span th:text="${student.sectionId.sectionName}"></span>
+                                                   </td>
+                                                </tr>
+                                                <tr>
+                                                   <td>Academic Year</td>
+                                                   <td class="txt-blue"><span th:text="${student.academicId.academicYear}"></span></td>
+                                                </tr>  
+                                                <tr>
+                                                   <td>School Name</td>
+                                                   <td class="txt-blue">
+                                                   <span th:text="${student.schoolName}"></span>
+                                                   </td>
+                                                </tr>
+                                                <tr>
+                                                   <td>Pre School Name</td>
+                                                   <td class="txt-blue">
+                                                   <span th:text="${student.preSchoolName}"></span>
+                                                   </td>
+                                                </tr>
+                                                
+                                                <tr>
+                                                   <td>Present Address</td>
+                                                   <td >
+                                                   
+                                                  <textarea class="md-textarea form-control txt-blue" rows="3"
+												 placeholder="Enter Permanent Address"
+												style="height: 100px"  readonly="readonly"
+												th:text="${student.pAddress}"
+												></textarea>
+												
+                                                   </td>
+                                                </tr>                                            
+                                             </table>
+                                        </div>
+                                        <div class="col-md-6">
+                                             <table class="table table-bordered table-striped">                                                
+                                                <tr>
+                                                   <td style="width:35%">Father Name</td>
+                                                   <td style="width:65%" class="txt-blue">
+                                                    <span th:text="${student.fatherName}"></span>
+                                                   </td>
+                                                </tr>
+                                                <tr>
+                                                   <td>Parent Occupation</td>
+                                                   <td class="txt-blue">
+                                                    <span th:text="${student.pOccupation}"></span></td>
+                                                </tr>
+                                                <tr>
+                                                   <td>Cast</td>
+                                                   <td class="txt-blue">
+                                                    <span th:text="${student.subCast}"></span></td>
+                                                </tr>
+                                                <tr>
+                                                   <td>Gender</td>
+                                                    <td class="txt-blue">
+                                                    <span th:text="${student.gender}"></span></td>
+                                                </tr> 
+                                                <tr>
+                                                   <td>Aadhar No</td>
+                                                     <td class="txt-blue">
+                                                    <span th:text="${student.aadhaar}"></span></td>
+                                                </tr>
+                                                <tr>
+                                                   <td>Permanent Address</td>
+                                                   <td >
+                                                   
+                                                  <textarea class="md-textarea form-control txt-blue" rows="3"
+												 placeholder="Enter Permanent Address"
+												style="height: 100px" readonly="readonly"
+												th:text="${student.perAddress}"
+												></textarea>
+												
+                                                   </td>
+                                                </tr> 
+                                             </table>
+                                        </div>
+                                      </div>                                     
+                                    </div>
+                                   <div class="tab-pane fade" id="tab_1_3">
+                                       <div style="height:200px; overflow-y:auto">
+                                          <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                                            <div class="panel panel-default">
+                                              <div class="panel-heading" role="tab" id="headingOne">
+                                                <h4 class="panel-title">
+                                                <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">                                                  
+													<span th:text="${student.classId.displayName}"></span>
+                                                </a>
+                                              </h4>
+                                              </div>
+                                              <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                                                <div class="panel-body">
+                                                   <div class="row">
+                                                    <div class="col-md-6">
+                                                         <table class="table table-bordered table-striped">
+                                                            <tr>
+                                                               <td style="width:35%">Course Fee</td>
+                                                               <td style="width:65%; text-align:right" class="txt-blue">1,30,000</td>
+                                                            </tr>
+                                                            <tr>
+                                                               <td>Concession</td>
+                                                               <td style="text-align:right" class="txt-blue">30,000</td>
+                                                            </tr>
+                                                            <tr>
+                                                               <td>Net Fee</td>
+                                                               <td style="text-align:right" class="txt-blue bold">1,05,000</td>
+                                                            </tr>
+                                                         </table>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                         <table class="table table-bordered table-striped">
+                                                            <tr>
+                                                               <td style="width:35%;">Fee Paid</td>
+                                                               <td style="width:65%; text-align:right" class="txt-blue">1,05,000</td>
+                                                            </tr>
+                                                            <tr class="bold">
+                                                               <td>Overall Due</td>
+                                                               <td style="text-align:right; color:#e60000">00</td>
+                                                            </tr>                                                                                                   
+                                                         </table>
+                                                    </div>
+                                                  </div>
+                                                </div>
+                                              </div>
+                                            </div>
+                                            <!-- <div class="panel panel-default">
+                                              <div class="panel-heading" role="tab" id="headingTwo">
+                                                <h4 class="panel-title">
+                                                <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                                  INTER - II 
+                                                </a>
+                                              </h4>
+                                              </div>
+                                              <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+                                                <div class="panel-body">
+                                                  <div class="row">
+                                                    <div class="col-md-6">
+                                                         <table class="table table-bordered table-striped">
+                                                            <tr>
+                                                               <td style="width:35%">Course Fee</td>
+                                                               <td style="width:65%; text-align:right" class="txt-blue">1,30,000</td>
+                                                            </tr>
+                                                            <tr>
+                                                               <td>Add'l Amt.</td>
+                                                               <td style="text-align:right" class="txt-blue">00</td>
+                                                            </tr>
+                                                            <tr>
+                                                               <td>Concession</td>
+                                                               <td style="text-align:right" class="txt-blue">00</td>
+                                                            </tr>
+                                                            <tr>
+                                                               <td>Net Fee</td>
+                                                               <td style="text-align:right" class="txt-blue">1,30,000</td>
+                                                            </tr>
+                                                            <tr>
+                                                               <td>Service Tax</td>
+                                                               <td style="text-align:right" class="txt-blue">00</td>
+                                                            </tr>                                         
+                                                         </table>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                         <table class="table table-bordered table-striped">
+                                                            <tr>
+                                                               <td style="width:35%">Fee Paid</td>
+                                                               <td style="width:65%; text-align:right;" class="txt-blue">00</td>
+                                                            </tr>
+                                                            <tr>
+                                                               <td>Fee Deduction</td>
+                                                               <td style="text-align:right" class="txt-blue">00</td>
+                                                            </tr>
+                                                            <tr>
+                                                               <td>Fee Refund</td>
+                                                               <td style="text-align:right" class="txt-blue">00</td>
+                                                            </tr>
+                                                            <tr class="bold">
+                                                               <td>Overall Due</td>
+                                                               <td style="text-align:right; color:#e60000">1,30,000</td>
+                                                            </tr>                                                                                                   
+                                                         </table>
+                                                    </div>
+                                                  </div>
+                                                </div>
+                                              </div>
+                                            </div>   -->                                          
+                                          </div>
+                                       </div>
+                                   </div>
+                                   <div class="tab-pane fade" id="tab_1_2" style="padding:5px 15px">
+                                       <div class="row" style="height: 190px;">
+                                        <div class="col-md-6">
+                                              <label class="portlet-title">INTER I</label>
+                                             <table class="table table-bordered table-striped">
+                                               <tr>
+                                                   <td style="width:35%">Exam Fee</td>
+                                                   <td style="width:65%; text-align:right" class="txt-blue">00</td>
+                                                </tr>
+                                                <tr>
+                                                   <td>Internal</td>
+                                                   <td style="text-align:right" class="txt-blue">00</td>
+                                                </tr>
+                                                <tr>
+                                                   <td>JEE Main</td>
+                                                   <td style="text-align:right" class="txt-blue">00</td>
+                                                </tr>
+                                                <tr>
+                                                   <td >NEET UG</td>
+                                                   <td style=" text-align:right" class="txt-blue">00</td>
+                                                </tr>
+                                                <tr>
+                                                   <td>IPE Practical</td>
+                                                   <td style="text-align:right" class="txt-blue">00</td>
+                                                </tr> 
+                                             </table>
+                                        </div> 
+                                        <div class="col-md-6">
+                                              <label class="portlet-title">INTER II</label>
+                                             <table class="table table-bordered table-striped">
+                                               <tr>
+                                                   <td style="width:35%">Exam Fee</td>
+                                                   <td style="width:65%; text-align:right" class="txt-blue">00</td>
+                                                </tr>
+                                                <tr>
+                                                   <td>Internal</td>
+                                                   <td style="text-align:right" class="txt-blue">00</td>
+                                                </tr>
+                                                <tr>
+                                                   <td>JEE Main</td>
+                                                   <td style="text-align:right" class="txt-blue">00</td>
+                                                </tr>
+                                                <tr>
+                                                   <td >NEET UG</td>
+                                                   <td style=" text-align:right" class="txt-blue">00</td>
+                                                </tr>
+                                                <tr>
+                                                   <td>IPE Practical</td>
+                                                   <td style="text-align:right" class="txt-blue">00</td>
+                                                </tr> 
+                                             </table>
+                                        </div>                                      
+                                      </div>
+                                   
+                                   
+                                   
+                                       <!--<div style="height:225px; overflow-y:auto">
+                                          <div class="panel-group" id="accordion2" role="tablist" aria-multiselectable="true">
+                                            <div class="panel panel-default">
+                                              <div class="panel-heading" role="tab" id="headingOne">
+                                                <h4 class="panel-title">
+                                                <a role="button" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne1" aria-expanded="true" aria-controls="collapseOne">                                                  
+													INTER - I 
+                                                </a>
+                                              </h4>
+                                              </div>
+                                              <div id="collapseOne1" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                                                <div class="panel-body">
+                                                   <div class="row">
+                                                    <div class="col-md-6">
+                                                         <table class="table table-bordered table-striped">
+                                                            <tr>
+                                                               <td style="width:35%">Exam Fee</td>
+                                                               <td style="width:65%; text-align:right">00</td>
+                                                            </tr>
+                                                            <tr>
+                                                               <td>Internal</td>
+                                                               <td style="text-align:right">00</td>
+                                                            </tr>
+                                                            <tr>
+                                                               <td>JEE Main</td>
+                                                               <td style="text-align:right">00</td>
+                                                            </tr>
+                                                            
+                                                                                                   
+                                                         </table>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                         <table class="table table-bordered table-striped">
+                                                            <tr>
+                                                               <td style="width:35%;">NEET UG</td>
+                                                               <td style="width:65%; text-align:right">00</td>
+                                                            </tr>
+                                                            <tr>
+                                                               <td>IPE Practical</td>
+                                                               <td style="text-align:right">00</td>
+                                                            </tr>                                                                                                                                                             
+                                                         </table>
+                                                    </div>
+                                                  </div>
+                                                </div>
+                                              </div>
+                                            </div>
+                                            <div class="panel panel-default">
+                                              <div class="panel-heading" role="tab" id="headingTwo">
+                                                <h4 class="panel-title">
+                                                <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion2" href="#collapseTwo2" aria-expanded="false" aria-controls="collapseTwo">
+                                                  INTER - II 
+                                                </a>
+                                              </h4>
+                                              </div>
+                                              <div id="collapseTwo2" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+                                                <div class="panel-body">
+                                                  <div class="row">
+                                                    <div class="col-md-6">
+                                                         <table class="table table-bordered table-striped">
+                                                            <tr>
+                                                               <td style="width:35%">Exam Fee</td>
+                                                               <td style="width:65%; text-align:right">00</td>
+                                                            </tr>
+                                                            <tr>
+                                                               <td>Internal</td>
+                                                               <td style="text-align:right">00</td>
+                                                            </tr>
+                                                            <tr>
+                                                               <td>JEE Main</td>
+                                                               <td style="text-align:right">00</td>
+                                                            </tr>
+                                                            
+                                                                                                   
+                                                         </table>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                         <table class="table table-bordered table-striped">
+                                                            <tr>
+                                                               <td style="width:35%;">NEET UG</td>
+                                                               <td style="width:65%; text-align:right">00</td>
+                                                            </tr>
+                                                            <tr>
+                                                               <td>IPE Practical</td>
+                                                               <td style="text-align:right">00</td>
+                                                            </tr>                                                                                                                                                             
+                                                         </table>
+                                                    </div>
+                                                  </div>
+                                                </div>
+                                              </div>
+                                            </div>                                            
+                                          </div>
+                                       </div>-->
+                                   </div>                                   
+                                   <div class="tab-pane fade" id="tab_1_6" style="padding:5px 15px">
+                                      <div class="row" style="height: 190px;">
+                                        <div class="col-md-6">
+                                             <table class="table table-bordered table-striped">
+                                                <tr>
+                                                   <td style="width:50%">Deposited Amount</td>
+                                                   <td style="width:50%; text-align:right" class="txt-blue">8,724</td>
+                                                </tr>
+                                                <tr>
+                                                   <td>Taken Amount</td>
+                                                   <td style="text-align:right" class="txt-blue">9,924</td>
+                                                </tr>
+                                                <tr>
+                                                   <td>Pocket Refund</td>
+                                                   <td style="text-align:right" class="txt-blue">00</td>
+                                                </tr>
+                                                <tr class="bold">
+                                                   <td>Due</td>
+                                                   <td style="text-align:right; color:#e60000">1,200</td>
+                                                </tr>                                                                                            
+                                             </table>
+                                        </div>
+                                        <!--<div class="col-md-6">
+                                             <table class="table table-bordered table-striped">                                                
+                                                <tr>
+                                                   <td style="width:35%">Group</td>
+                                                   <td style="width:65%"></td>
+                                                </tr>
+                                                <tr>
+                                                   <td>Section</td>
+                                                   <td></td>
+                                                </tr>
+                                                <tr>
+                                                   <td>PM Card no</td>
+                                                   <td></td>
+                                                </tr>
+                                                <tr>
+                                                   <td>Ledger no</td>
+                                                   <td></td>
+                                                </tr> 
+                                                <tr>
+                                                   <td>Father's name</td>
+                                                   <td></td>
+                                                </tr>
+                                                <tr>
+                                                   <td>Mother's name</td>
+                                                   <td></td>
+                                                </tr>                                              
+                                             </table>
+                                        </div>-->
+                                      </div>
+                                   </div>
+                                   <div class="tab-pane fade" id="tab_1_4" style="padding:5px 15px">
+                                      <div class="row" style="height: 190px;">
+                                        <div class="col-md-6">
+                                              <label class="portlet-title">INTER I</label>
+                                             <table class="table table-bordered table-striped">
+                                               <tr>
+                                                   <td>Akash Books</td>
+                                                   <td style="text-align:right" class="txt-blue">00</td>
+                                               </tr>
+                                               <tr>
+                                                   <td>Material</td>
+                                                   <td style="text-align:right" class="txt-blue">00</td>
+                                               </tr>
+                                               <tr>
+                                                   <td>Bus Pass</td>
+                                                   <td style="text-align:right" class="txt-blue">00</td>
+                                               </tr>
+                                               <tr>
+                                                   <td>Caution Deposit</td>
+                                                   <td style="text-align:right" class="txt-blue">00</td>
+                                               </tr>
+                                             </table>
+                                        </div> 
+                                        <div class="col-md-6">
+                                              <label class="portlet-title">INTER II</label>
+                                             <table class="table table-bordered table-striped">
+                                               <tr>
+                                                   <td>Akash Books</td>
+                                                   <td style="text-align:right" class="txt-blue">00</td>
+                                               </tr>
+                                               <tr>
+                                                   <td>Material</td>
+                                                   <td style="text-align:right" class="txt-blue">00</td>
+                                               </tr>
+                                               <tr>
+                                                   <td>Bus Pass</td>
+                                                   <td style="text-align:right" class="txt-blue">00</td>
+                                               </tr>
+                                               <tr>
+                                                   <td>Caution Deposit</td>
+                                                   <td style="text-align:right" class="txt-blue">00</td>
+                                               </tr>
+                                             </table>
+                                        </div>                                      
+                                      </div>
+                                   </div>
+                                   <div class="tab-pane fade" id="tab_1_5" style="padding:5px 15px">
+                                      <!--<div style="height:225px; overflow-y:auto">
+                                          <div class="panel-group" id="accordion4" role="tablist" aria-multiselectable="true">
+                                            <div class="panel panel-default">
+                                              <div class="panel-heading" role="tab" id="headingOne">
+                                                <h4 class="panel-title">
+                                                <a role="button" data-toggle="collapse" data-parent="#accordion4" href="#collapseOne4" aria-expanded="true" aria-controls="collapseOne">                                                  
+													INTER - I 
+                                                </a>
+                                              </h4>
+                                              </div>
+                                              <div id="collapseOne4" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                                                <div class="panel-body">
+                                                   <div class="row">
+                                                    <div class="col-md-6">
+                                                         <table class="table table-bordered table-striped">
+                                                            <tr>
+                                                               <td style="width:35%">Exam Fee</td>
+                                                               <td style="width:65%; text-align:right">00</td>
+                                                            </tr>
+                                                            <tr>
+                                                               <td>Internal</td>
+                                                               <td style="text-align:right">00</td>
+                                                            </tr>
+                                                            <tr>
+                                                               <td>JEE Main</td>
+                                                               <td style="text-align:right">00</td>
+                                                            </tr>
+                                                            
+                                                                                                   
+                                                         </table>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                         <table class="table table-bordered table-striped">
+                                                            <tr>
+                                                               <td style="width:35%;">NEET UG</td>
+                                                               <td style="width:65%; text-align:right">00</td>
+                                                            </tr>
+                                                            <tr>
+                                                               <td>IPE Practical</td>
+                                                               <td style="text-align:right">00</td>
+                                                            </tr>                                                                                                                                                             
+                                                         </table>
+                                                    </div>
+                                                  </div>
+                                                </div>
+                                              </div>
+                                            </div>
+                                            <div class="panel panel-default">
+                                              <div class="panel-heading" role="tab" id="headingTwo">
+                                                <h4 class="panel-title">
+                                                <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion4" href="#collapseTwo4" aria-expanded="false" aria-controls="collapseTwo">
+                                                  INTER - II 
+                                                </a>
+                                              </h4>
+                                              </div>
+                                              <div id="collapseTwo4" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+                                                <div class="panel-body">
+                                                  <div class="row">
+                                                    <div class="col-md-6">
+                                                         <table class="table table-bordered table-striped">
+                                                            <tr>
+                                                               <td style="width:35%">Exam Fee</td>
+                                                               <td style="width:65%; text-align:right">00</td>
+                                                            </tr>
+                                                            <tr>
+                                                               <td>Internal</td>
+                                                               <td style="text-align:right">00</td>
+                                                            </tr>
+                                                            <tr>
+                                                               <td>JEE Main</td>
+                                                               <td style="text-align:right">00</td>
+                                                            </tr>
+                                                            
+                                                                                                   
+                                                         </table>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                         <table class="table table-bordered table-striped">
+                                                            <tr>
+                                                               <td style="width:35%;">NEET UG</td>
+                                                               <td style="width:65%; text-align:right">00</td>
+                                                            </tr>
+                                                            <tr>
+                                                               <td>IPE Practical</td>
+                                                               <td style="text-align:right">00</td>
+                                                            </tr>                                                                                                                                                             
+                                                         </table>
+                                                    </div>
+                                                  </div>
+                                                </div>
+                                              </div>
+                                            </div>                                            
+                                          </div>
+                                       </div>-->
+                                        <div class="row" style="height: 190px; overflow-y:auto">
+                                        <div class="col-md-6">
+                                              <label class="portlet-title">INTER I</label>
+                                             <table class="table table-bordered table-striped">
+                                               <tr>
+                                                   <td style="width:50%">Ahash Books</td>
+                                                   <td style="width:50%; text-align:right" class="txt-blue">8,000</td>
+                                                </tr>
+                                                <tr>
+                                                   <td>Bus Pass</td>
+                                                   <td style="text-align:right" class="txt-blue">00</td>
+                                                </tr>
+                                                <tr>
+                                                   <td>Caution Deposit</td>
+                                                   <td style="text-align:right" class="txt-blue">00</td>
+                                                </tr>
+                                                <tr>
+                                                   <td>CRD Books</td>
+                                                   <td style=" text-align:right" class="txt-blue">00</td>
+                                                </tr>
+                                                <tr>
+                                                   <td>STD Welfare Fund</td>
+                                                   <td style="text-align:right" class="txt-blue">00</td>
+                                                </tr> 
+                                                <tr>
+                                                   <td>Material</td>
+                                                   <td style="text-align:right" class="txt-blue">00</td>
+                                                </tr>
+                                                <tr>
+                                                   <td>EAMCET App Fee</td>
+                                                   <td style=" text-align:right" class="txt-blue">00</td>
+                                                </tr>
+                                                <tr>
+                                                   <td>Miscellaneous</td>
+                                                   <td style="text-align:right" class="txt-blue">00</td>
+                                                </tr>
+                                             </table>
+                                        </div> 
+                                        <div class="col-md-6">
+                                              <label class="portlet-title">INTER II</label>
+                                             <table class="table table-bordered table-striped">
+                                               <tr>
+                                                   <td style="width:35%">Exam Fee</td>
+                                                   <td style="width:65%; text-align:right" class="txt-blue">00</td>
+                                                </tr>
+                                                <tr>
+                                                   <td>Internal</td>
+                                                   <td style="text-align:right" class="txt-blue">00</td>
+                                                </tr>
+                                                <tr>
+                                                   <td>JEE Main</td>
+                                                   <td style="text-align:right" class="txt-blue">00</td>
+                                                </tr>
+                                                <tr>
+                                                   <td >NEET UG</td>
+                                                   <td style=" text-align:right" class="txt-blue">00</td>
+                                                </tr>
+                                                <tr>
+                                                   <td>IPE Practical</td>
+                                                   <td style="text-align:right" class="txt-blue">00</td>
+                                                </tr> 
+                                             </table>
+                                        </div>                                      
+                                      </div>
+                                   </div>                                     
+                               </div>
+                           </div>
+                      
+                   </div>
+               </div>
+                      </div>
+                    </div>  
+        
+                   <div class="row">
+                      <div class="col-md-12">
+                         <a href="javascript:" class="btn-tab-active active-tab" id="btn-pd">PAYMENT DETAILS</a>
+                         <a href="javascript:" class="btn-tab-inactive inactive-tab" id="btn-oi">OTHER INFORMATION</a>                         
+                      </div>
+                    </div>
+        
+                    <div class="row" id="paymeny-details">
+                        <div class="col-md-12">
+                            <div class="portlet light portlet-fit card-1"> 
+                                    <div class="row" id="payment-details">
+                                       <div class="col-md-12" >
+                                           <ul class="nav custom_nav bold">
+                                                <li class="active">
+                                                    <a href="#tab_1_1_1" data-toggle="tab">Payments </a>
+                                                </li>
+                                               <!--  <li>
+                                                    <a href="#tab_1_2_1" data-toggle="tab">Cancellation</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#tab_1_3_1" data-toggle="tab">Concession</a>
+                                                </li>                                    
+                                                <li>
+                                                    <a href="#tab_1_4_1" data-toggle="tab">PM Issue</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#tab_1_5_1" data-toggle="tab">Refund</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#tab_1_6_1" data-toggle="tab">Course</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#tab_1_7_1" data-toggle="tab">Transfer</a>
+                                                </li> -->
+                                                
+                                            </ul>                                
+                             				   <div class="tab-content">
+                                               <div class="tab-pane active in fade p515" id="tab_1_1_1" style="margin-bottom:10px">                                         
+                                                    <!-- <div class="row">
+                                                       <a href="#atanu" data-toggle="modal" class="txt-view" style="position:absolute; top:7px; right:21px; z-index:99">View payments history</a>
+                                                       <div class="col-md-4">
+                                                         <label>Fee Payment Year</label>
+                                                         <select name="" class="form-control">                                                
+                                                            <option>2018</option>
+                                                            <option>2019</option>
+                                                         </select>
+                                                       </div>
+                                                       <div class="col-md-4">
+                                                         <h3 style="color:#e60000; margin-bottom:2px !important; font-weight:400; display:none" id="fee" class="colors">Total Due 1,30,000</h3>   
+                                                                                                 
+                                                       </div>
+                                                       <div class="clearfix"></div>
+                                                         <div class="col-md-4">
+                                                          <label>Fee Head</label>
+                                                             <select name="" class="form-control" style="background:#f5f5f5;" id="colorselector">
+                                                                <option selected value="fee_type">Select Fee Type</option>
+                                                                <option value="fee">Course Fee</option>
+                                                                <option value="other">Others</option>
+                                                             </select>
+                                                         </div>
+                                                         <div class="col-md-4">
+                                                             <label style="border:1px solid #c2cad8; background:#f5f5f5; padding:0 8px; line-height:27px; border-radius:4px; margin-top:18px; width:100%">Pocket Money</label>                                             
+                                                         </div>
+                                                         <div class="col-md-4">
+                                                             <label style="border:1px solid #c2cad8; background:#f5f5f5; padding:0 8px; line-height:27px; border-radius:4px; margin-top:18px; width:100%">Akash Book</label>                                             
+                                                         </div>
+                                                       <div class="clearfix"></div>  
+                                                       <div class="col-md-4">
+                                                        <input name="" type="text" class="form-control" placeholder="Amount in figure">
+                                                       </div>                                           
+                                                       <div class="col-md-4">
+                                                        <input name="" type="text" class="form-control" placeholder="Amount in figure">
+                                                       </div>
+                                                       <div class="col-md-4">
+                                                        <input name="" type="text" class="form-control" placeholder="Amount in figure">
+                                                       </div>
+                                                       <div class="clearfix"></div>  
+                                                       <div class="col-md-4">
+                                                        <input name="" type="text" class="form-control" placeholder="Amount in word">
+                                                       </div>                                           
+                                                       <div class="col-md-4">
+                                                        <input name="" type="text" class="form-control" placeholder="Amount in word">
+                                                       </div>
+                                                       <div class="col-md-4">
+                                                        <input name="" type="text" class="form-control" placeholder="Amount in word">
+                                                       </div>
+                                                       <div class="clearfix"></div>  
+                                                       <div class="col-md-4">
+                                                        <input name="" type="text" class="form-control" placeholder="Description">
+                                                       </div>                                           
+                                                       <div class="col-md-4">
+                                                        <input name="" type="text" class="form-control" placeholder="Description">
+                                                       </div>
+                                                       <div class="col-md-4">
+                                                        <input name="" type="text" class="form-control" placeholder="Description">
+                                                       </div>
+                                                       <div class="clearfix"></div>  
+                                                        <div class="col-md-12">
+                                                          <label>Fee payment mode</label>
+                                                            <div class="md-radio-inline">  <div class="md-radio-list">                                            
+                                                            <div class="md-radio">
+                                                                <input type="radio" id="radio141" name="cars" class="md-radiobtn" checked value="1">
+                                                                <label for="radio141">
+                                                                    <span></span>
+                                                                    <span class="check"></span>
+                                                                    <span class="box"></span> Cash</label>
+                                                            </div>
+                                                            <div class="md-radio ">
+                                                                <input type="radio" id="radio151" name="cars" class="md-radiobtn"  value="2">
+                                                                <label for="radio151">
+                                                                    <span></span>
+                                                                    <span class="check"></span>
+                                                                    <span class="box"></span> DD </label>
+                                                            </div>
+                                                            <div class="md-radio ">
+                                                                <input type="radio" id="radio161" name="cars" class="md-radiobtn"  value="2">
+                                                                <label for="radio161">
+                                                                    <span></span>
+                                                                    <span class="check"></span>
+                                                                    <span class="box"></span>Cheque </label>
+                                                            </div> 
+                                                            <div class="md-radio ">
+                                                                <input type="radio" id="radio171" name="cars" class="md-radiobtn"  value="4">
+                                                                <label for="radio171">
+                                                                    <span></span>
+                                                                    <span class="check"></span>
+                                                                    <span class="box"></span> Card </label>
+                                                            </div>                                                                       
+                                                        </div>                                       
+                                                     </div>
+                                                         <div class="clearfix" style="margin-bottom:5px"></div>
+                                                     <div id="Cars2" class="desc" style="display:none">    
+                                                         <div class="col-md-4">
+                                                            <label>Bank name</label>
+                                                            <input name="" type="text" class="form-control">
+                                                         </div>
+                                                         <div class="col-md-4">
+                                                            <label>Branch name</label>
+                                                            <input name="" type="text" class="form-control">
+                                                         </div>
+                                                         <div class="col-md-4">
+                                                            <label>City name</label>
+                                                            <input name="" type="text" class="form-control">
+                                                         </div>
+                                                         <div class="col-md-4">
+                                                            <label>DD/Cheque number</label>
+                                                            <input name="" type="text" class="form-control">
+                                                         </div>
+                                                         <div class="col-md-4">
+                                                            <label>DD/Cheque date</label>
+                                                            <input name="" type="text" class="form-control">
+                                                         </div>
+                                                         <div class="col-md-4">
+                                                            <label>Favorable of  </label>
+                                                            <input name="" type="text" class="form-control">
+                                                         </div>
+                                                      </div>   
+                                                      <div id="Cars4" class="desc" style="display:none">
+                                                         <div class="col-md-4">
+                                                            <label>Select Card Type</label>
+                                                            <select name="" class="form-control">
+                                                               <option>1</option>
+                                                               <option>1</option>
+                                                            </select>
+                                                         </div>
+                                                         <div class="clearfix"></div>
+                                                         <div class="col-md-4">
+                                                            <label>Card Number</label>
+                                                            <input name="" type="text" class="form-control">
+                                                         </div>
+                                                         <div class="clearfix"></div>
+                                                         <div class="col-md-4">
+                                                            <label>Name on Card </label>
+                                                            <input name="" type="text" class="form-control">
+                                                         </div>
+                                                         <div class="clearfix"></div>
+                                                         <div class="col-md-2">
+                                                            <label>Expiry Month</label>
+                                                            <select name="" class="form-control">
+                                                               <option>1</option>
+                                                               <option>1</option>
+                                                            </select>
+                                                         </div>
+                                                         <div class="col-md-2">
+                                                            <label>Expiry Year</label>
+                                                            <select name="" class="form-control">
+                                                               <option>1</option>
+                                                               <option>1</option>
+                                                            </select>
+                                                         </div>
+                                                         <div class="clearfix"></div>
+                                                         <div class="col-md-2">
+                                                            <label>CVV</label>
+                                                            <input name="" type="text" class="form-control">
+                                                         </div>
+                                                         <div class="col-md-10">
+                                                            <div style="margin-top:14px"><img src="assets/layouts/layout4/img/cvv.png"  alt=""> </div>
+                                                         </div>
+                                                      </div> 
+                                                       <div class="clearfix"></div>
+                                                       <div class="col-md-4">
+                                                            <label>Payment Date</label>
+                                                            <div class="input-group date mb15 " data-provide="datepicker">
+                                                                <input type="text" class="form-control" style="margin-bottom:0px">
+                                                                <div class="input-group-addon" >
+                                                                    <span class="fa fa-calendar"></span>
+                                                                </div>
+                                                            </div>
+                                                         </div>
+                                                         <div class="col-md-4">
+                                                            <label>Pre Print Receipt no.</label>
+                                                            <input name="" type="text" class="form-control">
+                                                         </div> 
+                                                         <div class="clearfix" style="margin-bottom:10px"></div>
+                                                         <div class="col-md-4" >
+                                                           <button type="button" class="btn-pri">Save</button>
+                                                         </div> 
+                                                 </div>   -->  
+                                                 <div class="row">
+                                                 <div class="col-md-4">
+											<label>Head Name</label> <select class="form-control"
+												name="headName" id="headNameId">
+												<option value="0">Select Section</option>
+												<option th:each="headName: ${headNameList}"
+													th:value="${headName.id}" th:text="${headName.subHeadName}"></option>
+											</select>
+										</div>
+										</div>
+										<div class="row">
+										<div class="col-md-4">
+											<label>Head Amount</label>
+											<div class="clearfix"></div>
+											<input name="headWiseFee" id="headWiseFeeId" type="text"
+												class="form-control number" maxlength="6">
+										</div>
+										</div>
+										<div class="row">
+										<div class="col-md-4">
+											<label>Payment date</label> <input type="text"
+												id="headFeeDateId" name="headFeeDateStr" readonly="readonly"
+												placeholder="Pay Date (dd/mm/yyyy)"
+												class="form-control placeholder-no-fix" />
+
+										</div>
+										</div>
+										<div class="row">
+										<div class="col-md-4">
+
+											<label>Pay Mode</label> <select class="form-control"
+												name="headNamePayMode" id="headNamePayModeId">
+												<option value="0">Select PayMode</option>
+												<option value="CASH">CASH</option>
+												<option value="DD/CHEQUE">DD/CHEQUE</option>
+											</select>
+										</div>   
+										</div>
+										
+										<div class="col-md-12"
+						style="border-top: 1px solid #ddd; padding-top: 15px">
+						<div class="form-actions" id="submitId">
+							<div class="row">
+								<div class="col-md-12">
+									<div class="pull-left">
+										<button th:if="${student!=null}"
+											class="btn green button-submit"
+											onclick="saveStuPayment('+student.studentNo+')">
+											<span th:text="${'SAVE PAYMENT'}"></span> <i
+												class="fa fa-check"></i>
+										</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="clearfix" style="margin-bottom:10px"></div>
+					<div id="paymentsShowId">
+					<div th:replace="myTheme1/student/stuPaymentsShowGrid"></div>
+					</div>
+					
+					<div class="clearfix" style="margin-bottom: 10px"></div>
+					<div class="clearfix" style="margin-bottom: 10px"></div>
+					                                                    
+                                                </div>
+                                               <div class="tab-pane fade p515" id="tab_1_2_1" style="margin-bottom:10px">
+                                                   <div class="row">
+                                                       <div class="col-md-12">
+                                                           <table class="table table-bordered leave-status-table">
+                                                               <thead>
+                                                                   <tr>
+                                                                        <th>Fee Paid</th>
+                                                                        <th>Payment Mode</th>
+                                                                        <th>Payment Date</th>
+                                                                        <th>Daysheet Date</th>
+                                                                   </tr>
+                                                               </thead>
+                                                               <tbody>
+                                                                    <tr>
+                                                                        <td>No data</td>
+                                                                        <td>No data</td>
+                                                                        <td>No data</td>
+                                                                        <td>No data</td>
+                                                                    </tr>
+                                                               </tbody>
+                                                           </table>
+                                                       </div>
+                                                       <div class="clearfix" style="margin-bottom:10px"></div>
+                                                       <div class="col-md-12">
+                                                         <label>Reason for Calcellation</label>
+                                                         <textarea name="c_reason" cols="3" rows="4" class="form-control" style="height:60px"></textarea>
+                                                       </div>                                          
+                                                       <div class="col-md-4">
+                                                         <label>Pre Print Receipt no.</label>
+                                                         <input name="" type="text" class="form-control">
+                                                       </div>
+                                                       <div class="clearfix" style="margin-bottom:10px"></div>
+                                                       <div class="col-md-4">
+                                                         <button type="button" class="btn-pri">Save</button>
+                                                       </div>
+                                                   </div>
+                                               </div>
+                                               <div class="tab-pane fade p515" id="tab_1_3_1" style="margin-bottom:10px"> 
+                                                    <div class="row">
+                                                        <!--<div class="col-md-12">
+                                                        
+                                                        </div>-->
+                                                        <a href="#atanu" data-toggle="modal" class="txt-view" style="position:absolute; top:7px; right:21px; z-index:99">View concession history</a>
+                                                        <div class="col-md-4">
+                                                        <label>Excess</label>
+                                                        <input name="" type="text" class="form-control text-right" value="0" disabled>
+                                                        </div>
+                                                        <div class="clearfix"></div>
+                                                        <div class="col-md-4"><label>I Year Concession</label><input name="" type="text" class="form-control text-right" value="30,000" disabled></div>
+                                                        <div class="col-md-4"><label>II Year Concession</label><input name="" type="text" class="form-control text-right" value="0" disabled></div>                                            
+                                                        <div class="col-md-4"><label>Due Amount</label><input name="" type="text" class="form-control text-right" value="1,30,000" disabled></div>                                            
+                                                        <div class="col-md-4"><label>I Year Concession</label><input name="" type="text" class="form-control text-right" value="0" disabled></div>
+                                                        <div class="col-md-4"><label>II Year Concession</label><input name="" type="text" class="form-control text-right" value="0" ></div>                                           
+                                                        <div class="col-md-4"><label>Reason Type</label><select name="" class="form-control"><option>1</option><option>2</option></select></div>                                            
+                                                        <div class="col-md-12">
+                                                         <label>Reason for Calcellation</label>
+                                                         <textarea name="c_reason" cols="3" rows="4" class="form-control" style="height:60px"></textarea>
+                                                        </div>                                           
+                                                        <div class="col-md-4"><label>Approved by </label><input name="" type="text" class="form-control"></div>
+                                                        <div class="clearfix" style="margin-bottom:15px"></div>
+                                                         <div class="col-md-4" >
+                                                           <button type="button" class="btn-pri">Save</button>
+                                                         </div> 
+                                                    </div>
+                                               </div>                                   
+                                               <div class="tab-pane fade p515" id="tab_1_4_1" style="margin-bottom:10px">
+                                                  <div class="row">
+                                                        <a href="#atanu" data-toggle="modal" class="txt-view" style="position:absolute; top:7px; right:21px; z-index:99">View pocket money history</a>
+                                                        <div class="col-md-4">
+                                                        <label>Card no</label>
+                                                        <input name="" type="text" class="form-control text-right" value="0" disabled>
+                                                        </div>
+                                                        <div class="clearfix"></div>
+                                                        <div class="col-md-4"><label>Deposited Amount</label><input name="" type="text" class="form-control text-right" value="8,724" disabled></div>
+                                                       
+                                                        <div class="col-md-4"><label>Issue Amount</label><input name="" type="text" class="form-control text-right" value="9,924" disabled></div>
+                                                        
+                                                        <div class="col-md-4"><label>Pocket Money Due</label><input name="" type="text" class="form-control text-right" style="color:#e60000; font-weight:600" value="1,200" disabled></div>
+                                                       
+                                                        <div class="col-md-4"><label>Payment Amount</label><input name="" type="text" class="form-control text-right" value="0" ></div>                                           
+                                                       
+                                                        <div class="col-md-4"><label>Reason Type</label><select name="" class="form-control"><option>1</option><option>2</option></select></div>
+                                                       
+                                                        <div class="col-md-4"><label>Issue Date</label><div class="input-group date mb15 " data-provide="datepicker">
+                                                                <input type="text" class="form-control" style="margin-bottom:0px">
+                                                                <div class="input-group-addon" >
+                                                                    <span class="fa fa-calendar"></span>
+                                                                </div>
+                                                            </div></div>
+                                                        
+                                                        <div class="col-md-4"><label>Payment Mode</label><select name="" class="form-control"><option>1</option><option>2</option></select></div>
+                                                       
+                                                        <div class="col-md-12">
+                                                         <label>Remarks</label>
+                                                         <textarea name="c_reason" cols="3" rows="4" class="form-control" style="height:60px"></textarea>
+                                                        </div>
+                                                         <div class="clearfix" style="margin-bottom:15px"></div>
+                                                         <div class="col-md-4" >
+                                                           <button type="button" class="btn-pri">Save</button>
+                                                         </div> 
+                                                    </div>
+                                               </div>
+                                               <div class="tab-pane fade p515" id="tab_1_5_1" style="margin-bottom:10px">
+                                                  <div class="row">
+                                                       <a href="#atanu" data-toggle="modal" class="txt-view" style="position:absolute; top:7px; right:21px; z-index:99">View refund history</a>
+                                                       <div class="col-md-4">
+                                                         <label>Install no</label>
+                                                         <input name="" type="text" class="form-control">
+                                                       </div>  
+                                                       <div class="col-md-4">
+                                                        <label>Fee Head</label>
+                                                        <select name="" class="form-control">                                                
+                                                            <option>2018</option>
+                                                            <option>2019</option>
+                                                         </select>
+                                                       </div> 
+                                                       <div class="clearfix"></div>                                            
+                                                       <div class="col-md-4">
+                                                        <label>Amount (Rs.)</label>
+                                                        <input name="" type="text" class="form-control" placeholder="Amount in figure">
+                                                       </div>
+                                                       <div class="col-md-8">
+                                                       <label>Discription</label>
+                                                        <input name="" type="text" class="form-control" >
+                                                       </div> 
+                                                       <div class="clearfix"></div>  
+                                                        <div class="col-md-12">
+                                                          <label>Payment mode</label>
+                                                            <div class="md-radio-inline">  <!--<div class="md-radio-list">-->                                            
+                                                            <div class="md-radio">
+                                                                <input type="radio" id="radio141" name="cars" class="md-radiobtn" checked value="1">
+                                                                <label for="radio141">
+                                                                    <span></span>
+                                                                    <span class="check"></span>
+                                                                    <span class="box"></span> Cash</label>
+                                                            </div>
+                                                            <div class="md-radio ">
+                                                                <input type="radio" id="radio151" name="cars" class="md-radiobtn"  value="2">
+                                                                <label for="radio151">
+                                                                    <span></span>
+                                                                    <span class="check"></span>
+                                                                    <span class="box"></span> DD </label>
+                                                            </div>
+                                                            <div class="md-radio ">
+                                                                <input type="radio" id="radio161" name="cars" class="md-radiobtn"  value="2">
+                                                                <label for="radio161">
+                                                                    <span></span>
+                                                                    <span class="check"></span>
+                                                                    <span class="box"></span>Cheque </label>
+                                                            </div>                                                                 
+                                                        </div>                                       
+                                                     </div>
+                                                         <div class="clearfix" style="margin-bottom:5px"></div>
+                                                     <div id="Cars2" class="desc" style="display:none">    
+                                                         <div class="col-md-4">
+                                                            <label>Bank name</label>
+                                                            <input name="" type="text" class="form-control">
+                                                         </div>
+                                                         <div class="col-md-4">
+                                                            <label>Branch name</label>
+                                                            <input name="" type="text" class="form-control">
+                                                         </div>
+                                                         <div class="col-md-4">
+                                                            <label>City name</label>
+                                                            <input name="" type="text" class="form-control">
+                                                         </div>
+                                                         <div class="col-md-4">
+                                                            <label>DD/Cheque number</label>
+                                                            <input name="" type="text" class="form-control">
+                                                         </div>
+                                                         <div class="col-md-4">
+                                                            <label>DD/Cheque date</label>
+                                                            <input name="" type="text" class="form-control">
+                                                         </div>
+                                                         <div class="col-md-4">
+                                                            <label>Favorable of  </label>
+                                                            <input name="" type="text" class="form-control">
+                                                         </div>
+                                                      </div>   
+                                                       
+                                                       <div class="clearfix"></div>
+                                                       <div class="col-md-4">
+                                                            <label>Payment Date</label>
+                                                            <div class="input-group date mb15 " data-provide="datepicker">
+                                                                <input type="text" class="form-control" style="margin-bottom:0px">
+                                                                <div class="input-group-addon" >
+                                                                    <span class="fa fa-calendar"></span>
+                                                                </div>
+                                                            </div>
+                                                         </div>
+                                                         <div class="col-md-4">
+                                                            <label>Pre Print Receipt no.</label>
+                                                            <input name="" type="text" class="form-control">
+                                                         </div> 
+                                                          <div class="col-md-4">
+                                                            <label>Authorized by</label>
+                                                            <input name="" type="text" class="form-control">
+                                                         </div> 
+                                                          
+                                                         <div class="clearfix" style="margin-bottom:10px"></div>
+                                                         <div class="col-md-4" >
+                                                           <button type="button" class="btn-pri">Save</button>
+                                                         </div> 
+                                                 </div>
+                                               </div>
+                                               <div class="tab-pane fade p515" id="tab_1_6_1" style="margin-bottom:10px">                                   
+                                                 <div class="row">
+                                                       <a href="#atanu" data-toggle="modal" class="txt-view" style="position:absolute; top:7px; right:21px; z-index:99">View course history</a>
+                                                       <div class="col-md-4">
+                                                         <label>Stream</label>
+                                                        <select name="" class="form-control" disabled>                                                
+                                                            <option>2018</option>
+                                                            <option>2019</option>
+                                                         </select>
+                                                       </div>  
+                                                       <div class="col-md-4">
+                                                        <label>Program Name</label>
+                                                        <select name="" class="form-control" disabled>                                                
+                                                            <option>2018</option>
+                                                            <option>2019</option>
+                                                         </select>
+                                                       </div>                                      
+                                                       <div class="col-md-4">
+                                                        <label>Course Track</label>
+                                                        <select name="" class="form-control" disabled>                                                
+                                                            <option>2018</option>
+                                                            <option>2019</option>
+                                                         </select>
+                                                       </div>
+                                                        <div class="col-md-4">
+                                                        <label>Batch Name</label>
+                                                        <select name="" class="form-control" disabled>                                                
+                                                            <option>2018</option>
+                                                            <option>2019</option>
+                                                         </select>
+                                                       </div> 
+                                                       <div class="col-md-4">
+                                                        <label>Course Dates</label>
+                                                        <div class="input-group date " data-provide="datepicker">
+                                                                <input type="text" class="form-control" style="margin-bottom:0px">
+                                                                <div class="input-group-addon" >
+                                                                    <span class="fa fa-calendar"></span>
+                                                                </div>
+                                                            </div>
+                                                       </div>  
+                                                       <div class="col-md-4">
+                                                        <label>Section</label>
+                                                        <select name="" class="form-control" disabled>                                                
+                                                            <option>2018</option>
+                                                            <option>2019</option>
+                                                         </select>
+                                                       </div> 
+                                                         <div class="col-md-4">
+                                                            <label>Course Change Fine</label>
+                                                            <input name="" type="text" class="form-control">
+                                                         </div> 
+                                                         <div class="col-md-12">
+                                                         <label>Reason for Calcellation</label>
+                                                         <textarea name="c_reason" cols="3" rows="4" class="form-control" style="height:60px"></textarea>
+                                                        </div> 
+                                                          
+                                                         <div class="clearfix" style="margin-bottom:15px"></div>
+                                                         <div class="col-md-4" >
+                                                           <button type="button" class="btn-pri">Save</button>
+                                                         </div> 
+                                                 </div>
+                                               </div> 
+                                               <div class="tab-pane fade " id="tab_1_7_1" style="margin-bottom:10px">
+                                                  <a href="#atanu" data-toggle="modal" class="txt-view" style="position:absolute; top:7px; right:21px; z-index:99">View transfer history</a>                                    
+                                                  <div class="panel-group" id="Transfer" role="tablist" aria-multiselectable="true">
+                                                        <div class="panel panel-default">
+                                                          <div class="panel-heading" role="tab" id="headingOne">
+                                                            <h4 class="panel-title">
+                                                            <a role="button" data-toggle="collapse" data-parent="#Transfer" href="#TransferOne" aria-expanded="true" aria-controls="TransferOne">                                                  
+                                                                CAMPUS DETAILS 
+                                                            </a>
+                                                          </h4>
+                                                          </div>
+                                                          
+                                                           <div id="TransferOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                                                            <div class="panel-body">
+                                                               <div class="row">
+                                                                  <div class="col-md-4">
+                                                                     <label>State</label>
+                                                                     <select name="" class="form-control" disabled>
+                                                                        <option>1</option>
+                                                                        <option>2</option>
+                                                                     </select>
+                                                                  </div>
+                                                                  <div class="col-md-4">
+                                                                     <label>City</label>
+                                                                     <select name="" class="form-control" disabled>
+                                                                        <option>1</option>
+                                                                        <option>2</option>
+                                                                     </select>
+                                                                  </div>
+                                                                  <div class="col-md-4">
+                                                                     <label>Campus</label>
+                                                                     <select name="" class="form-control" disabled>
+                                                                        <option>1</option>
+                                                                        <option>2</option>
+                                                                     </select>
+                                                                  </div>
+                                                                  <div class="col-md-4">
+                                                                     <label>Stream</label>
+                                                                     <select name="" class="form-control" disabled>
+                                                                        <option>1</option>
+                                                                        <option>2</option>
+                                                                     </select>
+                                                                  </div>
+                                                                  <div class="col-md-4">
+                                                                     <label>Program</label>
+                                                                     <select name="" class="form-control" disabled>
+                                                                        <option>1</option>
+                                                                        <option>2</option>
+                                                                     </select>
+                                                                  </div>
+                                                                  <div class="col-md-4">
+                                                                     <label>Course Track</label>
+                                                                     <select name="" class="form-control" disabled>
+                                                                        <option>1</option>
+                                                                        <option>2</option>
+                                                                     </select>
+                                                                  </div>
+                                                                  <div class="col-md-4">
+                                                                     <label>Batch</label>
+                                                                     <select name="" class="form-control" disabled>
+                                                                        <option>1</option>
+                                                                        <option>2</option>
+                                                                     </select>
+                                                                  </div>
+                                                                  <div class="col-md-4">
+                                                                     <label>Principal Name</label>
+                                                                     <input name="" type="text" class="form-control">
+                                                                  </div>
+                                                                  <div class="col-md-4">
+                                                                     <label>Transfer Date</label>
+                                                                     <div class="input-group date mb15 " data-provide="datepicker">
+                                                                <input type="text" class="form-control" style="margin-bottom:0px">
+                                                                <div class="input-group-addon" >
+                                                                    <span class="fa fa-calendar"></span>
+                                                                </div>
+                                                            </div>
+                                                                  </div>
+                                                                  <div class="col-md-4">
+                                                                     <label>Enrolled at</label>
+                                                                     <input name="" type="text" class="form-control">
+                                                                  </div>
+                                                                  <div class="col-md-4">
+                                                                     <label>Campus type</label>
+                                                                     <input name="" type="text" class="form-control">
+                                                                  </div>
+                                                                  <div class="col-md-4">
+                                                                     <label>Fee</label>
+                                                                     <input name="" type="text" class="form-control">
+                                                                  </div>
+                                                               </div>
+                                                            </div>
+                                                          </div>
+                                                        </div>
+                                                       
+                                                        <div class="panel panel-default">
+                                                          <div class="panel-heading" role="tab" id="headingTwo">
+                                                            <h4 class="panel-title">
+                                                            <a class="collapsed" role="button" data-toggle="collapse" data-parent="#Transfer" href="#TransferTwo" aria-expanded="false" aria-controls="TransferTwo">
+                                                             COMMUNICATION ADDRESS
+                                                            </a>
+                                                          </h4>
+                                                          </div>
+                                                          <div id="TransferTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+                                                            <div class="panel-body">
+                                                               <div class="row">
+                                                                  <div class="col-md-4">
+                                                                     <label>Door no./Plot no.</label>
+                                                                     <input name="" type="text" class="form-control">
+                                                                  </div>
+                                                                  <div class="col-md-4">
+                                                                     <label>Street/Colony</label>
+                                                                     <input name="" type="text" class="form-control">
+                                                                  </div>
+                                                                  <div class="col-md-4">
+                                                                     <label>Land Mark</label>
+                                                                     <input name="" type="text" class="form-control">
+                                                                  </div>
+                                                                  <div class="col-md-4">
+                                                                     <label>Area</label>
+                                                                     <input name="" type="text" class="form-control">
+                                                                  </div>
+                                                                  <div class="col-md-4">
+                                                                     <label>PIN</label>
+                                                                     <input name="" type="text" class="form-control">
+                                                                  </div>
+                                                                  <div class="col-md-4">
+                                                                     <label>State</label>
+                                                                     <select name="" class="form-control" >
+                                                                        <option>1</option>
+                                                                        <option>2</option>
+                                                                     </select>
+                                                                  </div>
+                                                                  <div class="col-md-4">
+                                                                     <label>District</label>
+                                                                     <select name="" class="form-control" >
+                                                                        <option>1</option>
+                                                                        <option>2</option>
+                                                                     </select>
+                                                                  </div>
+                                                                  <div class="col-md-4">
+                                                                     <label>Mandal</label>
+                                                                     <select name="" class="form-control" >
+                                                                        <option>1</option>
+                                                                        <option>2</option>
+                                                                     </select>
+                                                                  </div>
+                                                                  <div class="col-md-4">
+                                                                     <label>City</label>
+                                                                     <select name="" class="form-control" >
+                                                                        <option>1</option>
+                                                                        <option>2</option>
+                                                                     </select>
+                                                                  </div>
+                                                               </div>                                                  
+                                                             </div>
+                                                          </div>
+                                                        </div> 
+                                                        
+                                                        <div class="panel panel-default">
+                                                          <div class="panel-heading" role="tab" id="headingThree">
+                                                            <h4 class="panel-title">
+                                                            <a class="collapsed" role="button" data-toggle="collapse" data-parent="#Transfer" href="#TransferThree" aria-expanded="false" aria-controls="TransferThree">
+                                                             PREVIOUS AMOUNT
+                                                            </a>
+                                                          </h4>
+                                                          </div>
+                                                          <div id="TransferThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+                                                            <div class="panel-body">
+                                                               <div class="row">
+                                                                  <div class="col-md-4">
+                                                                    <h4 style="font-weight:600">Previous Amount</h4>
+                                                                        <table style="width:100%">
+                                                                          <tr>
+                                                                              <td style="width:35%">First Year Due</td>
+                                                                              <td><input name="" type="text" class="form-control text-right" value="0"></td>
+                                                                          </tr>
+                                                                          <tr>
+                                                                              <td>Add. Amount</td>
+                                                                              <td><input name="" type="text" class="form-control text-right" value="0"></td>
+                                                                          </tr>
+                                                                          <tr>
+                                                                              <td>Pock Transfer</td>
+                                                                              <td><input name="" type="text" class="form-control text-right" value="-1200"></td>
+                                                                          </tr>
+                                                                        </table>
+                                                                  </div>
+                                                                  <div class="col-md-4">
+                                                                    <h4 style="font-weight:600">Fee <small>(Rs.)</small></h4>
+                                                                        <table style="width:100%">
+                                                                          <tr>
+                                                                              <td style="width:35%">Paid</td>
+                                                                              <td><input name="" type="text" class="form-control text-right" value="0"></td>
+                                                                          </tr>
+                                                                          <tr>
+                                                                              <td>Deduction</td>
+                                                                              <td><input name="" type="text" class="form-control text-right" value="0"></td>
+                                                                          </tr>
+                                                                          <tr>
+                                                                              <td>Transfer</td>
+                                                                              <td><input name="" type="text" class="form-control text-right" value="0"></td>
+                                                                          </tr>
+                                                                        </table>
+                                                                  </div>
+                                                                  <div class="col-md-4">
+                                                                    <h4 style="font-weight:600">Caution Deposit <small>(Rs.)</small></h4>
+                                                                        <table style="width:100%">
+                                                                          <tr>
+                                                                              <td style="width:35%">Paid</td>
+                                                                              <td><input name="" type="text" class="form-control text-right" value="0"></td>
+                                                                          </tr>
+                                                                          <tr>
+                                                                              <td>Deduction</td>
+                                                                              <td><input name="" type="text" class="form-control text-right" value="0"></td>
+                                                                          </tr>
+                                                                          <tr>
+                                                                              <td>Transfer</td>
+                                                                              <td><input name="" type="text" class="form-control text-right" value="0"></td>
+                                                                          </tr>
+                                                                        </table>
+                                                                  </div>
+                                                                  <div class="clearfix"></div>
+                                                                  <hr class="divider">
+                                                                  <div class="clearfix"></div>
+                                                                  <div class="col-md-4"> 
+                                                                     <label>Total Deduction (Rs.) </label>
+                                                                     <input name="" type="text" class="form-control text-right" value="0" disabled> 
+                                                                  </div>
+                                                                  <div class="clearfix"></div>
+                                                                  <div class="col-md-12">
+                                                                     <label>Remarks</label>
+                                                                     <textarea name="c_reason" cols="3" rows="4" class="form-control" style="height:60px"></textarea>
+                                                                   </div>
+                                                                   <div class="col-md-12">  
+                                                                      <label>Enclosures</label>
+                                                                      <div class="md-checkbox-inline">  <!--<div class="md-radio-list">-->                                            
+                                                                                    <div class="md-checkbox">
+                                                                                        <input type="checkbox" id="checkbox1" name="" class="md-checkbox"  value="">
+                                                                                        <label for="checkbox1">
+                                                                                            <span></span>
+                                                                                            <span class="check"></span>
+                                                                                            <span class="box"></span> Org. Application</label>
+                                                                                    </div>
+                                                                                    <div class="md-checkbox ">
+                                                                                        <input type="checkbox" id="checkbox2" name="" class="md-checkbox"  value="">
+                                                                                        <label for="checkbox2">
+                                                                                            <span></span>
+                                                                                            <span class="check"></span>
+                                                                                            <span class="box"></span> TC </label>
+                                                                                    </div>
+                                                                                    <div class="md-checkbox ">
+                                                                                        <input type="checkbox" id="checkbox3" name="" class="md-checkbox"  value="">
+                                                                                        <label for="checkbox3">
+                                                                                            <span></span>
+                                                                                            <span class="check"></span>
+                                                                                            <span class="box"></span>Memo </label>
+                                                                                    </div>                                                                                                                                                
+                                                                                </div>
+                                                                   </div> 
+                                                                                                                                    
+                                                                  <div class="clearfix" style="margin-bottom:15px"></div>                                                   
+                                                                  <div class="col-md-12">
+                                                                     <button type="button" class="btn-pri">Student Transfer</button>
+                                                                     <button type="button" class="btn-sec">Reset</button>
+                                                                  </div>
+                                                               </div>
+                                                            </div>
+                                                          </div>
+                                                        </div> 
+                                                                                                  
+                                                      </div>
+                                               </div>                                     
+                                           </div>
+                           				</div>                      
+                                    </div>
+                                    <div class="row" id="other-details" style="display:none">
+                                       <div class="col-md-12" >
+                                         <ul class="nav custom_nav bold">
+                                            <li class="active">
+                                                <a href="#tab_1_1_2" data-toggle="tab">Point 1</a>
+                                            </li>
+                                            <li>
+                                                <a href="#tab_1_2_2" data-toggle="tab">Point 2</a>
+                                            </li>
+                                            <li>
+                                                <a href="#tab_1_3_2" data-toggle="tab">Point 3</a>
+                                            </li>                                    
+                                            <li>
+                                                <a href="#tab_1_4_2" data-toggle="tab">Point 4</a>
+                                            </li>                          
+                                        </ul>                                
+                                <div class="tab-content">
+                                   <div class="tab-pane active in fade p515" id="tab_1_1_2" style="margin-bottom:10px">                                         
+                                        ===================                                                           
+                                    </div>
+                                   <div class="tab-pane fade p515" id="tab_1_2_2" style="margin-bottom:10px">
+                                        =================== 
+                                   </div>
+                                   <div class="tab-pane fade p515" id="tab_1_3_2" style="margin-bottom:10px"> 
+                                        =================== 
+                                   </div>                                   
+                                   <div class="tab-pane fade p515" id="tab_1_4_2" style="margin-bottom:10px">
+                                        =================== 
+                                   </div>                            
+                               </div>
+                           </div>                      
+                                    </div>                  
+                            </div>
+                        </div>
+                    </div> 
+                                                                                 	                                
+<div id="atanu" class="modal fade" role="dialog">
+  <div class="modal-dialog modal-lg">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Details</h4>
+      </div>
+      <div class="modal-body">
+                 <div class="table-responsive">
+                       <table class="table table-bordered order-column nowrap leave-status-table">
+                                                    <thead>
+                                                      <tr>
+                                                        <th> Application No.</th>
+                                                        <th> Surname </th>
+                                                        <th > Student's name </th>
+                                                        <th> Parent's name  </th>
+                                                        <th> Calss</th>
+                                                        
+                                                                                                       
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                   <tr>
+                                                        <td>191005353</td>                                                        			
+                                                        <td>MANDA</td>
+                                                        <td>UMAMAHESHWER</td>
+                                                        <td>JAGADEESHWAR</td>
+                                                        <td>Jr Intermediate</td>
+                                                       
+                                                    </tr>
+                                                     <tr>
+                                                        <td>191005353</td>                                                        			
+                                                        <td>MANDA</td>
+                                                        <td>UMAMAHESHWER</td>
+                                                        <td>JAGADEESHWAR</td>
+                                                        <td>Jr Intermediate</td>
+                                                        
+                                                    </tr>
+                                                     <tr>
+                                                        <td>191005353</td>                                                        			
+                                                        <td>MANDA</td>
+                                                        <td>UMAMAHESHWER</td>
+                                                        <td>JAGADEESHWAR</td>
+                                                        <td>Jr Intermediate</td>
+                                                        
+                                                    </tr>
+                                                     <tr class="bg-active">
+                                                        <td>191005353</td>                                                        			
+                                                        <td><a href="#atanu" data-toggle="modal">Atanu</a></td>
+                                                        <td>UMAMAHESHWER</td>
+                                                        <td>JAGADEESHWAR</td>
+                                                        <td>Jr Intermediate</td>
+                                                       
+                                                    </tr>
+                                                     <tr>
+                                                        <td>191005353</td>                                                        			
+                                                        <td>MANDA</td>
+                                                        <td>UMAMAHESHWER</td>
+                                                        <td>JAGADEESHWAR</td>
+                                                        <td>Jr Intermediate</td>
+                                                       
+                                                    </tr>
+                                                     <tr>
+                                                        <td>191005353</td>                                                        			
+                                                        <td>MANDA</td>
+                                                        <td>UMAMAHESHWER</td>
+                                                        <td>JAGADEESHWAR</td>
+                                                        <td>Jr Intermediate</td>
+                                                       
+                                                    </tr>
+                                                     <tr>
+                                                        <td>191005353</td>                                                        			
+                                                        <td>MANDA</td>
+                                                        <td>UMAMAHESHWER</td>
+                                                        <td>JAGADEESHWAR</td>
+                                                        <td>Jr Intermediate</td>
+                                                       
+                                                    </tr>
+                                                     <tr>
+                                                        <td>191005353</td>                                                        			
+                                                        <td>MANDA</td>
+                                                        <td>UMAMAHESHWER</td>
+                                                        <td>JAGADEESHWAR</td>
+                                                        <td>Jr Intermediate</td>
+                                                       
+                                                    </tr>
+                                                     <tr>
+                                                        <td>191005353</td>                                                        			
+                                                        <td>MANDA</td>
+                                                        <td>UMAMAHESHWER</td>
+                                                        <td>JAGADEESHWAR</td>
+                                                        <td>Jr Intermediate</td>
+                                                       
+                                                    </tr>
+                                                     <tr>
+                                                        <td>191005353</td>                                                        			
+                                                        <td>MANDA</td>
+                                                        <td>UMAMAHESHWER</td>
+                                                        <td>JAGADEESHWAR</td>
+                                                        <td>Jr Intermediate</td>
+                                                       
+                                                    </tr>
+                                                     <tr>
+                                                        <td>191005353</td>                                                        			
+                                                        <td>MANDA</td>
+                                                        <td>UMAMAHESHWER</td>
+                                                        <td>JAGADEESHWAR</td>
+                                                        <td>Jr Intermediate</td>
+                                                       
+                                                    </tr>
+                                                   
+                                                </tbody>
+                                            </table>
+                 </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-sec" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+
+<script>
+$(function() {    // Makes sure the code contained doesn't run until
+                  //     all the DOM elements have loaded
+
+    $('#colorselector').change(function(){
+        $('.colors').hide();
+        $('#' + $(this).val()).show();
+    });
+
+});
+
+
+$(document).ready(function() {
+    $("input[name$='cars']").click(function() {
+        var test = $(this).val();
+
+        $("div.desc").hide();
+        $("#Cars" + test).show();
+    });
+});
+
+$("#btn-oi").click(function(){
+	$(".inactive-tab").toggleClass('inactive-tab')		
+	$(".active-tab").toggleClass('active-tab')
+	$(this).toggleClass('active-tab');
+	$("#other-details").show()	
+	$("#payment-details").hide()	
+	})
+$("#btn-pd").click(function(){
+	$(".inactive-tab").removeClass('inactive-tab')
+	$(".active-tab").removeClass('active-tab')
+    $(this).addClass('active-tab');	
+	$("#other-details").hide()	
+	$("#payment-details").show()
+	})		
+//$("#btn-pd").click(function(){
+//	$(".active-tab").removeClass('active-tab')
+//	$(this).addClass('inactive-tab');
+//	$(".inactive-tab").addClass('active-tab')
+//	})		
+</script>
+</body>
+</html>

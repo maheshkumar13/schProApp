@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+	
+<script type="text/javascript">
+
+
+jQuery(document).ready(function($) {
+	 document.getElementById("admNumber1").focus();		
+});
+function feedBackMsg(){
+	 document.getElementById("admNumber1").focus();	
+}
+
+function resetForm(){
+	document.getElementById("admNumber1").value="";
+	document.getElementById("admNumber1").focus();
+	return false;
+}
+
+function formSubmit(){
+	 $.ajax({
+		 type : 'GET',
+		 url : "/student/getStAdmNoDetls",
+			data : {
+				admNumber : document.getElementById("studentId").value
+			},
+	     success: function (data) {
+	    	 $('#bPrint1').show();
+		   	 	$('#stTrDetl1').show();
+		   	 	$('#stTrDetl1').html(data);
+		   	 
+		//   	 document.getElementById("stTrDetl1").style.visibility = 'visible';
+		  //  	 document.getElementById("bPrint1").style.visibility = 'visible'; 
+		    	
+	    }
+	}); 
+}
+
+function checkValidations(){
+	if(document.getElementById("admNumber1").value == ""){
+		alert("Please Enter Student Admission Number");
+		document.getElementById("admNumber1").value="";
+		document.getElementById("admNumber1").focus();
+		return false;
+	}else{
+		formSubmit();
+	}
+}
+
+function isNumber(evt) {
+    evt = (evt) ? evt : window.event;
+    var charCode = (evt.which) ? evt.which : evt.keyCode;
+    if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+        return false;
+    }
+    return true;
+}
+
+function clearDetails() {
+		/* <s:url action="genStuTransferPdf" var="pdfGenerate"
+			namespace="/campus-ajax" />
+		 serverurl = "<s:property value="%{#pdfGenerate}"/>";
+		 document.getElementById("sbPrint1").action=serverurl;
+		 document.getElementById("sbPrint1").submit();
+		 serverurl = "<s:property value="%{#pdfGenerate}"/>";
+		 document.getElementById("sbPrint1").action=serverurl;
+		 
+		 $('#bPrint1').hide();
+		 $("#stTrDetl1").html('');
+		 $("#stTrDetl1").hide();
+		
+		 document.getElementById("admNumber1").focus(); */
+		return false; 
+}
+
+function allFieldsValids(){
+	
+	 if(document.getElementById("categoryId").value == "" || document.getElementById("categoryId").value == "Enter Category"){
+			alert("Enter Category");
+			document.getElementById("categoryId").focus();
+			return false;
+		}else if(document.getElementById("admissionNoId").value == "" || document.getElementById("admissionNoId").value == "Enter AdmissionNo"){
+			alert("Enter AdmissionNo");
+			document.getElementById("admissionNoId").focus();
+			return false;
+		}else if(document.getElementById("studentId").value == ""){
+			alert("Enter Valid Student");
+			document.getElementById("studentId").focus();
+			return false;
+		}else if(document.getElementById("stName1").value == "" || document.getElementById("stName1").value == "Enter Student Name"){
+		alert("Enter Student Name");
+		document.getElementById("stName1").focus();
+		return false;
+	}else if(document.getElementById("pName1").value == "" || document.getElementById("pName1").value == "Enter Father Name"){
+		alert("Enter Father Name");
+		document.getElementById("pName1").focus();
+		return false;
+	}else if(document.getElementById("mName1").value == "" || document.getElementById("mName1").value == "Enter Mother Name"){
+		alert("Enter Mother Name");
+		document.getElementById("mName1").focus();
+		return false;
+	}else if(document.getElementById("stNatRel1").value == "" || document.getElementById("stNatRel1").value == "Enter Nationality and Religion"){
+		alert("Enter Nationality and Religion");
+		document.getElementById("stNatRel1").focus();
+		return false;
+	}else if(document.getElementById("stCasSubC1").value == "" || document.getElementById("stCasSubC1").value == "Enter Cast and SubCast"){
+		alert("Enter Cast and SubCast");
+		document.getElementById("stCasSubC1").focus();
+		return false;
+	}else if(document.getElementById("stDoaY1").value == "" || document.getElementById("stDoaY1").value == "Click Here To Show ADate Calander"){
+		alert("Enter Admission Date Calander");
+		document.getElementById("stDoaY1").focus();
+		return false;
+	}else if(document.getElementById("stDob1").value == "" || document.getElementById("stDob1").value == "Click Here To Show DoB Calander"){
+		alert("Click Here To Show DoB Calander");
+		document.getElementById("stDob1").focus();
+		return false;
+	}else if(document.getElementById("stCalAtL1").value == "" || document.getElementById("stCalAtL1").value == "Enter Study Class"){
+		alert("Enter Study Class");
+		document.getElementById("stCalAtL1").focus();
+		return false;
+	}else if(document.getElementById("annualExamsLastTakenId").value == "" || document.getElementById("annualExamsLastTakenId").value == "Enter Annual Exams last taken with result"){
+		alert("Enter Annual Exams LastTaken");
+		document.getElementById("annualExamsLastTakenId").focus();
+		return false;
+	}else if(document.getElementById("onceOrtwiceinSameClassId").value == "" || document.getElementById("onceOrtwiceinSameClassId").value == "Enter once/twice in same class"){
+		alert("Enter OnceOrtwice in SameClass");
+		document.getElementById("onceOrtwiceinSameClassId").focus();
+		return false;
+	}else if(document.getElementById("subject1Id").value == "" || document.getElementById("subject1Id").value == "Enter Subject"){
+		alert("Enter Subject1");
+		document.getElementById("subject1Id").focus();
+		return false;
+	}else if(document.getElementById("subject2Id").value == "" || document.getElementById("subject2Id").value == "Enter Subject"){
+		alert("Enter Subject2");
+		document.getElementById("subject2Id").focus();
+		return false;
+	}else if(document.getElementById("subject3Id").value == "" || document.getElementById("subject3Id").value == "Enter Subject"){
+		alert("Enter Subject3");
+		document.getElementById("subject3Id").focus();
+		return false;
+	}else if(document.getElementById("subject4Id").value == "" || document.getElementById("subject4Id").value == "Enter Subject"){
+		alert("Enter Subject4");
+		document.getElementById("subject4Id").focus();
+		return false;
+	}else if(document.getElementById("subject5Id").value == "" || document.getElementById("subject5Id").value == "Enter Subject"){
+		alert("Enter Subject5");
+		document.getElementById("subject5Id").focus();
+		return false;
+	}else if(document.getElementById("qualifierforPromotiontoHigherClassId").value == "" || document.getElementById("qualifierforPromotiontoHigherClassId").value == "Enter qualifier for promotion to higher class"){
+		alert("Enter qualifier for promotion to higher class");
+		document.getElementById("qualifierforPromotiontoHigherClassId").focus();
+		return false;
+	}else if(document.getElementById("paidSchoolDuesId").value == "" || document.getElementById("paidSchoolDuesId").value == "Enter student has paid school dues"){
+		alert("Enter student has paid school dues");
+		document.getElementById("paidSchoolDuesId").focus();
+		return false;
+	}else if(document.getElementById("concessionAvailedId").value == "" || document.getElementById("concessionAvailedId").value == "Enter Fee Concession availed"){
+		alert("Enter Fee Concession availed");
+		document.getElementById("concessionAvailedId").focus();
+		return false;
+	}else if(document.getElementById("noOfWorkingDaysId").value == "" || document.getElementById("noOfWorkingDaysId").value == "Enter Total No.of Working Days"){
+		alert("Enter Total No.of Working Days");
+		document.getElementById("noOfWorkingDaysId").focus();
+		return false;
+	}else if(document.getElementById("noOfWorkingDaysPresentId").value == "" || document.getElementById("noOfWorkingDaysPresentId").value == "Enter Total No.of Working Days Present"){
+		alert("Enter Total No.of Working Days Present");
+		document.getElementById("noOfWorkingDaysPresentId").focus();
+		return false;
+	}else if(document.getElementById("coCcurricularActivitiesId").value == "" || document.getElementById("coCcurricularActivitiesId").value == "Enter Co-curricular activities"){
+		alert("Enter Co-curricular activities");
+		document.getElementById("coCcurricularActivitiesId").focus();
+		return false;
+	}else if(document.getElementById("stCond1").value == "" || document.getElementById("stCond1").value== "Enter Student Conduct"){
+		alert("Enter Student Conduct");
+		conduct.focus();
+		return false;
+	}else if((document.getElementById("dateOfAppliedTransferCertificateStrId").value == "" ) && ( document.getElementById("dateOfAppliedTransferCertificateStrId").value == "Click Here To Show Applied TDate Calander")){
+		alert("Please Select Applied TC Date");
+		document.getElementById("dateOfAppliedTransferCertificateStrId").focus();
+		return false;
+	}else if((document.getElementById("dateOfIssuTransferCertificateStrId").value == "" ) && ( document.getElementById("dateOfIssuTransferCertificateStrId").value == "Click Here To Show Applied TDate Calander")){
+		alert("Please Select Issue TC Date");
+		document.getElementById("dateOfIssuTransferCertificateStrId").focus();
+		return false;
+	}else if((document.getElementById("reasonForLeavingId").value == "" ) && ( document.getElementById("reasonForLeavingId").value == "Enter Reason For Leaving the school")){
+		alert("Please Enter Reason For Leaving the school");
+		document.getElementById("reasonForLeavingId").focus();
+		return false;
+	}else if((document.getElementById("anyOtherRemarksId").value == "" ) && ( document.getElementById("anyOtherRemarksId").value == "Enter Other Remarks")){
+		alert("Please Enter Other Remarks");
+		document.getElementById("anyOtherRemarksId").focus();
+		return false;
+	}else{
+		 var form = $('#submit_form')[0];
+
+		    var data = new FormData(form);
+		
+		$.ajax({
+			type : 'POST',
+			url : "/student/getStudentTcPrint",
+			data : $('#submit_form').serialize(),
+			success : function(data) {
+				
+				if(data.indexOf("FEEDBACK-1")!=-1) {
+					showToastr("Successfully Saved!!!", "success");
+					var admNoVal=document.getElementById("admNumber1").value;
+					
+					
+					document.getElementById("admNumber1").value="";		
+					 document.getElementById("admNumber1").focus();		
+					 
+					 getPdf(admNoVal);
+					
+					
+				} else {
+					alert(data);
+					
+				}
+				
+			},
+		error: function () {
+			showToastr("Unable to load details","error");
+        }
+		});
+		
+		return false;
+		
+	}
+	
+}
+
+function getPdf(admNoVal) {
+	document.getElementById("reportTypeId").value="pdf"; 
+	document.getElementById("admNumberId").value=document.getElementById("studentId").value;
+	document.getElementById("dynamicFormId").submit();
+	document.getElementById("reportTypeId").value="";
+	return false;
+}
+
+
+$(document).ready(function () {
+		$("#admNumber1").autocomplete({
+	    	 minChars: 5,
+	        source: function(request, response) {
+	            $.ajax({
+	                url: "/student/autocompleteStudent",
+	                dataType: "json",
+	                data: {
+	                    term: request.term,
+	                },
+	                success: function(data) {
+	                	 response(data);
+	                }
+	            });
+	        },
+	        focus : function(event, ui) {
+			$("#admNumber1").val(
+					ui.item.value);
+			return false;
+		},
+		select : function(event, ui) {
+			$("#admNumber1").val(
+					ui.item.value);
+			$("#studentId").val(
+					ui.item.key);
+			
+			formSubmit();
+			return false;
+		}
+	}).data("ui-autocomplete")._renderItem = function(
+	ul, item) {
+return $("<li>").append(
+		"<a>" + item.value +item.key+ "</a>")
+		.appendTo(ul);
+}; 
+});
+</script>
+
+
+
+<title>Student Transfer Certificate</title>
+</head>
+<body onload="feedBackMsg();">
+		<div class="container" style="width: 1169px; height: 500px;">
+			<div class="panel panel-primary" style="height: 160px;">
+				<div class="panel-heading">Student Transfer Certificate</div>
+				<div class="panel-body">
+					<br />
+					<div class="row" align="center">
+						<div class="col-md-3">
+							<div class="form-group" align="right">
+								<label for="aNumber">Admission Number</label>
+							</div>
+						</div>
+						<div class="col-md-3">
+							<div class="form-group" align="left">
+							
+							<input name="admNumber" type="text" class="form-control" onkeypress="return isNumber(event)" ondrop="return false" ondrag="return false" autocomplete="off"
+									placeholder="Search Student Admission Number" id="admNumber1" maxlength="9" >
+									<input type="hidden" id="studentId" name="student">
+									
+									
+							</div>
+						</div>
+						<!-- <div class="col-md-3">
+							<button type="submit" class="btn btn-primary" id="submit1"
+								onclick="return checkValidations();">Search</button>
+							&nbsp;
+							<button type="reset" class="btn btn-danger" id="reset1" onclick="return resetForm();">Reset</button>
+						</div> -->
+					</div>
+				</div>
+			</div>
+			
+			<form class="form-horizontal" th:action="@{'/scaits/dynamicReportDataExport'}" method="get" id="dynamicFormId">
+		<input type="hidden" name="reportType" value="" id="reportTypeId"/>
+		<input type="hidden" name="student" value="" id="admNumberId"/>
+		
+		</form>
+			
+			<div class="panel panel-primary" style="height: 320%;display: none;"
+				id="stTrDetl1"></div>
+				
+			<div class="col-md-12" id="bPrint1" style="display: none;">
+				<div class="form-group" align="center">
+					<button type="submit" class="btn btn-primary" id="print1"
+						onclick="return allFieldsValids();">Student Data Confirmation and TC Print</button>
+				</div>
+			</div>
+		</div>
+			
+</body>
+</html>

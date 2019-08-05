@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<script type="text/javascript">
+	
+</script>
+</head>
+<body>
+	<div class="portlet box green">
+		<div class="portlet-title">
+			<div class="caption">EXTRACURRICULAR ACTIVITIES UPLOAD</div>
+		</div>
+	</div>
+	<form th:action="@{/student/uploadExtracurricularActivities}"
+		id="formId" method="post" enctype="multipart/form-data">
+
+
+		<div class="row">
+			<div class="col-md-4">
+				<label>Test Name</label> <select class="form-control" name="testVal"
+					 id="testValId">
+					<option value="0">Select Test</option>
+					<option th:each="testName: ${testList}" th:value="${testName.id}"
+						th:text="${testName.name}"></option>
+				</select>
+			</div>
+		</div>
+
+
+		<div class="row">
+			<div class="col-md-2">
+				<label>Study Class</label> <select class="form-control"
+					name="studyClass" id="studyClassId" onchange="getClassWiseSections();">
+					<option value="0">Select Class</option>
+					<option th:each="classVal: ${classList}" th:value="${classVal.id}"
+						th:text="${classVal.displayName}"></option>
+				</select>
+			</div>
+
+			<div class="col-md-2">
+			<div class="clearfix" style="margin-bottom:30px;"></div>
+
+				
+			</div>
+
+		</div>
+		
+		<div class="row">
+			<div class="col-md-2">
+				<label>Study Section</label> <select class="form-control"
+												name="sectionVal" id="sectionValId">
+												<option value="0">Select Section</option>
+												<option th:each="classSection: ${classSectionList}"
+													th:value="${classSection.id}"
+													th:text="${classSection.sectionName}"></option>
+											</select>
+			</div>
+
+			<div class="col-md-2">
+			<div class="clearfix" style="margin-bottom:30px;"></div>
+
+				<!-- <a id="myAnchorId"
+				onclick="downloadExamMarksReport()" style="font-weight:bold" >Download Student List</a> -->
+				
+				<a id="myAnchorId" 
+					th:href="${'javascript:downloadExamMarksReport()'}" class="btn btn-primary" style="font-weight:bold">Download Student List</a>
+			</div>
+
+		</div>
+		<div class="row">
+			<div class="col-md-4">
+
+				<label>Upload File</label> <input type="file" id="uplodeFile"
+					name="uploadFile">
+			</div>
+		</div>
+	</form>
+	<div class="col-md-12"
+		style="border-top: 1px solid #ddd; padding-top: 15px">
+		<div class="form-actions" id="submitId">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="pull-left">
+						<button class="btn green button-submit"
+							onclick="uploadFile()">
+							<span th:text="${'Upload File'}"></span> <i class="fa fa-check"></i>
+						</button>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+</body>
+<script th:inline="javascript">
+	function getSampleExcel() {
+
+		if (document.getElementById('testValId').selectedIndex != 0) {
+			var e = document.getElementById("testValId");
+			var abc = e.options[e.selectedIndex].text;
+			document.getElementById("myAnchorId").text = abc;
+		}
+	}
+	
+	function getClassWiseSections() {
+ 		if($("select#studyClassId").val()==0){
+			alert("Please select join study class");
+			$("#studyClassId").focus();
+			return false;
+		}else{
+			$.ajax({
+				type : "GET",
+				url : "/student/getClassWiseSections",
+				data : {
+					studyClass: $("select#studyClassId").val(),
+					academic :$("select#academicYearId").val()
+				},
+				success : function(data) {
+					
+					var select = $('#sectionValId');
+					select.find('option').remove();
+					$.each(data, function(key, value) {
+						$('<option>').val(key).text(value).appendTo(select);
+					});
+				}
+			});
+		}
+ 		
+ 		
+	}
+
+	function downloadExamMarksReport() {
+
+		if (document.getElementById("testValId").selectedIndex == 0) {
+			showToastr("Please Select Test", "error");
+			document.getElementById("testValId").focus();
+		} else if (document.getElementById("studyClassId").selectedIndex == 0) {
+			showToastr("Please Select StudyClass", "error");
+			document.getElementById("studyClassId").focus();
+		} else {
+			var classId = $('select#studyClassId option:selected').val();
+			var testId = $('select#testValId option:selected').val();
+			var sectionId = $('select#sectionValId option:selected').val();
+			var serverurl = "/student/getExtraStudents?classId=" + classId
+					+ "&testId=" + testId
+					+ "&sectionId=" + sectionId;
+			document.getElementById("formId").action = serverurl
+			document.getElementById("formId").submit();
+		}
+	}
+
+	function uploadFile() {
+		document.getElementById("formId").action="/student/uploadTestMarksUpload";
+		if (document.getElementById("testValId").selectedIndex == 0) {
+			showToastr("Please Select Test", "error");
+			document.getElementById("testValId").focus();
+			return false;
+		} else if (document.getElementById("studyClassId").selectedIndex == 0) {
+			showToastr("Please Select StudyClass", "error");
+			document.getElementById("studyClassId").focus();
+			return false;
+		} else {
+			var form = $('#formId')[0];
+			var data = new FormData(form);
+			$.ajax({
+				type : "post",
+				url : $("#formId").attr("action"),
+				data : data,
+				enctype : 'multipart/form-data',
+				processData : false,
+				contentType : false,
+				success : function(data) {
+					if (data.toString().indexOf("FEEDBACK-1") != -1) {
+						showToastr("Successfully Uploaded!!!", "success");
+						showPage(
+								'/student/showExtracurricularActivitiesUpload',
+								false);
+					} else {
+						showToastr(data, "error");
+					}
+				},
+				error : function() {
+					showToastr("Error occured", "error");
+				}
+			});
+		}
+
+	}
+</script>
+</html>

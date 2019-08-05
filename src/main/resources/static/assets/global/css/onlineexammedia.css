@@ -1,0 +1,552 @@
+/* Smartphones (portrait and landscape) ----------- */
+@media only screen and (min-device-width : 320px) and (max-device-width
+	: 480px) {
+	#examQuestionContentId {
+		height: 432px;
+		overflow-y: auto;
+	}
+	#questionsDivId {
+		height: 200px;
+		overflow-y: auto;
+	}
+	#imageDivId {
+		height: 200px;
+		overflow-y: auto;
+	}
+	button {
+		width: 47%;
+		float: left;
+		margin: 2px 2px;
+	}
+}
+
+/* Smartphones (landscape) ----------- */
+@media only screen and (max-width : 321px) {
+	#examQuestionContentId {
+		height: 432px;
+		overflow-y: auto;
+	}
+	#questionsDivId {
+		height: 200px;
+		overflow-y: auto;
+	}
+	#imageDivId {
+		height: 200px;
+		overflow-y: auto;
+	}
+	button {
+		width: 47%;
+		float: left;
+		margin: 2px 2px;
+	}
+}
+
+/* Smartphones (portrait) ----------- */
+@media only screen and (max-width : 320px) {
+	#examQuestionContentId {
+		height: 432px;
+		overflow-y: auto;
+	}
+	#questionsDivId {
+		height: 200px;
+		overflow-y: auto;
+	}
+	#imageDivId {
+		height: 200px;
+		overflow-y: auto;
+	}
+	button {
+		width: 47%;
+		float: left;
+		margin: 2px 2px;
+	}
+}
+
+/* iPads (portrait and landscape) ----------- */
+@media only screen and (min-device-width : 768px) and (max-device-width
+	: 1024px) { /* Styles */
+}
+
+/* iPads (landscape) ----------- */
+@media only screen and (min-device-width : 768px) and (max-device-width
+	: 1024px) and (orientation : landscape) { /* Styles */
+}
+
+/* iPads (portrait) ----------- */
+@media only screen and (min-device-width : 768px) and (max-device-width
+	: 1024px) and (orientation : portrait) {
+	#examQuestionContentId {
+		height: 652px;
+		overflow-y: auto;
+	}
+	#questionsDivId {
+		height: 284px;
+		overflow-y: auto;
+	}
+	#imageDivId {
+		height: 350px;
+		overflow-y: auto;
+	}
+	button {
+		width: 47%;
+		float: left;
+		margin: 2px 2px;
+	}
+	#submitdivId2 {
+		display: none;
+	}
+}
+/**********
+iPad 3
+**********/
+@media only screen and (min-device-width : 768px) and (max-device-width
+	: 1024px) and (orientation : landscape) {
+	#examQuestionContentId {
+		height: 507px;
+		overflow-y: auto;
+	}
+	#questionsDivId {
+		height: 240px;
+		overflow-y: auto;
+	}
+	#imageDivId {
+		height: 350px;
+		overflow-y: auto;
+	}
+	.btn {
+		font-size: 12px;
+		width: 25%;
+		float: left;
+		margin: 4px 2px;
+	}
+	#submitdivId {
+		display: none;
+	}
+	#saveNextdivId {
+		float: right;
+	}
+	#saveNextbtnId {
+		width: 100%;
+	}
+}
+
+/* Desktops and laptops ----------- */
+@media only screen and (min-width : 1224px) and (orientation :
+	landscape) {
+	#examQuestionContentId {
+		height: 401px;
+		overflow-y: auto;
+	}
+	#questionsDivId {
+		height: 185px;
+		overflow-y: auto;
+	}
+	#imageDivId {
+		height: 300px;
+		overflow: auto;
+	}
+	.btn {
+		font-size: 12px;
+		width: 18%;
+		float: left;
+		margin: 4px 2px;
+	}
+	#submitdivId {
+		display: none;
+	}
+	#saveNextdivId {
+		float: right;
+	}
+	#saveNextbtnId {
+		width: 100%;
+	}
+}
+/* Desktops and laptops ----------- */
+@media only screen and (min-width : 1224px) and (orientation : portrait)
+	{
+	#examQuestionContentId {
+		height: 570px;
+		overflow-y: auto;
+	}
+	#questionsDivId {
+		height: 290px;
+		overflow-y: auto;
+	}
+	#imageDivId {
+		height: 300px;
+		overflow-y: auto;
+	}
+	.btn {
+		font-size: 12px;
+		width: 25%;
+		float: left;
+		margin: 4px 2px;
+	}
+	#submitdivId {
+		display: none;
+	}
+	#saveNextdivId {
+		float: right;
+	}
+	#saveNextbtnId {
+		width: 100%;
+	}
+}
+/* Desktops and laptops ----------- */
+@media only screen and (min-width : 1224px) and (min-resolution:
+	1.5dppx) and (orientation : landscape) {
+	#examQuestionContentId {
+		height: 456px;
+		overflow-y: auto;
+	}
+	#questionsDivId {
+		height: 240px;
+		overflow-y: auto;
+	}
+	#imageDivId {
+		height: 300px;
+		overflow-y: auto;
+	}
+	.btn {
+		font-size: 12px;
+		width: 25%;
+		float: left;
+		margin: 4px 2px;
+	}
+	#submitdivId {
+		display: none;
+	}
+	#saveNextdivId {
+		float: right;
+	}
+	#saveNextbtnId {
+		width: 100%;
+	}
+}
+
+/* Large screens ----------- */
+@media only screen and (min-width : 1824px) {
+	#examQuestionContentId {
+		height: 707px;
+		overflow-y: auto;
+	}
+	#questionsDivId {
+		height: 461px;
+		overflow-y: auto;
+	}
+	#imageDivId {
+		height: 330px;
+		overflow-y: auto;
+	}
+	.btn {
+		font-size: 12px;
+		width: 18%;
+		float: left;
+		margin: 4px 2px;
+	}
+}
+
+/* iPhone 4 ----------- */
+@media only screen and (min-device-width : 320px) and (max-device-width
+	: 480px) and (orientation : landscape) {
+	#examQuestionContentId {
+		height: 102px;
+		overflow-y: auto;
+	}
+	#questionsDivId {
+		height: 200px;
+		overflow-y: auto;
+	}
+	#imageDivId {
+		height: 200px;
+		overflow-y: auto;
+	}
+	.btn {
+		font-size: 12px;
+		width: 48%;
+		float: left;
+		margin: 4px 2px;
+	}
+	#submitdivId2 {
+		display: none;
+	}
+}
+
+/* iPhone 6 ----------- */
+@media only screen and (min-device-width : 320px) and (max-device-width
+	: 480px) and (orientation : portrait) {
+	#examQuestionContentId {
+		height: 202px;
+		overflow-y: auto;
+	}
+	#questionsDivId {
+		height: 200px;
+		overflow-y: auto;
+	}
+	#imageDivId {
+		height: 200px;
+		overflow-y: auto;
+	}
+	.btn {
+		font-size: 12px;
+		width: 48%;
+		float: left;
+		margin: 4px 2px;
+	}
+	#submitdivId2 {
+		display: none;
+	}
+}
+
+/* iPhone 5 ----------- */
+@media only screen and (min-device-width: 320px) and (max-device-height:
+	568px) and (orientation : landscape) { /* Styles */
+}
+
+@media only screen and (min-device-width: 320px) and (max-device-height:
+	568px) and (orientation : portrait) { /* Styles */
+}
+
+/* iPhone 6 ----------- */
+@media only screen and (min-device-width: 667px) and (max-device-height:
+	375px) and (orientation : landscape) {
+	#examQuestionContentId {
+		height: 182px;
+		overflow-y: auto;
+	}
+	#questionsDivId {
+		height: 200px;
+		overflow-y: auto;
+	}
+	#imageDivId {
+		height: 200px;
+		overflow-y: auto;
+	}
+	.btn {
+		font-size: 12px;
+		width: 48%;
+		float: left;
+		margin: 4px 2px;
+	}
+	#submitdivId2 {
+		display: none;
+	}
+}
+
+@media only screen and (min-device-width: 375px) and (max-device-height:
+	667px) and (orientation : portrait) {
+	#examQuestionContentId {
+		height: 332px;
+		overflow-y: auto;
+	}
+	#questionsDivId {
+		height: 200px;
+		overflow-y: auto;
+	}
+	#imageDivId {
+		height: 200px;
+		overflow-y: auto;
+	}
+	.btn {
+		font-size: 12px;
+		width: 48%;
+		float: left;
+		margin: 4px 2px;
+	}
+	#submitdivId2 {
+		display: none;
+	}
+}
+
+/* iPhone 6+ ----------- */
+@media only screen and (min-device-width: 736px) and (max-device-height:
+	414px) and (orientation : landscape) {
+	#examQuestionContentId {
+		height: 192px;
+		overflow-y: auto;
+	}
+	#questionsDivId {
+		height: 200px;
+		overflow-y: auto;
+	}
+	#imageDivId {
+		height: 200px;
+		overflow-y: auto;
+	}
+	button {
+		width: 47%;
+		float: left;
+		margin: 2px 2px;
+	}
+	#submitdivId2 {
+		display: none;
+	}
+}
+
+@media only screen and (min-device-width: 414px) and (max-device-height:
+	736px) and (orientation : portrait) {
+	#examQuestionContentId {
+		height: 512px;
+		overflow-y: auto;
+	}
+	#questionsDivId {
+		height: 200px;
+		overflow-y: auto;
+	}
+	#imageDivId {
+		height: 200px;
+		overflow-y: auto;
+	}
+	button {
+		width: 47%;
+		float: left;
+		margin: 2px 2px;
+	}
+	#submitdivId2 {
+		display: none;
+	}
+}
+
+/* Samsung Galaxy S3 ----------- */
+@media only screen and (min-device-width: 320px) and (max-device-height:
+	640px) and (orientation : landscape) { /* Styles */
+}
+
+@media only screen and (max-device-width: 320px) and (min-device-height:
+	640px) and (orientation : portrait) {
+	#examQuestionContentId {
+		height: 282px;
+		overflow-y: auto;
+	}
+	#questionsDivId {
+		height: 200px;
+		overflow-y: auto;
+	}
+	#imageDivId {
+		height: 200px;
+		overflow-y: auto;
+	}
+	.btn {
+		font-size: 10px;
+		width: 49%;
+		float: left;
+		margin: 2px 1px;
+	}
+	#submitdivId2 {
+		display: none;
+	}
+}
+
+/* Samsung Galaxy S5 ----------- */
+@media only screen and (min-device-width: 640px) and (max-device-height:
+	360px) and (orientation : landscape) {
+	#examQuestionContentId {
+		height: 132px;
+		overflow-y: auto;
+	}
+	#questionsDivId {
+		height: 200px;
+		overflow-y: auto;
+	}
+	#imageDivId {
+		height: 200px;
+		overflow-y: auto;
+	}
+	.btn {
+		width: 49%;
+		float: left;
+		margin: 2px 1px;
+	}
+	#submitdivId2 {
+		display: none;
+	}
+}
+
+@media only screen and (min-device-width: 360px) and (max-device-height:
+	640px) and (orientation : portrait) {
+	#examQuestionContentId {
+		height: 335px;
+		overflow-y: auto;
+	}
+	#questionsDivId {
+		height: 260px;
+		overflow-y: auto;
+	}
+	#imageDivId {
+		height: 250px;
+		overflow-y: auto;
+	}
+	.btn {
+		font-size: 12px;
+		width: 48%;
+		float: left;
+		margin: 2px 2px;
+	}
+	#submitdivId2 {
+		display: none;
+	}
+}
+
+/* 
+  ##Device = Low Resolution Tablets, Mobiles (Landscape)
+  ##Screen = B/w 481px to 767px
+*/
+@media only screen and (max-device-width: 481px) and (min-device-width:
+	767px) and (orientation : portrait) {
+	#examQuestionContentId {
+		height: 582px;
+		overflow-y: auto;
+	}
+	#questionsDivId {
+		height: 260px;
+		overflow-y: auto;
+	}
+	#imageDivId {
+		height: 250px;
+		overflow-y: auto;
+	}
+	.btn {
+		font-size: 12px;
+		width: 48%;
+		float: left;
+		margin: 2px 2px;
+	}
+	#submitdivId2 {
+		display: none;
+	}
+}
+
+/*
+  @media only screen  and (min-device-width: 471px) and (max-device-width: 775px) and (orientation :landscape) {
+
+  #examQuestionContentId {
+		height: 282px;
+		overflow-y: hidden;
+	}
+	#examQuestionContentId:hover {
+		overflow-y: auto;
+	}
+	#questionsDivId {
+		height: 260px;
+		overflow-y: auto;
+	}
+	#imageDivId {
+		height: 250px;
+		overflow-y: auto;
+	}
+	#imageDivId:hover {
+		overflow-y: auto;
+	}
+	.btn {
+		width: 49%;
+		float: left;
+		margin: 2px 1px;
+	}
+	#submitdivId2{
+	display: none;
+	}
+	#submitdivId{
+	display: inline;
+	}
+	
+} */

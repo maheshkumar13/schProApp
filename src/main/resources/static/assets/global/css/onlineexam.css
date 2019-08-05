@@ -1,0 +1,110 @@
+.questionId span {
+	background: url('/assets/global/img/online_exams/questions-sprite.png')
+		no-repeat;
+	color: #262626;
+	line-height: 15px;
+	text-align: center;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 1em;
+}
+
+.questionId span.answered {
+	background-position: -7px -55px;
+	float: left;
+	height: 26px;
+	line-height: 20px;
+	margin: 5px;
+	width: 29px;
+	color: #fff;
+	padding-top: 3px;
+}
+
+.questionId span.not_answered {
+	background-position: -42px -56px;
+	float: left;
+	height: 26px;
+	line-height: 20px;
+	margin: 5px;
+	width: 29px;
+	color: #fff;
+	padding-top: 3px;
+}
+
+.questionId span.not_visited {
+	background-position: -107px -56px;
+	float: left;
+	height: 26px;
+	line-height: 20px;
+	margin: 5px;
+	width: 29px;
+	color: #000;
+	padding-top: 3px;
+}
+
+.questionId span.marked_review {
+	background-position: -75px -54px;
+	float: left;
+	height: 26px;
+	line-height: 18px;
+	margin: 5px;
+	width: 29px;
+	color: #fff;
+	padding-top: 3px;
+}
+
+.questionId span.answer_marked_review {
+	background-position: -9px -87px;
+	float: left;
+	height: 26px;
+	line-height: 15px;
+	margin: 5px;
+	width: 29px;
+	color: #fff;
+	padding-top: 3px;
+}
+
+.questionpaper_icon {
+	background: url('/assets/global/img/online_exams/Icon-sprite.png')
+		no-repeat -188px -8px;
+	width: 18px;
+	height: 18px;
+	margin-right: 7px;
+	margin-top: 5px;
+	float: left;
+}
+
+.instruction_icon {
+	background: url('/assets/global/img/online_exams/Icon-sprite.png')
+		no-repeat -140px -7px;
+	width: 18px;
+	height: 18px;
+	margin-right: 7px;
+	margin-top: 5px;
+	float: right;
+}
+
+.collapse_icon {
+	background: url('/assets/global/img/online_exams/Icon-sprite.png')
+		no-repeat -5px -63px;
+	width: 17px;
+	height: 48px;
+	cursor: pointer;
+	display: inline-block;
+	left: -7%;
+	position: absolute;
+	top: 43%;
+	z-index: 100;
+}
+
+.expand_icon {
+	background: url('/assets/global/img/online_exams/Icon-sprite.png')
+		no-repeat -30px -63px;
+	width: 17px;
+	height: 48px;
+	cursor: pointer;
+	display: none;
+	right: 0;
+	position: absolute;
+	top: 43%;
+	z-index: 100;
+}

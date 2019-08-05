@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" >
+  	  
+  	  <head>
+  	  <meta charset="utf-8" />
+  	  <link th:href="@{/assets/pages/css/error.min.css}" rel="stylesheet" type="text/css" />
+	</head>
+<body>
+<div layout:fragment="page_content">
+
+
+ <!-- BEGIN PAGE BASE CONTENT -->
+                    <div class="row">
+                        <div class="col-md-12 page-404">
+                            <div class="number font-green"> <small th:text="${errorStatus}"></small> </div>
+                            <div class="details">
+                                <h3>Oops! You're lost.</h3>
+                                <p> <b><small th:text="${errorMessage}"></small></b>
+                                    <br/>
+                                     </p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END PAGE BASE CONTENT -->
+
+        </div>
+        </body>
+ </html>

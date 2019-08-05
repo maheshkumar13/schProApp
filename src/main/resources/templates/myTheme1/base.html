@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+<head>
+<meta charset="utf-8" />
+<title>Student</title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta content="width=device-width, initial-scale=1" name="viewport" />
+<!-- BEGIN GLOBAL MANDATORY STYLES -->
+<link href='http://fonts.googleapis.com/css?family=Roboto'
+	rel='stylesheet' type='text/css'>
+<link
+	th:href="@{/assets/global/plugins/font-awesome/css/font-awesome.min.css}"
+	rel="stylesheet" type="text/css" />
+<link
+	th:href="@{/assets/global/plugins/simple-line-icons/simple-line-icons.min.css}"
+	rel="stylesheet" type="text/css" />
+<link
+	th:href="@{/assets/global/plugins/bootstrap/css/bootstrap.min.css}"
+	rel="stylesheet" type="text/css" />
+<link
+	th:href="@{/assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css}"
+	rel="stylesheet" type="text/css" />
+<!-- END GLOBAL MANDATORY STYLES -->
+<!-- BEGIN PAGE LEVEL PLUGINS -->
+<link
+	th:href="@{/assets/global/plugins/bootstrap-daterangepicker/daterangepicker.min.css}"
+	rel="stylesheet" type="text/css" />
+<link th:href="@{/assets/global/plugins/morris/morris.css}"
+	rel="stylesheet" type="text/css" />
+<link
+	th:href="@{/assets/global/plugins/fullcalendar/fullcalendar.min.css}"
+	rel="stylesheet" type="text/css" />
+<link th:href="@{/assets/global/plugins/jqvmap/jqvmap/jqvmap.css}"
+	rel="stylesheet" type="text/css" />
+<link th:href="@{/assets/global/css/jquery-ui.css}" rel="stylesheet"
+	type="text/css" />
+
+<link th:href="@{/assets/global/plugins/select2/css/select2.min.css}"
+	rel="stylesheet" type="text/css" />
+	<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+<!-- END PAGE LEVEL PLUGINS -->
+<!-- BEGIN THEME GLOBAL STYLES -->
+<link th:href="@{/assets/global/css/components.min.css}"
+	rel="stylesheet" id="style_components" type="text/css" />
+
+<!-- END THEME GLOBAL STYLES -->
+<!-- BEGIN THEME LAYOUT STYLES -->
+<link th:href="@{/assets/layouts/layout4/css/layout.min.css}"
+	rel="stylesheet" type="text/css" />
+<link th:href="@{/assets/layouts/layout4/css/themes/default.min.css}"
+	rel="stylesheet" type="text/css" id="style_color" />
+<link th:href="@{/assets/layouts/layout4/css/custom.min.css}"
+	rel="stylesheet" type="text/css" />
+<link th:href="@{/assets/pages/css/profile.min.css}" rel="stylesheet"
+	type="text/css" />
+<link
+	th:href="@{/assets/global/plugins/bootstrap-modal/css/bootstrap-modal-bs3patch.css}"
+	rel="stylesheet" type="text/css" />
+<link
+	th:href="@{/assets/global/plugins/bootstrap-modal/css/bootstrap-modal.css}"
+	rel="stylesheet" type="text/css" />
+
+<!-- END THEME LAYOUT STYLES -->
+<link rel="shortcut icon"
+	th:href="@{/assets/global/img/sri-favicon.ico}" />
+<link
+	th:href="@{/assets/global/plugins/bootstrap-datepicker/css/bootstrap-datepicker3.min.css}"
+	rel="stylesheet" type="text/css" />
+<link
+	href="../assets/global/plugins/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css"
+	rel="stylesheet" type="text/css" />
+<link href="../assets/global/plugins/clockface/css/clockface.css"
+	rel="stylesheet" type="text/css" />
+<link
+	th:href="@{/assets/global/plugins/bootstrap-toastr/toastr.min.css}"
+	rel="stylesheet" type="text/css" />
+
+
+<link th:href="@{/assets/global/plugins/datatables/datatables.min.css}"
+	rel="stylesheet" type="text/css" />
+
+<link
+	th:href="@{/assets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.css}"
+	rel="stylesheet" type="text/css" />
+
+<link th:href="@{/assets/global/css/plugins.min.css}" rel="stylesheet"
+	type="text/css" />
+
+<link href="../assets/global/plugins/bootstrap-fileinput/bootstrap-fileinput.css" rel="stylesheet" type="text/css" />
+<!-- icheck checkbox  start -->
+<link href="../assets/global/plugins/icheck/skins/all.css"
+	rel="stylesheet" type="text/css" />
+<!-- icheck checkbox  end -->
+<style type="text/css">
+#tab-list .close {
+	margin-left: 7px;
+}
+
+.questionClass {
+	background: #ffffff; /* Old browsers */
+	background: -moz-linear-gradient(top, #ffffff 0%, #f3f3f3 50%, #ffffff 100%);
+	/* FF3.6-15 */
+	background: -webkit-linear-gradient(top, #ffffff 0%, #f3f3f3 50%, #ffffff 100%);
+	/* Chrome10-25,Safari5.1-6 */
+	background: linear-gradient(to bottom, #ffffff 0%, #f3f3f3 50%, #ffffff 100%);
+	/* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+	filter: progid: DXImageTransform.Microsoft.gradient( startColorstr= '#ffffff',
+		endColorstr= '#ffffff', GradientType= 0); /* IE6-9 */
+	-webkit-box-shadow: 1px 1px 1px 1px# #cecece;
+	box-shadow: 1px 1px 1px 1px# #cecece;
+	-webkit-border-radius: 5px 5px 5px 5px;
+	border-radius: 5px 5px 5px 5px;
+	border: 1px solid #cecece;
+	letter-spacing: 2px;
+	width: 38px;
+	height: 36px;
+	text-align: center;
+	margin: 6px;
+	background: linear-gradient(to bottom, #ffffff 0%, #f3f3f3 50%, #ffffff 100%);
+	/* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff',
+		endColorstr='#ffffff', GradientType=0); /* IE6-9 */
+	-webkit-box-shadow: 1px 1px 1px 1px##cecece;
+	box-shadow: 1px 1px 1px 1px##cecece;
+	-webkit-border-radius: 5px 5px 5px 5px;
+	border-radius: 5px 5px 5px 5px;
+	border: 1px solid #cecece;
+	letter-spacing: 2px;
+	filter: progid: DXImageTransform.Microsoft.gradient( startColorstr= '#ffffff',
+		endColorstr= '#ffffff', GradientType= 0); /* IE6-9 */
+	-webkit-box-shadow: 1px 1px 1px 1px# #cecece;
+	box-shadow: 1px 1px 1px 1px# #cecece;
+	-webkit-border-radius: 5px 5px 5px 5px;
+	border-radius: 5px 5px 5px 5px;
+	border: 1px solid #cecece;
+	letter-spacing: 2px;
+	-webkit-box-shadow: 1px 1px 1px 1px# #cecece;
+	box-shadow: 1px 1px 1px 1px# #cecece;
+	-webkit-border-radius: 5px 5px 5px 5px;
+	border-radius: 5px 5px 5px 5px;
+	border: 1px solid #cecece;
+	letter-spacing: 2px;
+	box-shadow: 1px 1px 1px 1px# #cecece;
+	-webkit-border-radius: 5px 5px 5px 5px;
+	border-radius: 5px 5px 5px 5px;
+	border: 1px solid #cecece;
+	letter-spacing: 2px;
+	-webkit-border-radius: 5px 5px 5px 5px;
+	border-radius: 5px 5px 5px 5px;
+	border: 1px solid #cecece;
+	letter-spacing: 2px;
+}
+
+.questionClassSelected {
+	background: #ffffff; /* Old browsers */
+	background: -moz-linear-gradient(top, #ffffff 0%, #f3f3f3 50%, #ffffff 100%);
+	/* FF3.6-15 */
+	background: -webkit-linear-gradient(top, #ffffff 0%, #f3f3f3 50%, #ffffff 100%);
+	/* Chrome10-25,Safari5.1-6 */
+	background: linear-gradient(to bottom, #ffffff 0%, #f3f3f3 50%, #ffffff 100%);
+	/* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+	filter: progid: DXImageTransform.Microsoft.gradient( startColorstr= '#ffffff',
+		endColorstr= '#ffffff', GradientType= 0); /* IE6-9 */
+	-webkit-box-shadow: 1px 1px 1px 1px# #cecece;
+	box-shadow: 1px 1px 1px 1px# #cecece;
+	-webkit-border-radius: 5px 5px 5px 5px;
+	border-radius: 5px 5px 5px 5px;
+	border: 1px solid #cecece;
+	letter-spacing: 2px;
+	width: 38px;
+	height: 36px;
+	text-align: center;
+	margin: 6px;
+	background: linear-gradient(to bottom, #ffffff 0%, #f3f3f3 50%, #ffffff 100%);
+	/* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff',
+		endColorstr='#ffffff', GradientType=0); /* IE6-9 */
+	-webkit-box-shadow: 1px 1px 1px 1px##cecece;
+	box-shadow: 1px 1px 1px 1px##cecece;
+	-webkit-border-radius: 5px 5px 5px 5px;
+	border-radius: 5px 5px 5px 5px;
+	border: 1px solid #cecece;
+	letter-spacing: 2px;
+	filter: progid: DXImageTransform.Microsoft.gradient( startColorstr= '#ffffff',
+		endColorstr= '#ffffff', GradientType= 0); /* IE6-9 */
+	-webkit-box-shadow: 1px 1px 1px 1px# #cecece;
+	box-shadow: 1px 1px 1px 1px# #cecece;
+	-webkit-border-radius: 5px 5px 5px 5px;
+	border-radius: 5px 5px 5px 5px;
+	border: 1px solid #cecece;
+	letter-spacing: 2px;
+	-webkit-box-shadow: 1px 1px 1px 1px# #cecece;
+	box-shadow: 1px 1px 1px 1px# #cecece;
+	-webkit-border-radius: 5px 5px 5px 5px;
+	border-radius: 5px 5px 5px 5px;
+	border: 1px solid #cecece;
+	letter-spacing: 2px;
+	box-shadow: 1px 1px 1px 1px# #cecece;
+	-webkit-border-radius: 5px 5px 5px 5px;
+	border-radius: 5px 5px 5px 5px;
+	border: 1px solid #cecece;
+	letter-spacing: 2px;
+	-webkit-border-radius: 5px 5px 5px 5px;
+	border-radius: 5px 5px 5px 5px;
+	border: 2px solid green;
+	letter-spacing: 2px;
+}
+
+.questionClass:hover {
+	border: 1px solid black;
+}
+
+.ui-helper-hidden-accessible {
+	border: 0;
+	clip: rect(0, 0, 0, 0);
+	height: 1px;
+	margin: -1px;
+	padding: 0;
+	position: absolute;
+	width: 1px;
+}
+
+.note {
+	margin: 0 0 20px;
+	padding: 1px 30px 1px 15px;
+	border-left: 5px solid #eee;
+	border-left-color: rgb(238, 238, 238);
+	border-radius: 0 4px 4px 0;
+}
+
+/******************************custom**********************/  
+
+body {
+  background: #eaeff3;
+}
+
+.card {
+  background: #fff;
+  border-radius: 6px !important;
+  display: inline-block;
+  height: auto;
+  position: relative;
+  width: 100%;
+  padding:20px 30px;
+  text-align: left;
+}
+
+.card-1 {
+  box-shadow: 0px 6px 18px 6px rgba(0,0,0,0.06);
+  transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+   border-radius: 6px !important;
+   margin-bottom:40px !important
+}
+
+
+.nav-tabs > li.active > a, .nav-tabs > li.active > a:focus, .nav-tabs > li.active > a:hover {
+    color: #555;
+    cursor: default;
+    background-color: #fff;
+    border: none;
+    border-bottom:3px solid #FF4848;
+}
+.nav > li > a:focus, .nav > li > a {color:#999}
+
+.nav > li > a:focus, .nav > li > a:hover {
+    text-decoration: none;
+    background-color: #f1f1f1;
+	color:#666;
+}
+.btn-sec {  padding:8px 30px 7px 30px; border-radius:4px !important; margin-bottom:10px;
+    background-color: #ffffff; border:1px solid #ff6f61; color:#ff6f61; cursor:pointer; 
+	font-size:14px;
+	font-weight:bold;}
+.btn-sec:hover{ background-color: #ff6f6120;   }
+        .btn + .btn { margin-left:7px !important}
+.btn-pri { 
+    padding:8px 30px 7px 30px; border-radius:4px !important;
+	/*background-color: #f6b024;*/ 
+	/*border:1px solid #8862e0; */
+	background: #ff6f61 !important;
+	box-shadow: 0px 0px 0px 3px rgba(255,111,97,0.5) !important;
+	color:#ffffff; 
+	transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+	font-size:14px;
+	font-weight:bold;
+	margin-bottom:10px;
+	}
+.btn-pri:hover{ box-shadow: 0px 4px 3px 0px rgba(255,111,97,0.2) !important; }
+
+
+
+
+.mb20 { margin-bottom:20px}
+
+
+.line { border-left:1px solid #666}
+.arrowleft { background:url(arrow-left.png) no-repeat; width:9px; height:17px; display:block; margin-left:12px }
+.arrowright{ background:url(arrow-right.png) no-repeat; width:9px; height:17px; display:block; margin-left:14px }
+.txt18{font-size:18px; display:block; color:#333;}
+.txt16{font-size:16px; color:#333;}
+.txt12{font-size:12px; color:#666666;}
+.boxSubject { width:auto; height:auto; margin-top:5px; float:left}
+.boxQuestion { width:auto; height:auto; margin-top:5px; float:left}
+.boxdivider { width:auto; border-left:1px solid #999; height:45px; margin:5px 20px;float:left}
+.note-txt { font-size:12px; color:#999; font-style:italic; }
+.txtRed { color:#F30}
+.form-control { display:inline-block}
+.tooltip-inner {background-color: #cacaca;  color:#333; border:2px solid #939393}
+.tooltip.right .tooltip-arrow {
+    top:50%;
+    left:0;
+    margin-top:-5px;
+    border-top:5px solid transparent;
+    border-bottom:5px solid transparent;
+    border-right:5px solid #939393
+}
+
+ @media (min-width:1200px) and (max-width:1440px){
+   .custom-div { width:80%}
+ }
+  @media (min-width:1441px) and (max-width:1920px){
+   .custom-div { width:70%}
+ }
+
+
+
+</style>
+</head>
+<!-- END HEAD -->
+
+<body class="page-container-bg-solid page-header-fixed page-sidebar-fixed page-sidebar-closed">
+	<div id="loading" style="display: none;"></div>
+	<div id="bodyId">
+		<!-- BEGIN HEADER -->
+		<div th:replace="/myTheme1/header :: header"></div>
+		<!-- END HEADER -->
+		<!-- BEGIN HEADER & CONTENT DIVIDER -->
+		<div class="clearfix"></div>
+		<!-- END HEADER & CONTENT DIVIDER -->
+		<!-- BEGIN CONTAINER -->
+		<div class="page-container">
+			<!-- BEGIN SIDEBAR -->
+			<div th:replace="/myTheme1/sidebar :: sidebar"></div>
+			<!-- END SIDEBAR -->
+			<!-- BEGIN CONTENT -->
+			<div class="page-content-wrapper">
+				<div class="page-content">
+					<div layout:fragment="page_content" id="displayContentId"></div>
+				</div>
+			</div>
+			<!-- END CONTENT -->
+			<!-- BEGIN QUICK SIDEBAR -->
+			<!-- <div th:replace="/myTheme1/quickSidebar :: quickSidebar"></div> -->
+			<!-- END QUICK SIDEBAR -->
+		</div>
+		<!-- END CONTAINER -->
+		<!-- BEGIN FOOTER -->
+		<div th:replace="/myTheme1/footer ::footer"></div>
+	</div>
+	<!-- END FOOTER -->
+	<!-- BEGIN QUICK NAV -->
+	<!-- <div th:replace="/myTheme1/quickNav ::quickNav"></div> -->
+	<!-- END QUICK NAV -->
+	<!--[if lt IE 9]>
+<script th:src="@{/assets/global/plugins/respond.min.js}"></script>
+<script th:src="@{/assets/global/plugins/excanvas.min.js}"></script> 
+<script th:src="@{/assets/global/plugins/ie8.fix.min.js}"></script> 
+<![endif]-->
+	<!-- BEGIN CORE PLUGINS -->
+	<script th:src="@{/assets/global/plugins/jquery.min.js}"
+		type="text/javascript"></script>
+
+	<script th:src="@{/assets/global/plugins/jquery-ui.js}"
+		type="text/javascript"></script>
+
+	<script
+		th:src="@{/assets/global/plugins/bootstrap/js/bootstrap.min.js}"
+		type="text/javascript"></script>
+	<script th:src="@{/assets/global/plugins/js.cookie.min.js}"
+		type="text/javascript"></script>
+	<script
+		th:src="@{/assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js}"
+		type="text/javascript"></script>
+
+	<script
+		th:src="@{/assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js}"
+		type="text/javascript"></script>
+	<!-- END CORE PLUGINS -->
+	<!-- BEGIN PAGE LEVEL PLUGINS -->
+	<script th:src="@{/assets/global/plugins/moment.min.js}"
+		type="text/javascript"></script>
+	<script
+		th:src="@{/assets/global/plugins/bootstrap-daterangepicker/daterangepicker.min.js}"
+		type="text/javascript"></script>
+	<script th:src="@{/assets/global/plugins/morris/morris.min.js}"
+		type="text/javascript"></script>
+	<script th:src="@{/assets/global/plugins/morris/raphael-min.js}"
+		type="text/javascript"></script>
+	<script
+		th:src="@{/assets/global/plugins/counterup/jquery.waypoints.min.js}"
+		type="text/javascript"></script>
+	<script
+		th:src="@{/assets/global/plugins/counterup/jquery.counterup.min.js}"
+		type="text/javascript"></script>
+	<script
+		th:src="@{/assets/global/plugins/amcharts/amcharts/amcharts.js}"
+		type="text/javascript"></script>
+	<script th:src="@{/assets/global/plugins/amcharts/amcharts/serial.js}"
+		type="text/javascript"></script>
+	<script th:src="@{/assets/global/plugins/amcharts/amcharts/pie.js}"
+		type="text/javascript"></script>
+	<script th:src="@{/assets/global/plugins/amcharts/amcharts/radar.js}"
+		type="text/javascript"></script>
+	<script
+		th:src="@{/assets/global/plugins/amcharts/amcharts/themes/light.js}"
+		type="text/javascript"></script>
+	<script
+		th:src="@{/assets/global/plugins/amcharts/amcharts/themes/patterns.js}"
+		type="text/javascript"></script>
+	<script
+		th:src="@{/assets/global/plugins/amcharts/amcharts/themes/chalk.js}"
+		type="text/javascript"></script>
+	<script th:src="@{/assets/global/plugins/amcharts/ammap/ammap.js}"
+		type="text/javascript"></script>
+	<script
+		th:src="@{/assets/global/plugins/amcharts/ammap/maps/js/worldLow.js}"
+		type="text/javascript"></script>
+	<script
+		th:src="@{/assets/global/plugins/amcharts/amstockcharts/amstock.js}"
+		type="text/javascript"></script>
+	<script
+		th:src="@{/assets/global/plugins/fullcalendar/fullcalendar.min.js}"
+		type="text/javascript"></script>
+	<script
+		th:src="@{/assets/global/plugins/horizontal-timeline/horizontal-timeline.js}"
+		type="text/javascript"></script>
+	<script th:src="@{/assets/global/plugins/flot/jquery.flot.min.js}"
+		type="text/javascript"></script>
+	<script
+		th:src="@{/assets/global/plugins/flot/jquery.flot.resize.min.js}"
+		type="text/javascript"></script>
+	<script
+		th:src="@{/assets/global/plugins/flot/jquery.flot.categories.min.js}"
+		type="text/javascript"></script>
+	<script
+		th:src="@{/assets/global/plugins/jquery-easypiechart/jquery.easypiechart.min.js}"
+		type="text/javascript"></script>
+	<script th:src="@{/assets/global/plugins/jquery.sparkline.min.js}"
+		type="text/javascript"></script>
+	<script th:src="@{/assets/global/plugins/jqvmap/jqvmap/jquery.vmap.js}"
+		type="text/javascript"></script>
+	<script
+		th:src="@{/assets/global/plugins/jqvmap/jqvmap/maps/jquery.vmap.russia.js}"
+		type="text/javascript"></script>
+	<script
+		th:src="@{/assets/global/plugins/jqvmap/jqvmap/maps/jquery.vmap.world.js}"
+		type="text/javascript"></script>
+	<script
+		th:src="@{/assets/global/plugins/jqvmap/jqvmap/maps/jquery.vmap.europe.js}"
+		type="text/javascript"></script>
+	<script
+		th:src="@{/assets/global/plugins/jqvmap/jqvmap/maps/jquery.vmap.germany.js}"
+		type="text/javascript"></script>
+	<script
+		th:src="@{/assets/global/plugins/jqvmap/jqvmap/maps/jquery.vmap.usa.js}"
+		type="text/javascript"></script>
+	<script
+		th:src="@{/assets/global/plugins/jqvmap/jqvmap/data/jquery.vmap.sampledata.js}"
+		type="text/javascript"></script>
+	<!-- END PAGE LEVEL PLUGINS -->
+	<!-- BEGIN THEME GLOBAL SCRIPTS -->
+	<script th:src="@{/assets/global/scripts/app.min.js}"
+		type="text/javascript"></script>
+	<!-- END THEME GLOBAL SCRIPTS -->
+	<!-- BEGIN PAGE LEVEL SCRIPTS -->
+	<script th:src="@{/assets/pages/scripts/dashboard.min.js}"
+		type="text/javascript"></script>
+	<!-- END PAGE LEVEL SCRIPTS -->
+	<!-- BEGIN THEME LAYOUT SCRIPTS -->
+	<script th:src="@{/assets/layouts/layout4/scripts/layout.min.js}"
+		type="text/javascript"></script>
+	<script th:src="@{/assets/layouts/layout4/scripts/demo.min.js}"
+		type="text/javascript"></script>
+	<script th:src="@{/assets/layouts/global/scripts/quick-sidebar.min.js}"
+		type="text/javascript"></script>
+	<script th:src="@{/assets/layouts/global/scripts/quick-nav.min.js}"
+		type="text/javascript"></script>
+	<script th:src="@{/assets/pages/scripts/profile.min.js}"
+		type="text/javascript"></script>
+
+	<script th:src="@{/assets/highcharts/highstock.js}"></script>
+	<script th:src="@{/assets/highcharts/exporting.js}"></script>
+	<script th:src="@{/assets/highcharts/export-data.js}"></script>
+
+	<script
+		th:src="@{/assets/global/plugins/select2/js/select2.full.min.js}"
+		type="text/javascript"></script>
+	<script th:src="@{/assets/pages/scripts/components-select2.min.js}"
+		type="text/javascript"></script>
+
+	<script
+		th:src="@{/assets/global/plugins/jquery-validation/js/jquery.validate.min.js}"
+		type="text/javascript"></script>
+	<script
+		th:src="@{/assets/global/plugins/jquery-validation/js/additional-methods.min.js}"
+		type="text/javascript"></script>
+	<script
+		th:src="@{/assets/global/plugins/bootstrap-wizard/jquery.bootstrap.wizard.min.js}"
+		type="text/javascript"></script>
+
+
+
+	<script th:src="@{/assets/pages/scripts/form-wizard.min.js}"
+		type="text/javascript"></script>
+
+	<script th:src="@{/assets/global/plugins/dropzone/dropzone.min.js}"
+		type="text/javascript"></script>
+
+	<script
+		th:src="@{/assets/global/plugins/bootstrap-modal/js/bootstrap-modalmanager.js}"
+		type="text/javascript"></script>
+	<script
+		th:src="@{/assets/global/plugins/bootstrap-modal/js/bootstrap-modal.js}"
+		type="text/javascript"></script>
+	<script th:src="@{/assets/pages/scripts/ui-extended-modals.min.js}"
+		type="text/javascript"></script>
+
+	<script th:src="@{/assets/global/scripts/datatable.js}"
+		type="text/javascript"></script>
+	<script th:src="@{/assets/global/plugins/datatables/datatables.min.js}"
+		type="text/javascript"></script>
+	<script
+		th:src="@{/assets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.js}"
+		type="text/javascript"></script>
+	<script
+		th:src="@{/assets/pages/scripts/table-datatables-responsive.min.js}"
+		type="text/javascript"></script>
+	<script src="../assets/pages/scripts/table-datatables-managed.min.js"
+		type="text/javascript"></script>
+	<script
+		th:src="@{/assets/pages/scripts/components-date-time-pickers.min.js}"
+		type="text/javascript"></script>
+
+	<script type="text/javascript"
+		src="/assets/global/plugins/bootstrap-toastr/toastr.min.js"></script>
+
+<script src="../assets/global/plugins/bootstrap-fileinput/bootstrap-fileinput.js" type="text/javascript"></script>
+	<script src="../assets/pages/scripts/form-icheck.min.js"
+		type="text/javascript"></script>
+			
+	<!-- END THEME LAYOUT SCRIPTS -->
+	<script>
+		var innerPageTagVal = 0;
+		var tagNames = [];
+		
+
+		function getStudentQnSummary(admNo) {
+
+			//window.location.replace("/qb/getStudentQnSummary?student=" + admNo);
+			pageOverlay(0);
+			$("#selStuAdmNo").val(admNo);
+			$.ajax({
+				url : '/qb/getStudentQnSummary',
+				type : 'GET',
+				data : $("#getStudentQnSummaryId").serialize(),
+				success : function(data) {
+					$("#displayContentId").html(data);
+					pageOverlay(1);
+				},
+				error : function() {
+					alert("Unable to load details.");
+					pageOverlay(1);
+				}
+			});
+		}
+		function getStudentTest(idVal) {
+			$("#selTestSummaryId").val(idVal);
+
+			pageOverlay(0);
+			$.ajax({
+				url : '/qb/studentTest',
+				type : 'GET',
+				data : $("#getSelTestSummaryId").serialize(),
+				success : function(data) {
+					$('#testDetailsSummaryId').html(data);
+					pageOverlay(1);
+				},
+				error : function(xhr, status, error) {
+
+					pageOverlay(1);
+					var err = JSON.parse(xhr.responseText);
+					$('#errorDisplayId').modal('show');
+
+					$("#errorMsgDisplayId").text(err.message);
+
+				}
+			});
+		}
+
+		function getQuestionWise(qNo, offlineExamId, summaryId) {
+			$("#qNoId").val(qNo);
+			$("#offlineExamId").val(offlineExamId);
+			$("#summaryId").val(summaryId);
+			pageOverlay(0);
+			$.ajax({
+				url : '/qb/getQuestionWise',
+				type : 'GET',
+				data : $("#getQuestionWiseId").serialize(),
+				success : function(data) {
+					$('#questionWiseDetailsId').html(data);
+					pageOverlay(1);
+				},
+				error : function() {
+					alert("Unable to load details.");
+					pageOverlay(1);
+				}
+			});
+		}
+
+		function getSelTestDetails() {
+
+			$("#testId").val(document.getElementById("selTestId").value);
+			$("#cityValId").val(document.getElementById("selCityValId").value);
+			$("#selCampusId").val(
+					document.getElementById("selCampusValId").value);
+
+			pageOverlay(0);
+			$('#responsive').modal('hide');
+			$.ajax({
+				url : '/qb/getSelTestDetails',
+				type : 'GET',
+				data : $("#getSelTestSummaryId1").serialize(),
+				success : function(data) {
+					$('#displayContentId').html(data);
+					pageOverlay(1);
+				},
+				error : function() {
+					alert("Unable to load details.");
+					pageOverlay(1);
+				}
+			});
+		}
+
+		function pageOverlay(i) {
+			if (i == 0) {
+				App.startPageLoading({
+					animate : !0
+				});
+				$("#bodyId").fadeTo('slow', 2);
+				$("#bodyId").hide();
+				$("#loading").show();
+			} else {
+				App.stopPageLoading();
+				$("#bodyId").fadeTo('slow', 2);
+				$("#bodyId").show();
+				$("#loading").hide();
+			}
+		}
+
+		function showToastr(message, type) {
+			toastr.options = {
+				"closeButton" : true,
+				"newestOnTop" : true,
+				"progressBar" : true,
+				"positionClass" : "toast-top-right",
+				"preventDuplicates" : true,
+				"onclick" : null,
+				"showDuration" : "300",
+				"hideDuration" : "1000",
+				"timeOut" : "5000",
+				"extendedTimeOut" : "1000",
+				"showEasing" : "swing",
+				"hideEasing" : "linear",
+				"showMethod" : "fadeIn",
+				"hideMethod" : "fadeOut"
+			}
+			if (type == "success") {
+				toastr.success(message);
+			} else if (type == "error") {
+				toastr.error(message);
+			} else if (type == "info") {
+				toastr.info(message);
+			} else {
+				toastr.warning(message);
+			}
+		}
+
+		var button = '<button class="close" type="button" title="Remove this page">×</button>';
+
+		function resetTab() {
+			var tabs = $("#tab-list li:not(:first)");
+			var len = 1
+			$(tabs).each(function(k, v) {
+				len++;
+				$(this).find('a').html('Tab ' + len + button);
+			})
+			tabID--;
+		}
+
+		function getQuestionDetails(questionId) {
+			pageOverlay(0);
+			$.ajax({
+				type : "GET",
+				url : "/qb/getQuestionDetails",
+				data : {
+					questionId : questionId
+				},
+				success : function(data) {
+					$('#showQuestionWisePopupDivId').html(data);
+					pageOverlay(1);
+				},
+				error : function() {
+					alert('Error occured');
+					pageOverlay(1);
+				}
+			});
+		}
+
+		var list = document.getElementById("tab-list");
+
+		$(document).ready(function() {
+			$("ul li .nav-item").click(function() {
+				$("ul li .nav-item").removeClass("active");
+				$(this).addClass("active");
+			});
+		});
+
+		function showPage(serverUrl, isDecorator) {
+			if (serverUrl != undefined && serverUrl != "") {
+				pageOverlay(0);
+				pageOverlay(0);
+				$.ajax({
+					type : "GET",
+					url : serverUrl,
+					success : function(data) {
+						pageOverlay(1);
+						$('#displayContentId').html(data);
+						if (isDecorator) {
+							$(".sidebar-toggler").click();
+						}
+					},
+					error : function() {
+						pageOverlay(1);
+						alert('Error occured');
+						pageOverlay(1);
+					}
+				});
+			}
+		}
+	</script>
+	<th:block layout:fragment="scripts">
+	</th:block>
+</body>
+</html>

@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+	<script th:src="@{/assets/global/plugins/jquery.min.js}"
+		type="text/javascript"></script>
+
+<script th:src="@{/assets/global/plugins/jquery-ui.js}"
+	type="text/javascript"></script>
+	
+	<script th:src="@{/assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js}"
+	type="text/javascript"></script>
+	
+        
+<link rel="stylesheet" type="text/css"
+	th:href="@{/assets/global/plugins/bootstrap-datepicker/css/bootstrap-datepicker3.min.css}">
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+<style>
+.nav-tabs>li.active>a, .nav-tabs>li.active>a:focus, .nav-tabs>li.active>a:hover
+	{
+	border: none
+}
+
+.nav-tabs>li.active>a {
+	color: #ffffff
+}
+
+.nav-tabs>li.active>a:focus {
+	color: #ffffff
+}
+</style>
+<script type="text/javascript">
+	var minyear = (new Date().getFullYear()) - 22;
+	var maxyear = (new Date().getFullYear()) - 12;
+	var mindate = new Date(minyear, 0, 1);
+	var maxyear = new Date(maxyear, 11, 31);
+	
+	
+$(document).ready(function () {
+        
+        $('#dobId').datepicker({
+            autoclose: true,
+            format: "dd/mm/yyyy"
+        }); 
+        
+        $('#regFeeDateId').datepicker({
+            autoclose: true,
+            format: "dd/mm/yyyy"
+        }); 
+        $('#headFeeDateId').datepicker({
+            autoclose: true,
+            format: "dd/mm/yyyy"
+        }); 
+    
+    });
+	
+
+	var curTabCnt = 1;
+	$(document)
+			.ready(
+					function() {
+						$(".button-previous,.button-submit").hide();
+
+						$(".button-next")
+								.click(
+										function() {
+											curTabCnt++;
+											document.getElementById("tab1").className = "tab-pane fade";
+											document.getElementById("tabLiId1").className = "";
+											document.getElementById("tab2").className = "tab-pane fade active in";
+											document.getElementById("tabLiId2").className = "active";
+
+											$(".button-next").hide();
+											$(".button-previous,.button-submit")
+													.show();
+										});
+
+						$(".button-previous")
+								.click(
+										function() {
+											curTabCnt--;
+											document.getElementById("tab2").className = "tab-pane fade";
+											document.getElementById("tabLiId2").className = "";
+											document.getElementById("tab1").className = "tab-pane fade active in";
+											document.getElementById("tabLiId1").className = "active";
+											$(".button-next").show();
+											$(".button-previous,.button-submit")
+													.hide();
+										});
+
+						$('[id^="tabId"]')
+								.click(
+										function() {
+											curTabCnt = this.id.substring(5);
+											if (curTabCnt == 1) {
+												document.getElementById("tab2").className = "tab-pane fade";
+												document
+														.getElementById("tabLiId2").className = "";
+												document.getElementById("tab1").className = "tab-pane fade active in";
+												document
+														.getElementById("tabLiId1").className = "active";
+												$(".button-next").show();
+												$(
+														".button-previous,.button-submit")
+														.hide();
+											} else if (curTabCnt == 2) {
+												document.getElementById("tab1").className = "tab-pane fade";
+												document
+														.getElementById("tabLiId1").className = "";
+												document.getElementById("tab2").className = "tab-pane fade active in";
+												document
+														.getElementById("tabLiId2").className = "active";
+
+												$(".button-next").hide();
+												$(
+														".button-previous,.button-submit")
+														.show();
+											}
+										})
+
+					});
+
+	function permsameaspre() {
+
+		if (document.getElementById("checkbox").checked == true) {
+			document.getElementById("pAddressId").value = document
+					.getElementById("perAddressId").value;
+		}
+
+	}
+
+	function getClassWiseSections() {
+		if ($("select#studyClassId").val() == 0) {
+			alert("Please select join study class");
+			$("#studyClassId").focus();
+			return false;
+		} else {
+			$.ajax({
+				type : "GET",
+				url : "/student/getClassWiseSections",
+				data : {
+					studyClass : $("select#studyClassId").val(),
+					academic : $("select#academicYearId").val()
+				},
+				success : function(data) {
+
+					var select = $('#sectionValId');
+					select.find('option').remove();
+					$.each(data, function(key, value) {
+						$('<option>').val(key).text(value).appendTo(select);
+					});
+				}
+			});
+		}
+
+	}
+	function getOtherReligion() {
+		if (document.getElementById("religionId") != null
+				&& document.getElementById("religionId").value == "OTHERS") {
+			$("#otherReligionShowId").show();
+
+		} else {
+			$("#otherReligionShowId").hide();
+			$("#otherReligionId").val('');
+		}
+
+	}
+	function getSubCaste() {
+		if (document.getElementById("castValId").options[document
+				.getElementById("castValId").selectedIndex].text == "GENERAL") {
+			$("#subCastId").attr('disabled', 'disabled');
+		} else {
+			$("#subCastId").removeAttr('disabled');
+		}
+	}
+	
+	$(document).ready(function() {
+		$('.number').keyup(function(event) {
+			if (isNaN($(this).val())) {
+				showToastr("Please Enter Numericals", "error");
+				$(this).val('');
+			}
+		});
+		
+
+	});
+</script>
+</head>
+<body>
+	<div class="row mahesh">
+		<div th:if="${student!=null}"
+			th:class="${student!=null?'col-md-3':''}">
+			<div class="student-thum">
+				<div class="row">
+					<div class="col-md-12">
+						<table class="student-table">
+							<tr>
+								<td colspan="2">
+								
+								<div class="profile-userpic">
+								<img
+									th:src="@{/image/{imageName}(imageName=${student!=null?student.studentNo:'assets/layouts/layout4/img/s2.jpg'})}"
+									alt="" class="img-circle">
+									</div>
+									</td>
+							</tr>
+							<tr>
+								<td colspan="2" class="font-orange bold"><span
+									style="font-size: 13px; text-transform: capitalize;"
+									th:text="${student.name}"></span></td>
+							</tr>
+							<tr>
+								<td colspan="2" class="t-11 bold">Parent name<br> <span
+									style="color: #39F; font-size: 13px; text-transform: capitalize;"><span
+										th:text="${student.fatherName}"></span></span></td>
+							</tr>
+
+							<tr>
+								<td class="t-11 bold text-right" style="width: 50%">Admission
+									no :</td>
+								<td class="t-11 bold text-left" style="width: 50%"><span
+									th:text="${student.studentNo}"></span></td>
+							</tr>
+							<tr>
+								<td class="t-11 bold text-right">School Name :</td>
+								<td class="t-11 bold text-left"><span
+									th:text="${student.schoolName}"></span></td>
+							</tr>
+							<tr>
+								<td class="t-11 bold text-right">Study Class :</td>
+								<td class="t-11 bold text-left"><span
+									th:text="${student.classId.displayName}"></span></td>
+							</tr>
+							<tr>
+								<td class="t-11 bold text-right">Mobile No :</td>
+								<td class="t-11 bold text-left"><span
+									th:text="${student.mobileNo}"></span></td>
+							</tr>
+							<tr>
+								<td class="t-11 bold text-right">Email :</td>
+								<td class="t-11 bold text-left"><span
+									th:text="${student.email}"></span></td>
+							</tr>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div th:class="${student!=null?'col-md-9':'col-md-12'}">
+			<div
+				style="position: absolute; top: 10px; right: 30px; cursor: pointer; z-index: 999"
+				id="btn-full" title="Full Screen">
+				<img src="assets/layouts/layout4/img/fullscreen.png" alt="">
+			</div>
+
+
+
+			<div class="portlet portlet-fit bordered card-1"
+				style="padding: 20px">
+				<div class="row">
+
+					<form th:action="@{/student/addNewStudent}" id="submit_form"
+						method="POST" enctype="multipart/form-data">
+
+						<div class="col-md-12">
+							<ul class="nav nav-tabs custom-tab-active">
+								<li class="active" id="tabLiId1"><a id="tabId1"
+									href="#tab1" data-toggle="tab">Information</a></li>
+								<li id="tabLiId2"><a id="tabId2" href="#tab2"
+									data-toggle="tab">Payment </a></li>
+
+							</ul>
+
+
+
+							<div class="tab-content">
+								<div class="tab-pane active in fade" id="tab1"
+									style="height: 350px">
+									<div class="row">
+										<div class="col-md-4">
+											<label>Academic Year</label> <select class="form-control"
+												name="academicYear" id="academicYearId">
+												<option value="0">Select Academic</option>
+												<option th:each="academic: ${academicList}"
+													th:value="${academic.id}"
+													th:selected="${(student!=null &&  student.academicId!=null && student.academicId.id==academic.id) || academic.receiptStatus.equals('Y')   }"
+													th:text="${academic.academicYear+'('+academic.studyclass.displayName+')'}"></option>
+											</select>
+
+										</div>
+
+										<div class="col-md-4">
+											<label>Student AdmNo</label><input name="studentNo"
+												id="studentNoId"
+												th:value="${student!=null?student.studentNo:''}" type="text"
+												class="form-control" readonly="readonly">
+										</div>
+										<!-- <div class="col-md-4">
+											<label>Surname</label><input name="surName" id="surNameId"
+												th:value="${student!=null?student.surName:''}" type="text"
+												class="form-control"
+												onChange="javascript:this.value=this.value.toUpperCase();">
+										</div> -->
+										<div class="col-md-4">
+											<label>Name</label><input name="stuName"
+												th:value="${student!=null?student.name:''}" id="stuNameId"
+												type="text" class="form-control"
+												onChange="javascript:this.value=this.value.toUpperCase();">
+										</div>
+										<div class="col-md-4">
+											<label>Father's Name</label><input name="fatherName"
+												th:value="${student!=null?student.fatherName:''}"
+												type="text" id="parentNameId" class="form-control"
+												onChange="javascript:this.value=this.value.toUpperCase();">
+										</div>
+										<div class="col-md-4">
+											<label>Mother Name</label><input name="motherName"
+												th:value="${student!=null?student.motherName:''}"
+												type="text" id="motherNameId" class="form-control"
+												onChange="javascript:this.value=this.value.toUpperCase();">
+										</div>
+										<div class="col-md-4">
+											<label>DOB</label> <input type="text" id="dobId"
+												name="dobStr"
+												th:value="${(student!=null &&  student.dob!=null)?#dates.format(student.dob, 'dd/MM/yyyy'):''}"
+												placeholder="Date Of Birth (dd/mm/yyyy)"
+												class="form-control placeholder-no-fix" />
+
+										</div>
+										<div class="col-md-4">
+											<label>Parent's Occupation</label><input name="pOccupation"
+												id="pOccupationId"
+												th:value="${student!=null?student.pOccupation:''}"
+												type="text" class="form-control"
+												onChange="javascript:this.value=this.value.toUpperCase();">
+										</div>
+										<div class="col-md-4">
+											<label>Name of the local Guardian</label><input
+												name="localGuardian" id="localGuardianId"
+												th:value="${student!=null?student.localGuardian:''}"
+												type="text" class="form-control"
+												onChange="javascript:this.value=this.value.toUpperCase();">
+										</div>
+
+
+
+										<div class="col-md-4">
+											<label>Caste</label> <select class="form-control"
+												name="castVal" id="castValId" onchange="getSubCaste()">
+												<option value="0">Select Cast</option>
+												<option th:each="cast: ${castList}" th:value="${cast.id}"
+													th:selected="${student!=null &&  student.cast!=null && student.cast.id==cast.id}"
+													th:text="${cast.castName}"></option>
+											</select>
+										</div>
+
+										<div class="col-md-4">
+											<label>Sub Caste</label> <input name="subCast" id="subCastId"
+												th:value="${student!=null?student.subCast:''}" type="text"
+												class="form-control"
+												onChange="javascript:this.value=this.value.toUpperCase();">
+										</div>
+
+										<div class="col-md-4">
+											<label>Blood Group</label> <select class="form-control"
+												name="bloodGroup" id="bloodGroupId">
+												<option value="0">Select Blood Group</option>
+												<option value="AB+"
+													th:selected="${student!=null &&  student.bloodGroup!=null && student.bloodGroup=='AB+'}">AB+</option>
+												<option value="AB-"
+													th:selected="${student!=null &&  student.bloodGroup!=null && student.bloodGroup=='AB-'}">AB-</option>
+												<option value="A+"
+													th:selected="${student!=null &&  student.bloodGroup!=null && student.bloodGroup=='A+'}">A+</option>
+												<option value="A-"
+													th:selected="${student!=null &&  student.bloodGroup!=null && student.bloodGroup=='A-'}">A-</option>
+												<option value="B+"
+													th:selected="${student!=null &&  student.bloodGroup!=null && student.bloodGroup=='B+'}">B+</option>
+												<option value="B-"
+													th:selected="${student!=null &&  student.bloodGroup!=null && student.bloodGroup=='B-'}">B-</option>
+												<option value="0+"
+													th:selected="${student!=null &&  student.bloodGroup!=null && student.bloodGroup=='O+'}">O+</option>
+												<option value="0-"
+													th:selected="${student!=null &&  student.bloodGroup!=null && student.bloodGroup=='O-'}">O-</option>
+											</select>
+										</div>
+
+
+
+
+										<div class="col-md-4">
+											<label>Class in which admission sought</label> <select
+												class="form-control" name="studyClass" id="studyClassId"
+												onchange="getClassWiseSections();">
+												<option value="0">Select Class</option>
+												<option th:each="studyClass: ${studyClassList}"
+													th:value="${studyClass.id}"
+													th:selected="${student!=null &&  student.classId!=null && student.classId.id==studyClass.id}"
+													th:text="${studyClass.displayName}"></option>
+											</select>
+
+
+
+										</div>
+
+										<div class="col-md-4">
+											<label>Previous School Name</label><input
+												name="preSchoolName" id="preSchoolNameId"
+												th:value="${student!=null?student.preSchoolName:''}"
+												type="text" class="form-control"
+												onChange="javascript:this.value=this.value.toUpperCase();"
+												maxlength="100">
+										</div>
+										<div class="col-md-4">
+											<label>Previous Class Attended</label><input
+												name="preClassAttended" id="preClassAttendedId"
+												th:value="${student!=null?student.preClassAttended:''}"
+												type="text" class="form-control"
+												onChange="javascript:this.value=this.value.toUpperCase();"
+												maxlength="100">
+										</div>
+										<!-- <div class="col-md-4">
+											<label>SchoolName</label><input name="schoolName"
+												id="schoolNameId"
+												th:value="${student!=null?student.schoolName:''}"
+												type="text" class="form-control"
+												onChange="javascript:this.value=this.value.toUpperCase();" maxlength="100">
+										</div> -->
+
+										<div class="col-md-4">
+											<label>MobileNo1</label> <input name="mobileNo"
+												id="mobileNoId"  class="form-control number"
+												th:value="${student!=null?student.mobileNo:''}" type="text"
+												 maxlength="10">
+										</div>
+										<div class="col-md-4">
+											<label>MobileNo2</label> <input name="mobileNo2"
+												id="mobileNo2Id"
+												th:value="${student!=null?student.mobileNo2:''}" type="text"
+												class="form-control number" maxlength="10">
+										</div>
+										<div class="col-md-4">
+											<label>Email</label> <input name="email" id="emailId"
+												th:value="${student!=null?student.email:''}" type="text"
+												class="form-control"
+												onChange="javascript:this.value=this.value.toUpperCase();"
+												maxlength="30">
+										</div>
+										<div class="col-md-4">
+											<label>Aadhar</label><input name="aadhaar" id="aadhaarId"
+												maxlength="12"
+												th:value="${student!=null?student.aadhaar:''}" type="text"
+												class="form-control number">
+										</div>
+
+										<div class="col-md-4">
+											<label>Section</label> <select class="form-control"
+												name="sectionVal" id="sectionValId">
+												<option value="0">Select Section</option>
+												<option th:each="classSection: ${classSectionList}"
+													th:value="${classSection.id}"
+													th:selected="${student!=null &&  student.sectionId!=null && student.sectionId.id==classSection.id}"
+													th:text="${classSection.sectionName}"></option>
+											</select>
+
+										</div>
+
+										<div class="col-md-4">
+											<label>Gender</label>
+											<div class="clearfix"></div>
+											<label class="radio-inline"><input type="radio"
+												id="rbMale" name="gender"
+												th:checked="${student!=null && student.gender=='M'}"
+												value="M">Male</label> <label class="radio-inline"><input
+												type="radio" id="rbFeMale" name="gender"
+												th:checked="${student!=null && student.gender=='F'}"
+												value="F">Female</label>
+										</div>
+
+										<div class="col-md-4">
+											<label>Nationality</label>
+											<div class="clearfix"></div>
+											<label class="radio-inline"><input type="radio"
+												id="nationalityId" name="nationality"
+												th:checked="${student!=null && student.nationality=='INDIAN'}"
+												value="INDIAN">INDIAN</label> <label class="radio-inline"><input
+												type="radio" id="otherNationalityId" name="nationality"
+												th:checked="${student!=null && student.nationality=='OTHERS'}"
+												value="OTHERS">OTHERS</label>
+
+										</div>
+										<div class="clearfix"></div>
+										<div class="col-md-4">
+											<label>BSF/NON BSF</label>
+											<div class="clearfix"></div>
+											<label class="radio-inline"><input type="radio"
+												id="bsfId" name="bsf"
+												th:checked="${student!=null && student.bsf=='BSF'}"
+												value="BSF">BSF</label> <label class="radio-inline"><input
+												type="radio" id="nonbsfId" name="bsf"
+												th:checked="${student!=null && student.bsf=='NON BSF'}"
+												value="NON BSF">BSF NON</label> <label class="radio-inline"><input
+												type="radio" id="staffId" name="bsf"
+												th:checked="${student!=null && student.bsf=='STAFF'}"
+												value="STAFF">STAFF</label>
+
+										</div>
+										<div class="col-md-2">
+											<label>Religion</label>
+											<div class="clearfix"></div>
+											<label class="radio-inline"> <select
+												class="form-control" name="religion" id="religionId"
+												onchange="getOtherReligion()">
+													<option value="0">Select Religion</option>
+													<option value="HINDU"
+														th:selected="${student!=null &&  student.religion!=null && student.religion=='HINDU'}">Hindu</option>
+													<option value="MUSLIM"
+														th:selected="${student!=null &&  student.religion!=null && student.religion=='MUSLIM'}">Muslim</option>
+													<option value="SIKH"
+														th:selected="${student!=null &&  student.religion!=null && student.religion=='SIKH'}">Sikh</option>
+													<option value="JAIN"
+														th:selected="${student!=null &&  student.religion!=null && student.religion=='JAIN'}">Jain</option>
+													<option value="OTHERS"
+														th:selected="${student!=null &&  student.religion!=null && student.religion.contains('OTHERS')}">Others</option>
+											</select>
+										</div>
+										<div class="col-md-2">
+											<div id="otherReligionShowId" style="display: none;">
+												<label>Other Religion</label> <input name="otherReligion"
+													id="otherReligionId" maxlength="20"
+													th:value="${student!=null?student.religion:''}" type="text"
+													class="form-control" />
+											</div>
+
+										</div>
+										<div class="col-md-4">
+											<div class="clearfix"></div>
+											<label></label>
+											<div class="clearfix"></div>
+										</div>
+										<div class="col-md-4">
+											<div class="clearfix"></div>
+											<label></label>
+											<div class="clearfix"></div>
+										</div>
+										<div class="col-md-4">
+											<div class="clearfix"></div>
+											<label></label>
+											<div class="clearfix"></div>
+										</div>
+										<div class="col-md-4">
+											<div class="clearfix"></div>
+											<label></label>
+											<div class="clearfix"></div>
+										</div>
+
+
+										<div class="col-md-4">
+											<label>Permanent Address</label>
+
+											<textarea class="md-textarea form-control" rows="3"
+												name="perAddress" placeholder="Enter Permanent Address"
+												style="height: 100px" id="perAddressId" maxlength="200"
+												th:text="${(student!=null && student.perAddress!=null)?student.perAddress:''}"
+												onChange="javascript:this.value=this.value.toUpperCase();"></textarea>
+										</div>
+										<div class="col-md-4">
+											<label>Present Address &nbsp;&nbsp;<input
+												type="checkbox" id="checkbox" onclick="permsameaspre()" />
+												SAME AS PRESENT ADDRESS
+											</label>
+
+											<textarea class="md-textarea form-control" rows="3"
+												name="pAddress" placeholder="Enter Present Address"
+												style="height: 100px" id="pAddressId" maxlength="200"
+												th:text="${(student!=null && student.pAddress!=null)?student.pAddress:''}"
+												onChange="javascript:this.value=this.value.toUpperCase();"></textarea>
+										</div>
+
+
+										<div class="col-md-4">
+											<label>Student Image</label> <input type="file"
+												name="stuImgFile" id="fileNameId" /><br />
+											<br />
+										</div>
+
+										<div class="col-md-4">
+											<label>Birth Certificate</label> 
+											
+											<div th:if="${student!=null}">
+											
+									<a  th:href="@{/stuBirthImage/{stuBirthImage}(stuBirthImage=${student.studentNo})}" target="_blank">CLICK HERE TO DOWNLOAD</a>
+											</div>
+											<div th:if="${student==null}">
+											<input type="file"
+												name="birthCertFile" id="birthCertFileId" />
+												</div>
+												<br />
+											<br />
+										</div>
+
+
+
+
+									</div>
+								</div>
+								<div class="tab-pane fade" id="tab2" style="height: 350px">
+									<div class="row">
+
+
+										<div class="col-md-2">
+											<label>Head Name</label>
+											<div class="clearfix"></div>
+											<input value="APP FEE" class="form-control" type="text"
+												readonly="readonly">
+										</div>
+										<div class="col-md-2">
+											<label>Registration Fee</label><input name="rFee" id="rFeeId"
+												th:disabled="${appFeeTrans!=null}" type="text"
+												class="form-control number" maxlength="5"
+												th:value="${appFeeTrans!=null?appFeeTrans.amount:''}">
+										</div>
+										<div class="col-md-4">
+											<label>Payment date</label> <input type="text"
+												th:disabled="${appFeeTrans!=null}" id="regFeeDateId"
+												name="regFeeDateStr" 
+												placeholder="Registration Date (dd/mm/yyyy)"
+												th:value="${(appFeeTrans!=null &&  appFeeTrans.payDate!=null)?#dates.format(appFeeTrans.payDate, 'dd/mm/yy'):''}"
+												class="form-control placeholder-no-fix" />
+
+										</div>
+										<div class="col-md-4">
+											<label>Pay Mode</label> <select class="form-control"
+												name="regFeePayMode" id="regFeePayModeId"
+												th:disabled="${appFeeTrans!=null}">
+												<option value="0">Select PayMode</option>
+												<option value="CASH"
+													th:selected="${appFeeTrans!=null && appFeeTrans.payMode=='CASH'}">CASH</option>
+												<!-- <option value="DD/CHEQUE">DD/CHEQUE</option> -->
+											</select>
+
+										</div>
+										<div class="col-md-2">
+											<label>Head Name</label> <select class="form-control"
+												name="headName" id="headNameId"
+												th:disabled="${headNameTrans!=null}">
+												<option value="0">Select Section</option>
+												<option th:each="headName: ${headNameList}"
+													th:value="${headName.id}" th:text="${headName.subHeadName}"
+													th:selected="${headNameTrans!=null && headNameTrans.subHeadCode.equals(headName.subHeadName)}"></option>
+											</select>
+
+
+
+										</div>
+										<div class="col-md-2">
+											<label>Head Amount</label>
+											<div class="clearfix"></div>
+											<input name="headWiseFee" id="headWiseFeeId" type="text"
+												th:disabled="${headNameTrans!=null}"
+												class="form-control number" maxlength="6"
+												th:value="${headNameTrans!=null?headNameTrans.amount:''}">
+
+
+										</div>
+										<div class="col-md-4">
+											<label>Payment date</label> <input type="text"
+												th:disabled="${headNameTrans!=null}" id="headFeeDateId"
+												name="headFeeDateStr" 
+												placeholder="Pay Date (dd/mm/yyyy)"
+												th:value="${(headNameTrans!=null &&  headNameTrans.payDate!=null)?#dates.format(headNameTrans.payDate, 'dd/mm/yy'):''}"
+												class="form-control placeholder-no-fix" />
+
+										</div>
+										<div class="col-md-4">
+
+											<label>Pay Mode</label> <select class="form-control"
+												name="headNamePayMode" id="headNamePayModeId"
+												th:disabled="${headNameTrans!=null}">
+												<option value="0">Select PayMode</option>
+												<option value="CASH"
+													th:selected="${headNameTrans!=null && headNameTrans.payMode=='CASH'}">CASH</option>
+											</select>
+										</div>
+
+									</div>
+
+
+
+									<div class="clearfix" style=""></div>
+
+								</div>
+								<div class="clearfix" style="margin-bottom: 10px"></div>
+
+							</div>
+
+						</div>
+
+
+					</form>
+					<div class="col-md-12"
+						style="border-top: 1px solid #ddd; padding-top: 15px">
+						<div class="form-actions" id="submitId">
+							<div class="row">
+								<div class="col-md-12">
+									<div class="pull-right">
+										<a href="javascript:;" class="btn default button-previous">
+											<i class="fa fa-long-arrow-left"></i> Previous
+										</a> <a href="javascript:;"
+											class="btn btn-outline green button-next"> Next <i
+											class="fa fa-long-arrow-right"></i>
+										</a>
+										<button class="btn green button-submit"
+											th:onclick="${student!=null}?'javascript:getAppDetails([[${studentVal.studentNo}]]);':'javascript:addNewStudent();'">
+											<span
+												th:text="${student!=null?'DELETE STUDENT':'ADD STUDENT'}"></span>
+											<i class="fa fa-check"></i>
+										</button>
+										<button th:if="${student!=null}"
+											class="btn green button-submit"
+											th:onclick="updateStudent([[${student.studentNo}]])">
+											<span th:text="${'UPDATE STUDENT'}"></span> <i
+												class="fa fa-check"></i>
+										</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+
+		</div>
+	</div>
+</body>
+</html>

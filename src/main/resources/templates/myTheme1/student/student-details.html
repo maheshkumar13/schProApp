@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+
+<script type="text/javascript">
+        
+        $(document).ready(function () {
+	 		$("#autoStudentId").autocomplete({
+	 	    	 minChars: 5,
+	 	        source: function(request, response) {
+	 	            $.ajax({
+	 	                url: "/student/autocompleteStudent",
+	 	                dataType: "json",
+	 	                data: {
+	 	                    term: request.term,
+	 	                },
+	 	                success: function(data) {
+	 	                	 response(data);
+	 	                }
+	 	            });
+	 	        },
+	 	        focus : function(event, ui) {
+					$("#autoStudentId").val(
+							ui.item.value);
+					return false;
+				},
+				select : function(event, ui) {
+					$("#autoStudentId").val(
+							ui.item.value);
+					$("#studentId").val(
+							ui.item.key);
+					
+					loadStudent(ui.item.key);
+					
+					return false;
+				}
+			}).data("ui-autocomplete")._renderItem = function(
+			ul, item) {
+		return $("<li>").append(
+				"<a>" + item.value +item.key+ "</a>")
+				.appendTo(ul);
+	}; 
+        });
+        
+        function loadStudent(admNo){
+        	
+        	$.ajax({
+				type : "GET",
+				url : "/student/getStuInformation",
+				data : {
+					studentNo : admNo
+				},
+				success : function(data) {
+					$('#stuInformationId').html(data);
+					if($('#stuInformationId').is(":hidden")){
+						$("#stuInformationId").show();
+					}
+					
+				},
+				error : function(jqXHR, exception, textStatus) {
+					alert('Uncaught Error.\n' + jqXHR.responseText);
+				},
+			});
+        	
+        	
+        }
+        
+        </script>
+<body>
+
+
+	<div class="form-group">
+		<label class="col-md-2 control-label" for="form_control_1">Search Student</label>
+		<div class="col-md-6">
+		
+		<input type="text"
+										id="autoStudentId" placeholder="Student Name/Adm No"
+										class="form-control" /> 
+										<input type="hidden" id="studentId" name="student">
+		</div>
+	</div>
+	<div id="stuInformationId"></div>
+
+
+
+</body>
+
+</html>
